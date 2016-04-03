@@ -19,8 +19,10 @@ namespace SevenDaysProfileEditor
 
                 while (!reader.EndOfStream)
                 {
-                    string key = reader.ReadLine();
-                    string value = reader.ReadLine();
+                    string line = reader.ReadLine();
+
+                    string key = line.Substring(0, line.LastIndexOf('='));
+                    string value = line.Substring(line.LastIndexOf('=') + 1);
 
                     config.Add(key, value);
                 }
@@ -35,8 +37,7 @@ namespace SevenDaysProfileEditor
 
             foreach (KeyValuePair<string, string> setting in config)
             {
-                writer.WriteLine(setting.Key);
-                writer.WriteLine(setting.Value);
+                writer.WriteLine(setting.Key + "=" + setting.Value);
             }
 
             writer.Close();
