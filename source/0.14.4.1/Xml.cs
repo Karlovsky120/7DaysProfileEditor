@@ -306,6 +306,7 @@ namespace SevenDaysProfileEditor
 
             catch (Exception e)
             {
+                Log.writeError(e);
                 MessageBox.Show("Failed to load XML files. " + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Application.Exit();
             }
