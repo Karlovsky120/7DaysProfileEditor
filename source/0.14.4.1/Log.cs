@@ -11,7 +11,7 @@ namespace SevenDaysProfileEditor
     {
         public static void writeError(Exception e)
         {
-            StreamWriter writer = new StreamWriter("Crash.log", true);
+            StreamWriter writer = new StreamWriter("ProfileEditorCrash.log", true);
 
             writer.WriteLine("Time Stamp: " + DateTime.Now.ToString());
             writer.WriteLine("Message: " + e.Message);
