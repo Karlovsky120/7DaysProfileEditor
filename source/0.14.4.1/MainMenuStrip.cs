@@ -1,4 +1,5 @@
-﻿using SevenDaysProfileEditor.Skills;
+﻿using SevenDaysProfileEditor.Inventory;
+using SevenDaysProfileEditor.Skills;
 using SevenDaysSaveManipulator.GameData;
 using System;
 using System.Collections.Generic;
@@ -111,16 +112,49 @@ namespace SevenDaysProfileEditor.GUI
 
                 foreach (string fileName in openFile.FileNames)
                 {
-                    try
+                    PlayerDataFile playerDataFile = new PlayerDataFile(fileName);
+
+                    ItemStack[] inventory = playerDataFile.inventory;
+                    ItemStack[] bag = playerDataFile.bag;
+
+                    bool hasDevItem = false;
+
+                    for (int i = 0; i < inventory.Length; i++)
                     {
-                        tabs.addTab(new TabPlayer(fileName));
+                        if (DataItem.getDevItemById(inventory[i].itemValue.type.get()) != null)
+                        {
+                            hasDevItem = true;
+                            MessageBox.Show("You have a dev item in inventory slot row " + i / 4 + ", column " + i % 4 + ". Please remove it from inventory before using this program.");
+                            break;
+                        }
                     }
 
-                    catch (Exception e2)
+                    if (!hasDevItem)
                     {
-                        Log.writeError(e2);
-                        MessageBox.Show("Failed to open file " + fileName + ". " + e2.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
+                        for (int i = 0; i < bag.Length; i++)
+                        {
+                            if (DataItem.getDevItemById(bag[i].itemValue.type.get()) != null)
+                            {
+                                hasDevItem = true;
+                                MessageBox.Show("You have a dev item in toolbelt slot" + i + ". Please remove it from inventory before using this program.");
+                                break;
+                            }
+                        }
+
+                        if (!hasDevItem)
+                        {
+                            try
+                            {
+                                tabs.addTab(new TabPlayer(playerDataFile, fileName));
+                            }
+
+                            catch (Exception e2)
+                            {
+                                Log.writeError(e2);
+                                MessageBox.Show("Failed to open file " + fileName + ". " + e2.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                        }
+                    }                   
                 }
 
                 statusBar.reset();
@@ -192,7 +226,7 @@ namespace SevenDaysProfileEditor.GUI
             string path = tab.path;
 
             try
-            {    
+            {   
                 backupFile(path);
 
                 if (!name.EndsWith(".ttp"))

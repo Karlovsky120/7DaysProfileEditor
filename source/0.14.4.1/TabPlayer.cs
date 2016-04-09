@@ -23,11 +23,11 @@ namespace SevenDaysProfileEditor.GUI
             this.path = path;
         }
 
-        public TabPlayer(string path) : base()
+        public TabPlayer(PlayerDataFile playerDataFile, string path) : base()
         {
             populateStrings(path);
 
-            playerDataFile = new PlayerDataFile(path);
+            this.playerDataFile = playerDataFile;
             Text = playerDataFile.ecd.entityName.get() + " (" + fileName + ")          ";
 
             tabs = new TabControl();

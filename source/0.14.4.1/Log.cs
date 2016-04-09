@@ -19,7 +19,8 @@ namespace SevenDaysProfileEditor
             writer.WriteLine("Inner Exception: " + e.InnerException);                      
             writer.WriteLine("Stack Trace: " + e.StackTrace);
             writer.WriteLine("Target Site: " + e.TargetSite);
-            writer.WriteLine("Data: " + e.Data);
+            writer.WriteLine();
+            writer.WriteLine();
             writer.WriteLine();
         }
 
