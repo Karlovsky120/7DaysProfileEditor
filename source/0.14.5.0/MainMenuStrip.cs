@@ -117,45 +117,54 @@ namespace SevenDaysProfileEditor.GUI
                     ItemStack[] inventory = playerDataFile.inventory;
                     ItemStack[] bag = playerDataFile.bag;
 
-                    bool hasDevItem = false;
+                    List<string> devItems = new List<string>();
 
                     for (int i = 0; i < inventory.Length; i++)
                     {
-                        if (DataItem.getDevItemById(inventory[i].itemValue.type.get()) != null)
+                        DataItem devItem = DataItem.getDevItemById(inventory[i].itemValue.type.get());
+                        if (devItem != null)
                         {
-                            hasDevItem = true;
-                            MessageBox.Show("You have a dev item in inventory slot row " + i / 4 + ", column " + i % 4 + ". Please remove it from inventory before using this program.");
-                            break;
+                            devItems.Add(devItem.name + " at position: row " + i / 4 + ", column " + i % 4 + "\n");
                         }
                     }
 
-                    if (!hasDevItem)
+                    for (int i = 0; i < bag.Length; i++)
                     {
-                        for (int i = 0; i < bag.Length; i++)
+                        DataItem devItem = DataItem.getDevItemById(bag[i].itemValue.type.get());
+                        if (devItem != null)
                         {
-                            if (DataItem.getDevItemById(bag[i].itemValue.type.get()) != null)
-                            {
-                                hasDevItem = true;
-                                MessageBox.Show("You have a dev item in toolbelt slot" + i + ". Please remove it from inventory before using this program.");
-                                break;
-                            }
+                            devItems.Add(devItem.name + " at position: row 5, column " + i + "\n");
+                        }
+                    }
+
+                    if (devItems.Count == 0)
+                    {
+                        try
+                        {
+                            tabs.addTab(new TabPlayer(playerDataFile, fileName));
                         }
 
-                        if (!hasDevItem)
+                        catch (Exception e2)
                         {
-                            try
-                            {
-                                tabs.addTab(new TabPlayer(playerDataFile, fileName));
-                            }
-
-                            catch (Exception e2)
-                            {
-                                Log.writeError(e2);
-                                MessageBox.Show("Failed to open file " + fileName + ". " + e2.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                            }
+                            Log.writeError(e2);
+                            MessageBox.Show("Failed to open file " + fileName + ". " + e2.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
-                    }                   
-                }
+                    }
+
+                    else
+                    {
+                        string text = "You have following developer items in your inventory:\n";
+
+                        for (int i = 0; i < devItems.Count; i++)
+                        {
+                            text += devItems[i];
+                        }
+
+                        text += "Please remove these items before continuing.";
+
+                        MessageBox.Show(text, "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }                   
 
                 statusBar.reset();
             };
