@@ -119,21 +119,21 @@ namespace SevenDaysProfileEditor.GUI
 
                     List<string> devItems = new List<string>();
 
-                    for (int i = 0; i < inventory.Length; i++)
-                    {
-                        DataItem devItem = DataItem.getDevItemById(inventory[i].itemValue.type.get());
-                        if (devItem != null)
-                        {
-                            devItems.Add(devItem.name + " at position: row " + i / 4 + ", column " + i % 4 + "\n");
-                        }
-                    }
-
                     for (int i = 0; i < bag.Length; i++)
                     {
                         DataItem devItem = DataItem.getDevItemById(bag[i].itemValue.type.get());
                         if (devItem != null)
                         {
-                            devItems.Add(devItem.name + " at position: row 5, column " + i + "\n");
+                            devItems.Add(devItem.name + " at position: row " + ((i / 8) + 1) + ", column " + ((i % 8) + 1) + "\n");
+                        }
+                    }
+
+                    for (int i = 0; i < inventory.Length; i++)
+                    {
+                        DataItem devItem = DataItem.getDevItemById(inventory[i].itemValue.type.get());
+                        if (devItem != null)
+                        {
+                            devItems.Add(devItem.name + " at position: row 5, column " + (i + 1) + "\n");
                         }
                     }
 
