@@ -28,14 +28,16 @@ namespace SevenDaysProfileEditor.Skills
         public string name;
         public int maxLevel;
         public int expToLevel;
+        public Dictionary<string, int> recipes;
         public UIIconData iconData;
 
         public List<Requirement> requirements;
 
         public Value<int> playerLevel;
+        public List<string> unlockedRecipeList;
 
 
-        public SkillBinder(Skill skill, Value<int> playerLevel)
+        public SkillBinder(Skill skill, Value<int> playerLevel, List<string> unlockedRecipeList)
         {
             this.skill = skill;
 
@@ -50,6 +52,7 @@ namespace SevenDaysProfileEditor.Skills
             name = skillData.name;
             maxLevel = skillData.maxLevel;
             expToLevel = skillData.expToLevel;
+            recipes = skillData.recipes;
             iconData = skillData.iconData;
             requirements = skillData.requirements;
 
@@ -70,6 +73,7 @@ namespace SevenDaysProfileEditor.Skills
             }
 
             this.playerLevel = playerLevel;
+            this.unlockedRecipeList = unlockedRecipeList;
         }
 
         public int GetHighestUnlockedLevel()

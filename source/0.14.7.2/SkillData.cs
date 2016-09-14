@@ -29,6 +29,7 @@ namespace SevenDaysProfileEditor.Skills
         public string name;
         public int maxLevel;
         public int expToLevel;
+        public Dictionary<string, int> recipes;
         public UIIconData iconData;
 
         public List<Requirement> requirements;

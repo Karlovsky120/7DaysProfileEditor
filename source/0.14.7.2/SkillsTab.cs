@@ -75,7 +75,7 @@ namespace SevenDaysProfileEditor.Skills
 
             foreach(KeyValuePair<int, Skill> skillEntry in playerDataFile.skills.skillDictionary)
             {
-                SkillSlot skillSlot = new SkillSlot(new SkillBinder(skillEntry.Value, playerDataFile.level));
+                SkillSlot skillSlot = new SkillSlot(new SkillBinder(skillEntry.Value, playerDataFile.level, playerDataFile.unlockedRecipeList));
 
                 skillSlots.Add(skillSlot);
 
@@ -97,10 +97,11 @@ namespace SevenDaysProfileEditor.Skills
             foreach (SkillData dataSkill in SkillData.skillList)
             {
                 bool exists = false;
+                int id = Utils.GetMonoHash(dataSkill.name);
 
                 foreach (KeyValuePair<int, Skill> skillEntry in playerDataFile.skills.skillDictionary)
                 {
-                    if (Utils.GetMonoHash(dataSkill.name) == skillEntry.Key)
+                    if (id == skillEntry.Key)
                     {
                         exists = true;
                     }
@@ -108,7 +109,8 @@ namespace SevenDaysProfileEditor.Skills
 
                 if (!exists)
                 {
-                    Skill skill = SkillBinder.GetEmptySkill(Utils.GetMonoHash(dataSkill.name), playerDataFile);
+                    Skill skill = SkillBinder.GetEmptySkill(id, playerDataFile);
+                    playerDataFile.skills.skillDictionary.Add(id, skill);
                 }
             }
         }

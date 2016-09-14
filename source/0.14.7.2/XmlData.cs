@@ -296,6 +296,7 @@ namespace SevenDaysProfileEditor
                 }
 
                 skillData.requirements = new List<Requirement>();
+                skillData.recipes = new Dictionary<string, int>();
 
                 for (int i = 0; i < skillNode.ChildNodes.Count; i++)
                 {
@@ -330,6 +331,16 @@ namespace SevenDaysProfileEditor
                         }
 
                         skillData.requirements.Add(new Requirement(perkLevel, requiredSkillName, requiredSkillLevel));
+                    }
+
+                    else if (skillNode.ChildNodes[i].Name.Equals("recipe"))
+                    {
+                        XmlNode recipeNode = skillNode.ChildNodes[i];
+
+                        XmlAttribute recipeNameAttr = getAttribute(recipeNode, "name");
+                        XmlAttribute recipeUnlockLevelAttr = getAttribute(recipeNode, "unlock_level");
+
+                        skillData.recipes.Add(recipeNameAttr.Value, int.Parse(recipeUnlockLevelAttr.Value));
                     }
                 }
 

@@ -159,9 +159,31 @@ namespace SevenDaysProfileEditor.Skills
 
         public void ValueUpdated(Value<int> source)
         {
-            if (skillBinder.level == source && expToNextLevelBox != null)
+            if (source == skillBinder.level)
             {
-                skillBinder.expToNextLevel.Set(0);
+                if (expToNextLevelBox != null)
+                {
+                    skillBinder.expToNextLevel.Set(skillBinder.expToLevel);
+                }
+
+                foreach (KeyValuePair<string, int> recipe in skillBinder.recipes)
+                {
+                    if (recipe.Value >= skillBinder.level.Get())
+                    {
+                        if (!skillBinder.unlockedRecipeList.Contains(recipe.Key))
+                        {
+                            skillBinder.unlockedRecipeList.Add(recipe.Key);
+                        }
+                    }
+
+                    else
+                    {
+                        if (skillBinder.unlockedRecipeList.Contains(recipe.Key))
+                        {
+                            skillBinder.unlockedRecipeList.Remove(recipe.Key);
+                        }
+                    }
+                }
             }
 
             else
