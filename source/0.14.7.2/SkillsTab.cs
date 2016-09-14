@@ -94,10 +94,10 @@ namespace SevenDaysProfileEditor.Skills
         {
             SkillBinder.SetSkillDicitionary(playerDataFile);
 
-            foreach (SkillData dataSkill in SkillData.skillList)
+            foreach (SkillData skillData in SkillData.skillList)
             {
                 bool exists = false;
-                int id = Utils.GetMonoHash(dataSkill.name);
+                int id = Utils.GetMonoHash(skillData.name);
 
                 foreach (KeyValuePair<int, Skill> skillEntry in playerDataFile.skills.skillDictionary)
                 {
@@ -113,6 +113,24 @@ namespace SevenDaysProfileEditor.Skills
                     playerDataFile.skills.skillDictionary.Add(id, skill);
                 }
             }
+
+            SortSkills();
+        }
+
+        private void SortSkills()
+        {
+            Dictionary<int, Skill> skilldictionary = new Dictionary<int, Skill>();
+
+            foreach (SkillData skillData in SkillData.skillList)
+            {
+                int id = Utils.GetMonoHash(skillData.name);
+                Skill skill;
+                playerDataFile.skills.skillDictionary.TryGetValue(id, out skill);
+
+                skilldictionary.Add(id, skill);
+            }
+
+            playerDataFile.skills.skillDictionary = skilldictionary;
         }
     }
 }
