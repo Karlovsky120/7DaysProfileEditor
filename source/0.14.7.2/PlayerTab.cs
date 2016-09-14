@@ -30,7 +30,7 @@ namespace SevenDaysProfileEditor.GUI
             saveFileTabControl.Dock = DockStyle.Fill;
 
             saveFileTabControl.Controls.Add(new GeneralTab(playerDataFile));
-            saveFileTabControl.Controls.Add(new TabStats(playerDataFile));
+            saveFileTabControl.Controls.Add(new StatsTab(playerDataFile));
             saveFileTabControl.Controls.Add(new InventoryTab(playerDataFile));
             saveFileTabControl.Controls.Add(new SkillsTab(playerDataFile));
             //saveFileTabControl.Controls.Add(new QuestsTab(playerDataFile));

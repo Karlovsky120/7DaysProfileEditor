@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace SevenDaysProfileEditor.Quests
 {
-    class BinderQuest
+    class QuestBinder
     {
         public QuestData dataQuest;
         public Quest quest;
@@ -17,10 +17,10 @@ namespace SevenDaysProfileEditor.Quests
         public Value<ulong> finishTime;
         public Dictionary<string, string> dataVariables;
 
-        public BinderQuest(Quest quest)
+        public QuestBinder(Quest quest)
         {
             this.quest = quest;
-            this.dataQuest = QuestData.getQuestById(quest.id);
+            this.dataQuest = QuestData.GetQuestById(quest.id);
 
             currentState = quest.currentState;
             isTracked = quest.isTracked;

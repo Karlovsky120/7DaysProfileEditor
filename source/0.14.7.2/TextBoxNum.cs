@@ -18,7 +18,7 @@ namespace SevenDaysProfileEditor.GUI
 
         }
 
-        public void updateMax(T max)
+        public void UpdateMax(T max)
         {
             this.max = max;
             Update(this, new EventArgs());
@@ -29,7 +29,7 @@ namespace SevenDaysProfileEditor.GUI
             Text = source.Get().ToString();
         }
 
-        protected T Normalize(T input) 
+        protected T Clamp(T input) 
         {
             if (input.CompareTo(max) > 0)
             {

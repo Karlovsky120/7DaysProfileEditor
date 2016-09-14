@@ -9,7 +9,7 @@ namespace SevenDaysProfileEditor
 {
     class Log
     {
-        public static void writeError(Exception e)
+        public static void WriteError(Exception e)
         {
             StreamWriter writer = new StreamWriter("ProfileEditorCrash.log", true);
 

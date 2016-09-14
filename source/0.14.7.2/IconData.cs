@@ -132,7 +132,7 @@ namespace SevenDaysProfileEditor.GUI
             for (int i = 0; i < itemNumber; i++)
             {
                 int nameLength = reader.ReadInt32();
-                string name = Util.readResourceString(reader, nameLength);
+                string name = Util.ReadAssetString(reader, nameLength);
 
                 while (reader.BaseStream.Position % 4 != 0)
                 {
@@ -196,9 +196,9 @@ namespace SevenDaysProfileEditor.GUI
 
         private static void AddIconToDictionary(BinaryReader reader, byte[] pixelArray)
         {
-            string name = Util.readResourceString(reader, '\t');
-            int XCoord = Util.readResourceInt(reader, '\t');
-            int YCoord = Util.readResourceInt(reader, '\n');
+            string name = Util.ReadAssetString(reader, '\t');
+            int XCoord = Util.ReadAssetInt(reader, '\t');
+            int YCoord = Util.ReadAssetInt(reader, '\n');
 
             BinaryReader pixelReader = new BinaryReader(new MemoryStream(pixelArray));
 
@@ -239,7 +239,7 @@ namespace SevenDaysProfileEditor.GUI
             return combinedRow;
         }
 
-        public static Bitmap resizeImage(Image image, int width, int height)
+        /*public static Bitmap ResizeImage(Image image, int width, int height)
         {
             var destRect = new Rectangle(0, 0, width, height);
             var destImage = new Bitmap(width, height);
@@ -262,6 +262,6 @@ namespace SevenDaysProfileEditor.GUI
             }
 
             return destImage;
-        }
+        }*/
     }
 }

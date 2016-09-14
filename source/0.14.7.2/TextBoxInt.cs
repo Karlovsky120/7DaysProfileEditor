@@ -16,7 +16,7 @@ namespace SevenDaysProfileEditor.GUI
             {
                 if (newValue < min || newValue > max)
                 {
-                    newValue = Normalize(newValue);
+                    newValue = Clamp(newValue);
                 }
 
                 value.Set(newValue);

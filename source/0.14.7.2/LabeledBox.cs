@@ -9,11 +9,6 @@ namespace SevenDaysProfileEditor.GUI
 {
     class LabeledControl : TableLayoutPanel
     {
-        /*public LabeledControl(string name, Control control) : this(name, control, 200)
-        {
-            
-        }*/
-
         public LabeledControl(string name, Control control, int width)
         {
             Size = new Size(width, 28); 

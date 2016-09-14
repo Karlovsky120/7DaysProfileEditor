@@ -46,7 +46,7 @@ namespace SevenDaysProfileEditor.Inventory
         {
             if (source.Equals(itemBinder.quality))
             {
-                degradationBox.updateMax(itemBinder.GetMaxDegradationForQuality());
+                degradationBox.UpdateMax(itemBinder.GetMaxDegradationForQuality());
             }
         }
     }

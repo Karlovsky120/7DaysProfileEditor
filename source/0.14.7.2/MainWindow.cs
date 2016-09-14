@@ -14,9 +14,8 @@ namespace SevenDaysProfileEditor.GUI
         public PlayerTabControl tabs;
         public BottomStatusBar statusBar;
 
-        public MainWindow() : base()
+        public MainWindow()
         {
-            //Size = new Size(1920, 1080);
             Size = new Size(1000, 850);
 
             Text = "7 Days Profile Editor";

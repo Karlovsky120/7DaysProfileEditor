@@ -87,7 +87,7 @@ namespace SevenDaysProfileEditor
             }
         }
 
-        public static string readResourceString(BinaryReader reader, char endingChar)
+        public static string ReadAssetString(BinaryReader reader, char endingChar)
         {
             List<char> charList = new List<char>();
             char character = reader.ReadChar();
@@ -102,7 +102,7 @@ namespace SevenDaysProfileEditor
             return new string(charArray);
         }
 
-        public static string readResourceString(BinaryReader reader, int length)
+        public static string ReadAssetString(BinaryReader reader, int length)
         {
             char[] charArray = new char[length];
 
@@ -114,7 +114,7 @@ namespace SevenDaysProfileEditor
             return new string(charArray);
         }
 
-        public static int readResourceInt(BinaryReader reader, char endingChar)
+        public static int ReadAssetInt(BinaryReader reader, char endingChar)
         {
             List<char> charList = new List<char>();
             char character = reader.ReadChar();

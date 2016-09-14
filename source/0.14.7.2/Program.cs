@@ -65,7 +65,7 @@ namespace SevenDaysProfileEditor
 
             catch (Exception e)
             {
-                Log.writeError(e);
+                Log.WriteError(e);
                 MessageBox.Show("No icons will be loaded. Failed to load asset files." + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
@@ -80,7 +80,7 @@ namespace SevenDaysProfileEditor
 
             catch (Exception e)
             {
-                Log.writeError(e);
+                Log.WriteError(e);
                 MessageBox.Show("Failed to load XML files. " + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Environment.Exit(0);
             }

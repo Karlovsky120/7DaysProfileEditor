@@ -72,7 +72,7 @@ namespace SevenDaysProfileEditor.GUI
 
                         catch (Exception e2)
                         {
-                            Log.writeError(e2);
+                            Log.WriteError(e2);
                             MessageBox.Show("Failed to open file " + fileName + ". " + e2.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
@@ -109,7 +109,7 @@ namespace SevenDaysProfileEditor.GUI
 
             bool success = false;
 
-            try
+            //try
             {
                 BackupFile(path);
 
@@ -127,11 +127,11 @@ namespace SevenDaysProfileEditor.GUI
                 success = true;
             }
 
-            catch (Exception e)
+            /*catch (Exception e)
             {
-                Log.writeError(e);
+                Log.WriteError(e);
                 MessageBox.Show("Failed to save file " + path.Substring(path.LastIndexOf('\\')+1) + ". " + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+            }*/
 
             bottomStatusBar.Reset();
 
@@ -201,7 +201,7 @@ namespace SevenDaysProfileEditor.GUI
                     {
                         if (attachments[j].type.Get() == 0)
                         {
-                            attachments.RemoveAt(i);
+                            attachments.RemoveAt(j);
                             j--;
                         }
                     }

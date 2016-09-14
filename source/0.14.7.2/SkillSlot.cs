@@ -16,7 +16,7 @@ namespace SevenDaysProfileEditor.Skills
 
         private Label requirementTipsLabel;
 
-        public void generateSlot(SkillBinder skillBinder)
+        public void GenerateSlot(SkillBinder skillBinder)
         {
             Size = new Size(210, 210);
 
@@ -99,7 +99,7 @@ namespace SevenDaysProfileEditor.Skills
 
                 foreach (Requirement requirement in requirementsForNextLevel)
                 {
-                    if (!requirement.IsRequirementSatisfied())
+                    if (!requirement.IsRequirementMet())
                     {
                         requirementTips.Add(FormulateRequirementTip(requirement));
                     }
@@ -154,7 +154,7 @@ namespace SevenDaysProfileEditor.Skills
         {
             this.skillBinder = skillBinder;
 
-            generateSlot(skillBinder);
+            GenerateSlot(skillBinder);
         }
 
         public void ValueUpdated(Value<int> source)
@@ -188,7 +188,7 @@ namespace SevenDaysProfileEditor.Skills
 
             else
             {
-                levelBox.updateMax(skillBinder.GetHighestUnlockedLevel());
+                levelBox.UpdateMax(skillBinder.GetHighestUnlockedLevel());
 
                 Controls.Remove(requirementTipsLabel);
                 requirementTipsLabel = GetRequirementTipsLabel();

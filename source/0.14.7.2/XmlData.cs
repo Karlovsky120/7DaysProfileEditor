@@ -26,8 +26,8 @@ namespace SevenDaysProfileEditor
             {
                 if (blockNode.Name.Equals("block"))
                 {
-                    XmlNode extendsNode = getChildNodeByName(blockNode, "Extends");
-                    XmlNode developerNode = getChildNodeByName(blockNode, "IsDeveloper");
+                    XmlNode extendsNode = GetChildNodeByName(blockNode, "Extends");
+                    XmlNode developerNode = GetChildNodeByName(blockNode, "IsDeveloper");
 
                     ItemData itemData = new ItemData();
 
@@ -69,28 +69,28 @@ namespace SevenDaysProfileEditor
             {
                 if (itemNode.Name.Equals("item"))
                 {
-                    XmlNode extendsNode = getChildNodeByName(itemNode, "Extends");
-                    XmlNode developerNode = getChildNodeByName(itemNode, "IsDeveloper");
-                    XmlNode stackNumberNode = getChildNodeByName(itemNode, "Stacknumber");
-                    XmlNode repairToolsNode = getChildNodeByName(itemNode, "RepairTools");
-                    XmlNode attributesNode = getChildNodeByName(itemNode, "Attributes");
+                    XmlNode extendsNode = GetChildNodeByName(itemNode, "Extends");
+                    XmlNode developerNode = GetChildNodeByName(itemNode, "IsDeveloper");
+                    XmlNode stackNumberNode = GetChildNodeByName(itemNode, "Stacknumber");
+                    XmlNode repairToolsNode = GetChildNodeByName(itemNode, "RepairTools");
+                    XmlNode attributesNode = GetChildNodeByName(itemNode, "Attributes");
                     XmlNode degradationMaxNode = null;
                     if (attributesNode != null)
                     {
-                        degradationMaxNode = getChildNodeByName(attributesNode, "DegradationMax");
+                        degradationMaxNode = GetChildNodeByName(attributesNode, "DegradationMax");
                     }
 
-                    XmlNode partTypeNode = getChildNodeByName(itemNode, "PartType");
-                    XmlNode attachmentsNode = getChildNodeByName(itemNode, "Attachments");
-                    XmlNode partsNode = getChildNodeByName(itemNode, "Parts");
-                    XmlNode action0Node = getChildNodeByName(itemNode, "Action0");
+                    XmlNode partTypeNode = GetChildNodeByName(itemNode, "PartType");
+                    XmlNode attachmentsNode = GetChildNodeByName(itemNode, "Attachments");
+                    XmlNode partsNode = GetChildNodeByName(itemNode, "Parts");
+                    XmlNode action0Node = GetChildNodeByName(itemNode, "Action0");
                     XmlNode magazineSizeNode = null;
                     if (action0Node != null)
                     {
-                        magazineSizeNode = getChildNodeByName(action0Node, "Magazine_size");
+                        magazineSizeNode = GetChildNodeByName(action0Node, "Magazine_size");
                     }
 
-                    XmlNode customIconNode = getChildNodeByName(itemNode, "CustomIcon");
+                    XmlNode customIconNode = GetChildNodeByName(itemNode, "CustomIcon");
 
                     ItemData itemData = new ItemData();
 
@@ -158,16 +158,16 @@ namespace SevenDaysProfileEditor
                         {
                             itemData.partNames = new string[4];
 
-                            itemData.partNames[0] = getChildNodeByName(partsNode, "Stock").Attributes[1].Value;
-                            itemData.partNames[1] = getChildNodeByName(partsNode, "Receiver").Attributes[1].Value;
-                            itemData.partNames[2] = getChildNodeByName(partsNode, "Pump").Attributes[1].Value;
-                            itemData.partNames[3] = getChildNodeByName(partsNode, "Barrel").Attributes[1].Value;
+                            itemData.partNames[0] = GetChildNodeByName(partsNode, "Stock").Attributes[1].Value;
+                            itemData.partNames[1] = GetChildNodeByName(partsNode, "Receiver").Attributes[1].Value;
+                            itemData.partNames[2] = GetChildNodeByName(partsNode, "Pump").Attributes[1].Value;
+                            itemData.partNames[3] = GetChildNodeByName(partsNode, "Barrel").Attributes[1].Value;
                         }
 
                         if (magazineSizeNode != null)
                         {
                             itemData.magazineSize = int.Parse(magazineSizeNode.Attributes[1].Value);
-                            itemData.magazineItems = getChildNodeByName(action0Node, "Magazine_items").Attributes[1].Value.Split(',');
+                            itemData.magazineItems = GetChildNodeByName(action0Node, "Magazine_items").Attributes[1].Value.Split(',');
                         }
                     }
 
@@ -258,9 +258,9 @@ namespace SevenDaysProfileEditor
                     continue;
                 }
 
-                skillData.name = getAttribute(skillNode, "name").Value;
+                skillData.name = GetAttribute(skillNode, "name").Value;
 
-                XmlAttribute iconAttr = getAttribute(skillNode, "icon");
+                XmlAttribute iconAttr = GetAttribute(skillNode, "icon");
                 if (iconAttr != null)
                 {
                     string iconName = "ui_game_symbol_" + iconAttr.Value;
@@ -268,7 +268,7 @@ namespace SevenDaysProfileEditor
                     IconData.uiIconDictionary.TryGetValue(iconName, out skillData.iconData);
                 }
 
-                XmlAttribute maxLevelAttr = getAttribute(skillNode, "max_level");
+                XmlAttribute maxLevelAttr = GetAttribute(skillNode, "max_level");
                 if (maxLevelAttr != null)
                 {
                     skillData.maxLevel = int.Parse(maxLevelAttr.Value);
@@ -279,7 +279,7 @@ namespace SevenDaysProfileEditor
                     skillData.maxLevel = SkillData.maxLevelDefault;
                 }
 
-                XmlAttribute expToLevelAttr = getAttribute(skillNode, "exp_to_level");
+                XmlAttribute expToLevelAttr = GetAttribute(skillNode, "exp_to_level");
                 if (expToLevelAttr != null)
                 {
                     skillData.expToLevel = int.Parse(expToLevelAttr.Value);
@@ -304,14 +304,14 @@ namespace SevenDaysProfileEditor
                     {
                         XmlNode requirementNode = skillNode.ChildNodes[i];
 
-                        XmlAttribute thisPerkLevelAttr = getAttribute(requirementNode, "perk_level");
-                        XmlAttribute requiredSkillNameAttr = getAttribute(requirementNode, "required_skill_name");
-                        XmlAttribute requiredSkillLevelAttr = getAttribute(requirementNode, "required_skill_level");
-                        XmlAttribute requiredPlayerLevelAttr = getAttribute(requirementNode, "required_player_level");
+                        XmlAttribute thisPerkLevelAttr = GetAttribute(requirementNode, "perk_level");
+                        XmlAttribute requiredSkillNameAttr = GetAttribute(requirementNode, "required_skill_name");
+                        XmlAttribute requiredSkillLevelAttr = GetAttribute(requirementNode, "required_skill_level");
+                        XmlAttribute requiredPlayerLevelAttr = GetAttribute(requirementNode, "required_player_level");
 
                         if (thisPerkLevelAttr == null)
                         {
-                            thisPerkLevelAttr = getAttribute(requirementNode, "skill_level");
+                            thisPerkLevelAttr = GetAttribute(requirementNode, "skill_level");
                         }
 
                         int perkLevel = int.Parse(thisPerkLevelAttr.Value);
@@ -337,8 +337,8 @@ namespace SevenDaysProfileEditor
                     {
                         XmlNode recipeNode = skillNode.ChildNodes[i];
 
-                        XmlAttribute recipeNameAttr = getAttribute(recipeNode, "name");
-                        XmlAttribute recipeUnlockLevelAttr = getAttribute(recipeNode, "unlock_level");
+                        XmlAttribute recipeNameAttr = GetAttribute(recipeNode, "name");
+                        XmlAttribute recipeUnlockLevelAttr = GetAttribute(recipeNode, "unlock_level");
 
                         skillData.recipes.Add(recipeNameAttr.Value, int.Parse(recipeUnlockLevelAttr.Value));
                     }
@@ -369,8 +369,8 @@ namespace SevenDaysProfileEditor
                 {
                     QuestData questData = new QuestData();
 
-                    questData.id = getAttribute(questNode, "id").Value;
-                    questData.categoryKey = getAttribute(questNode, "category_key").Value;
+                    questData.id = GetAttribute(questNode, "id").Value;
+                    questData.categoryKey = GetAttribute(questNode, "category_key").Value;
                     questData.objectives = new List<ObjectiveData>();
 
                     foreach (XmlNode objectiveNode in questNode.ChildNodes)
@@ -379,9 +379,9 @@ namespace SevenDaysProfileEditor
                         {
                             ObjectiveData objectiveData = new ObjectiveData();
 
-                            string type = getAttribute(objectiveNode, "type").Value;
+                            string type = GetAttribute(objectiveNode, "type").Value;
 
-                            XmlAttribute idAttr = getAttribute(objectiveNode, "id");
+                            XmlAttribute idAttr = GetAttribute(objectiveNode, "id");
                             string id = "";
                             if (idAttr != null)
                             {
@@ -391,7 +391,7 @@ namespace SevenDaysProfileEditor
                             objectiveData.name = type + id;
 
                             //if single value, stored in maxValue
-                            XmlAttribute valueAttr = getAttribute(objectiveNode, "value");
+                            XmlAttribute valueAttr = GetAttribute(objectiveNode, "value");
                             objectiveData.minValue = 0;
                             objectiveData.maxValue = 0;
                             if (valueAttr != null)
@@ -413,7 +413,7 @@ namespace SevenDaysProfileEditor
             }
         }
 
-        private static XmlNode getChildNodeByName(XmlNode node, string propertyName)
+        private static XmlNode GetChildNodeByName(XmlNode node, string propertyName)
         {
             foreach (XmlNode child in node.ChildNodes)
             {
@@ -426,7 +426,7 @@ namespace SevenDaysProfileEditor
             return null;
         }
 
-        private static XmlAttribute getAttribute(XmlNode node, string attributeName)
+        private static XmlAttribute GetAttribute(XmlNode node, string attributeName)
         {
             foreach (XmlAttribute attribute in node.Attributes)
             {

@@ -110,7 +110,7 @@ namespace SevenDaysProfileEditor
                 reader.BaseStream.Position = absoluteOffset;
 
                 int nameLength = reader.ReadInt32();
-                string name = Util.readResourceString(reader, nameLength);
+                string name = Util.ReadAssetString(reader, nameLength);
 
                 uint additionalOffset = 4 + (4 * ((uint)nameLength / 4));
 

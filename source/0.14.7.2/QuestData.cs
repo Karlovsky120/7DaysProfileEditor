@@ -14,7 +14,7 @@ namespace SevenDaysProfileEditor.Quests
         public string categoryKey;
         public List<ObjectiveData> objectives;
 
-        public static QuestData getQuestById(string id)
+        public static QuestData GetQuestById(string id)
         {
             foreach (QuestData questData in QuestData.questList)
             {

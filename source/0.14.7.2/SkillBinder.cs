@@ -89,7 +89,7 @@ namespace SevenDaysProfileEditor.Skills
 
                     foreach (Requirement requirement in GetRequirementByLevel(unlockedLevel + 1))
                     {
-                        isLevelUnlocked = requirement.IsRequirementSatisfied();
+                        isLevelUnlocked = requirement.IsRequirementMet();
                     }
 
                 } while (isLevelUnlocked && (unlockedLevel < maxLevel));

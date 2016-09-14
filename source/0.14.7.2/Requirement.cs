@@ -25,7 +25,7 @@ namespace SevenDaysProfileEditor.Skills
             this.requiredSkillLevel = requiredSkillLevel;
         }
 
-        public bool IsRequirementSatisfied()
+        public bool IsRequirementMet()
         {
             return requiredSkillCurrentLevel.Get() >= requiredSkillLevel;
         }
