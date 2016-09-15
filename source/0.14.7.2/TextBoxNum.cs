@@ -1,7 +1,6 @@
 ﻿using SevenDaysSaveManipulator;
 using SevenDaysSaveManipulator.GameData;
 using System;
-using System.Collections.Generic;
 using System.Windows.Forms;
 
 namespace SevenDaysProfileEditor.GUI
@@ -21,6 +20,12 @@ namespace SevenDaysProfileEditor.GUI
         public void UpdateMax(T max)
         {
             this.max = max;
+            Update(this, new EventArgs());
+        }
+
+        public void UpdateMin(T min)
+        {
+            this.min = min;
             Update(this, new EventArgs());
         }
 

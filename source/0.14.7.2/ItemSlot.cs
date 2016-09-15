@@ -1,12 +1,7 @@
-﻿using SevenDaysProfileEditor.GUI;
-using SevenDaysProfileEditor.Inventory;
-using SevenDaysSaveManipulator;
+﻿using SevenDaysProfileEditor.Data;
+using SevenDaysProfileEditor.GUI;
 using SevenDaysSaveManipulator.GameData;
-using System;
-using System.Collections.Generic;
 using System.Drawing;
-using System.Reflection;
-using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
 namespace SevenDaysProfileEditor.Inventory

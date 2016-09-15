@@ -1,9 +1,7 @@
-﻿using SevenDaysProfileEditor.GUI;
+﻿using SevenDaysProfileEditor.Data;
+using SevenDaysProfileEditor.GUI;
 using System;
-using System.Collections.Generic;
-using System.Configuration;
 using System.IO;
-using System.Threading;
 using System.Windows.Forms;
 
 namespace SevenDaysProfileEditor

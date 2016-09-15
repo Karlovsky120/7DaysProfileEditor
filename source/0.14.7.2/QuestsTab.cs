@@ -1,16 +1,6 @@
 ﻿using SevenDaysProfileEditor.GUI;
 using SevenDaysSaveManipulator.GameData;
 using System.Windows.Forms;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Drawing;
-using System.Drawing.Imaging;
-using System.Runtime.InteropServices;
-using SevenDaysProfileEditor.Inventory;
 
 namespace SevenDaysProfileEditor.Quests
 {

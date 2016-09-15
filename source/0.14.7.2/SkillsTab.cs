@@ -2,20 +2,19 @@
 using SevenDaysSaveManipulator;
 using SevenDaysSaveManipulator.GameData;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Drawing;
-using System.Windows;
 using System.Windows.Forms;
-using System.Windows.Input;
 
 namespace SevenDaysProfileEditor.Skills
 {
-    class SkillsTab : TabPage, IInitializable
+    class SkillsTab : TabPage, IInitializable, IValueListener<int>, IValueListener<uint>
     {
         private PlayerDataFile playerDataFile;       
         private TableLayoutPanel panel;
 
         private List<SkillSlot> skillSlots;
+
+        private bool locked;
 
         public SkillsTab(PlayerDataFile playerDataFile)
         {
@@ -32,14 +31,19 @@ namespace SevenDaysProfileEditor.Skills
             panel.Dock = DockStyle.Fill;
 
             TableLayoutPanel general = new TableLayoutPanel();
-            general.Size = new Size(206, 68);
+            general.Size = new Size(478, 36);
             general.Anchor = AnchorStyles.Top;
 
-            LabeledControl playerLevelBox = new LabeledControl("Player level", new TextBoxInt(playerDataFile.level, 1, SkillData.maxPlayerLevel, 80), 200);
-            general.Controls.Add(playerLevelBox);
+            LabeledControl LabeledPlayerLevelBox = new LabeledControl("Player level", new TextBoxInt(playerDataFile.level, 1, SkillData.maxPlayerLevel, 80), 150);
+            playerDataFile.level.AddListener(this);
+            general.Controls.Add(LabeledPlayerLevelBox, 0, 0);
 
-            LabeledControl skillPointsBox = new LabeledControl("Skill points", new TextBoxInt(playerDataFile.skillPoints, 0, int.MaxValue, 80), 200);
-            general.Controls.Add(skillPointsBox);
+            LabeledControl LabeledSkillPointsBox = new LabeledControl("Skill points", new TextBoxInt(playerDataFile.skillPoints, 0, int.MaxValue, 80), 150);
+            general.Controls.Add(LabeledSkillPointsBox, 1, 0);
+
+            LabeledControl LabeledExperienceBox = new LabeledControl("Experience", new TextBoxUInt(playerDataFile.experience, 0u, (uint)(SkillData.expToPlayerLevel * SkillData.maxPlayerLevel), 80), 150);
+            playerDataFile.experience.AddListener(this);
+            general.Controls.Add(LabeledExperienceBox, 2, 0);
 
             panel.Controls.Add(general);
 
@@ -131,6 +135,26 @@ namespace SevenDaysProfileEditor.Skills
             }
 
             playerDataFile.skills.skillDictionary = skilldictionary;
+        }
+
+        public void ValueUpdated(Value<int> source)
+        {
+            if (!locked)
+            {
+                locked = true;
+                playerDataFile.experience.Set((uint)(source.Get() * SkillData.expToPlayerLevel));
+                locked = false;
+            }
+        }
+
+        public void ValueUpdated(Value<uint> source)
+        {
+            if (!locked)
+            {
+                locked = true;
+                playerDataFile.level.Set((int)source.Get() / SkillData.expToPlayerLevel);
+                locked = false;
+            }
         }
     }
 }

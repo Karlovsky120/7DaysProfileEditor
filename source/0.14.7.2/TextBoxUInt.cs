@@ -3,13 +3,13 @@ using System;
 
 namespace SevenDaysProfileEditor.GUI
 {
-    public class TextBoxInt : TextBoxNum<int>
+    public class TextBoxUInt : TextBoxNum<uint>
     {
         public override void Update(object sender, EventArgs e)
         {
-            int newValue;
+            uint newValue;
 
-            if (int.TryParse(Text, out newValue))
+            if (uint.TryParse(Text, out newValue))
             {
                 if (newValue < min || newValue > max)
                 {
@@ -27,7 +27,7 @@ namespace SevenDaysProfileEditor.GUI
             }
         }
 
-        public TextBoxInt(Value<int> value, int min, int max, int width) : base(value, min, max, width)
+        public TextBoxUInt(Value<uint> value, uint min, uint max, int width) : base(value, min, max, width)
         {
 
         }

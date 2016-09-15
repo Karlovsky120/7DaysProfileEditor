@@ -1,9 +1,6 @@
-﻿using SevenDaysSaveManipulator;
-using System;
+﻿using SevenDaysProfileEditor.Data;
+using SevenDaysSaveManipulator;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SevenDaysProfileEditor.Skills
 {

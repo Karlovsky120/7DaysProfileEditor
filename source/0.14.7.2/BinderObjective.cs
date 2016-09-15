@@ -1,5 +1,4 @@
 ﻿using SevenDaysSaveManipulator.GameData;
-using System.Collections.Generic;
 
 namespace SevenDaysProfileEditor.Quests
 {

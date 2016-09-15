@@ -1,11 +1,9 @@
-﻿using SevenDaysProfileEditor.General;
-using SevenDaysProfileEditor.Inventory;
+﻿using SevenDaysProfileEditor.Inventory;
 using SevenDaysProfileEditor.Skills;
 using SevenDaysProfileEditor.Stats;
-using SevenDaysProfileEditor.Quests;
 using SevenDaysSaveManipulator.GameData;
-using System.Windows.Forms;
 using System;
+using System.Windows.Forms;
 
 namespace SevenDaysProfileEditor.GUI
 {
@@ -29,8 +27,7 @@ namespace SevenDaysProfileEditor.GUI
             saveFileTabControl = new TabControl();
             saveFileTabControl.Dock = DockStyle.Fill;
 
-            saveFileTabControl.Controls.Add(new GeneralTab(playerDataFile));
-            saveFileTabControl.Controls.Add(new StatsTab(playerDataFile));
+            saveFileTabControl.Controls.Add(new StatsAndGeneralTab(playerDataFile));
             saveFileTabControl.Controls.Add(new InventoryTab(playerDataFile));
             saveFileTabControl.Controls.Add(new SkillsTab(playerDataFile));
             //saveFileTabControl.Controls.Add(new QuestsTab(playerDataFile));

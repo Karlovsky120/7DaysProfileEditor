@@ -3,8 +3,10 @@ using System;
 
 namespace SevenDaysProfileEditor.GUI
 {
-    public class TextBoxInt : TextBoxNum<int>
+    public class TextBoxIntPercentage : TextBoxInt
     {
+        private int realMax;
+
         public override void Update(object sender, EventArgs e)
         {
             int newValue;
@@ -16,20 +18,22 @@ namespace SevenDaysProfileEditor.GUI
                     newValue = Clamp(newValue);
                 }
 
-                value.Set(newValue);
-                Text = value.Get().ToString();
+                value.Set((int)((newValue * realMax) / 100));
+                Text = newValue.ToString();
             }
 
             else
             {
-                Text = value.Get().ToString();
+                Text = newValue.ToString();
                 Focus();
             }
         }
 
-        public TextBoxInt(Value<int> value, int min, int max, int width) : base(value, min, max, width)
+        public TextBoxIntPercentage(Value<int> value, int realMax, int width) : base(value, 0, 100, width)
         {
+            this.realMax = realMax;
 
+            Text = ((int)(100 * value.Get() / (float)realMax)).ToString();
         }
     }
 }

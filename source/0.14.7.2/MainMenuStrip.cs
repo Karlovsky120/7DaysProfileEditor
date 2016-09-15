@@ -1,9 +1,4 @@
-﻿using SevenDaysProfileEditor.Inventory;
-using SevenDaysProfileEditor.Skills;
-using SevenDaysSaveManipulator.GameData;
-using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using System;
 using System.Windows.Forms;
 
 namespace SevenDaysProfileEditor.GUI

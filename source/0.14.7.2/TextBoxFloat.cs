@@ -1,6 +1,5 @@
 ﻿using SevenDaysSaveManipulator.GameData;
 using System;
-using System.Windows.Forms;
 
 namespace SevenDaysProfileEditor.GUI
 {

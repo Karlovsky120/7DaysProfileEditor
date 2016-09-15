@@ -1,5 +1,4 @@
-﻿using SevenDaysProfileEditor.GUI;
-using SevenDaysSaveManipulator.GameData;
+﻿using SevenDaysSaveManipulator.GameData;
 using System;
 using System.Collections.Generic;
 using System.Drawing;

@@ -1,5 +1,4 @@
-﻿using SevenDaysProfileEditor.GUI;
-using SevenDaysSaveManipulator.GameData;
+﻿using SevenDaysSaveManipulator.GameData;
 using System;
 
 namespace SevenDaysProfileEditor.GUI
@@ -18,12 +17,12 @@ namespace SevenDaysProfileEditor.GUI
                 }
 
                 value.Set(max - newValue);
-                Text = (max - value.Get()).ToString();
+                Text = newValue.ToString();
             }
 
             else
             {
-                Text = (max - value.Get()).ToString();
+                Text = newValue.ToString();
                 Focus();
             }
         }

@@ -1,16 +1,10 @@
 ﻿using SevenDaysProfileEditor.Inventory;
-using SevenDaysProfileEditor.Skills;
 using SevenDaysProfileEditor.Quests;
-using SevenDaysSaveManipulator;
-using SevenDaysSaveManipulator.GameData;
-using System;
+using SevenDaysProfileEditor.Skills;
 using System.Collections.Generic;
-using System.IO;
-using System.Windows.Forms;
 using System.Xml;
-using SevenDaysProfileEditor.GUI;
 
-namespace SevenDaysProfileEditor
+namespace SevenDaysProfileEditor.Data
 {
     class XmlData
     {
