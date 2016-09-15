@@ -9,6 +9,8 @@ namespace SevenDaysProfileEditor.GUI
         public PlayerTabControl tabs;
         public BottomStatusBar statusBar;
 
+        public Label focusDummy;
+
         public MainWindow()
         {
             Size = new Size(1000, 850);
@@ -21,6 +23,10 @@ namespace SevenDaysProfileEditor.GUI
             tabs = new PlayerTabControl(this);
             statusBar = new BottomStatusBar();
             mainMenu = new TopMainMenu(this, tabs, statusBar);
+
+            focusDummy = new Label();
+            focusDummy.Size = new Size(0, 0);
+            Controls.Add(focusDummy);
 
             Controls.Add(tabs);
             Controls.Add(mainMenu);

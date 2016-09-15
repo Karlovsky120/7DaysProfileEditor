@@ -102,11 +102,13 @@ namespace SevenDaysProfileEditor.GUI
 
         public void Save(PlayerTab tab, string path)
         {
+            mainWindow.focusDummy.Focus();
+
             bottomStatusBar.SetText("Saving...");
 
             bool success = false;
 
-            //try
+            try
             {
                 BackupFile(path);
 
@@ -124,11 +126,11 @@ namespace SevenDaysProfileEditor.GUI
                 success = true;
             }
 
-            /*catch (Exception e)
+            catch (Exception e)
             {
                 Log.WriteError(e);
                 MessageBox.Show("Failed to save file " + path.Substring(path.LastIndexOf('\\')+1) + ". " + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }*/
+            }
 
             bottomStatusBar.Reset();
 
@@ -157,8 +159,7 @@ namespace SevenDaysProfileEditor.GUI
                     break;
             }
 
-        }
-        
+        }        
 
         private void PostProcess(PlayerDataFile playerDataFile)
         {
