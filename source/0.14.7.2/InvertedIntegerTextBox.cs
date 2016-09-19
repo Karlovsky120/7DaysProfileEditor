@@ -1,11 +1,10 @@
 ﻿using SevenDaysSaveManipulator.GameData;
-using System;
 
 namespace SevenDaysProfileEditor.GUI
 {
-    public class TextBoxInt : TextBoxNum<int>
+    public class InvertedIntegerTextBox : NumericTextBox<int>
     {
-        public override void Update(object sender, EventArgs e)
+        public override void UpdateTextBox()
         {
             int newValue;
 
@@ -16,20 +15,20 @@ namespace SevenDaysProfileEditor.GUI
                     newValue = Clamp(newValue);
                 }
 
-                value.Set(newValue);
-                Text = value.Get().ToString();
+                value.Set(max - newValue);
+                Text = newValue.ToString();
             }
-
             else
             {
-                Text = value.Get().ToString();
+                Text = newValue.ToString();
                 Focus();
             }
         }
 
-        public TextBoxInt(Value<int> value, int min, int max, int width) : base(value, min, max, width)
+        public InvertedIntegerTextBox(Value<int> value, int min, int max, int width)
+            : base(value, min, max, width)
         {
-
+            Text = (max - value.Get()).ToString();
         }
     }
 }

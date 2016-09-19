@@ -5,11 +5,12 @@ using System.Windows.Forms;
 
 namespace SevenDaysProfileEditor.Inventory
 {
-    class PartSlot : InventorySlot
+    internal class InventorySlotPart : InventorySlotBase
     {
-        private ItemSlot parent;
+        private InventorySlotItem parent;
 
-        public PartSlot(ItemBinder itemBinder, ItemSlot parent, int partIndex, int textBoxWidth, int labeledControlWidth) : base(itemBinder, textBoxWidth, labeledControlWidth)
+        public InventorySlotPart(ItemBinder itemBinder, InventorySlotItem parent, int partIndex, int textBoxWidth, int labeledControlWidth)
+            : base(itemBinder, textBoxWidth, labeledControlWidth)
         {
             this.parent = parent;
 
@@ -45,7 +46,6 @@ namespace SevenDaysProfileEditor.Inventory
                 parent.itemBinder.meta.Set(parent.itemBinder.magazineSize);
                 parent.magazineBox.Enabled = true;
             }
-
             else
             {
                 parent.qualityBox.Text = "";

@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace SevenDaysProfileEditor.Stats
 {
-    class StatsPanel : TableLayoutPanel
+    internal class StatsPanel : TableLayoutPanel
     {
         public StatsPanel(PlayerDataFile playerDataFile)
         {
@@ -22,20 +22,17 @@ namespace SevenDaysProfileEditor.Stats
             StatSlot wellness = new StatSlot(stats.wellness, "Wellness", 70f, null);
             Controls.Add(wellness, 0, 2);
 
-
             LiveStatSlot food = new LiveStatSlot(playerDataFile.food, "Food", 72);
             Controls.Add(food, 0, 3);
 
             LiveStatSlot water = new LiveStatSlot(playerDataFile.drink, "Water", 72);
             Controls.Add(water, 0, 4);
 
-
             StatSlot coreTemp = new StatSlot(stats.coreTemp, "Core Temp", 0f, null);
             Controls.Add(coreTemp, 0, 5);
 
             StatSlot speedModifier = new StatSlot(stats.speedModifier, "Speed Modifier", 0f, null);
             Controls.Add(speedModifier, 0, 6);
-
 
             StatSlot sickness = new StatSlot(stats.sickness, "Sickness (no effect)", 0f, null);
             Controls.Add(sickness, 0, 7);

@@ -2,7 +2,7 @@
 
 namespace SevenDaysProfileEditor.GUI
 {
-    class BottomStatusBar : StatusBar
+    internal class BottomStatusBar : StatusBar
     {
         public StatusBarPanel statusPanel;
 

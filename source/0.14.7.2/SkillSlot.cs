@@ -7,11 +7,11 @@ using System.Windows.Forms;
 
 namespace SevenDaysProfileEditor.Skills
 {
-    class SkillSlot : TableLayoutPanel, IValueListener<int>
+    internal class SkillSlot : TableLayoutPanel, IValueListener<int>
     {
         private SkillBinder skillBinder;
 
-        public TextBoxInt levelBox;
+        public NumericTextBox<int> levelBox;
         public TextBox expToNextLevelBox;
 
         private Label requirementTipsLabel;
@@ -57,7 +57,7 @@ namespace SevenDaysProfileEditor.Skills
                 min = 0;
             }
 
-            levelBox = new TextBoxInt(skillBinder.level, min, skillBinder.GetHighestUnlockedLevel(), 80);
+            levelBox = new NumericTextBox<int>(skillBinder.level, min, skillBinder.GetHighestUnlockedLevel(), 80);
             LabeledControl labeledLevelBox = new LabeledControl("Level", levelBox, 180);
             Controls.Add(labeledLevelBox, 0, 1);
 
@@ -65,19 +65,18 @@ namespace SevenDaysProfileEditor.Skills
 
             if (skillBinder.type != SkillType.Perk)
             {
-                expToNextLevelBox = new TextBoxInt(skillBinder.expToNextLevel, 0, skillBinder.expToLevel, 80);
+                expToNextLevelBox = new NumericTextBox<int>(skillBinder.expToNextLevel, 0, skillBinder.expToLevel, 80);
                 LabeledControl labeledExpToNextLevelBox = new LabeledControl("Exp to next level", expToNextLevelBox, 180);
                 Controls.Add(labeledExpToNextLevelBox, 0, 2);
             }
-
             else if (skillBinder.requirements.Count > 0)
             {
                 RegisterListeners();
 
                 if (skillBinder.GetHighestUnlockedLevel() != skillBinder.maxLevel)
                 {
-                    Controls.Add(GetRequirementTipsLabel(), 0, 3); 
-                }                              
+                    Controls.Add(GetRequirementTipsLabel(), 0, 3);
+                }
             }
         }
 
@@ -108,7 +107,7 @@ namespace SevenDaysProfileEditor.Skills
                 foreach (string requirementTip in requirementTips)
                 {
                     requirementTipsLabel.Text += requirementTip;
-                }                
+                }
             }
 
             return requirementTipsLabel;
@@ -134,7 +133,6 @@ namespace SevenDaysProfileEditor.Skills
                         requiredSkills.Add(skillBinder.playerLevel);
                     }
                 }
-
                 else if (SkillBinder.skillDictionary.TryGetValue(Utils.GetMonoHash(requirement.requiredSkillName), out requiredSkill))
                 {
                     if (!requiredSkills.Contains(requiredSkill.level))
@@ -175,7 +173,6 @@ namespace SevenDaysProfileEditor.Skills
                             skillBinder.unlockedRecipeList.Add(recipe.Key);
                         }
                     }
-
                     else
                     {
                         if (skillBinder.unlockedRecipeList.Contains(recipe.Key))
@@ -185,7 +182,6 @@ namespace SevenDaysProfileEditor.Skills
                     }
                 }
             }
-
             else
             {
                 levelBox.UpdateMax(skillBinder.GetHighestUnlockedLevel());

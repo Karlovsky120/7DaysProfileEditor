@@ -3,7 +3,7 @@ using System.IO;
 
 namespace SevenDaysProfileEditor
 {
-    class Config
+    internal class Config
     {
         public static Dictionary<string, string> config = new Dictionary<string, string>();
 

@@ -4,7 +4,7 @@ using System.Windows.Forms;
 
 namespace SevenDaysProfileEditor.GUI
 {
-    class LabeledCoordinateFloat : TableLayoutPanel
+    internal class LabeledCoordinateFloat : TableLayoutPanel
     {
         public LabeledCoordinateFloat(string name, Vector3Df coordinate)
         {
@@ -17,13 +17,13 @@ namespace SevenDaysProfileEditor.GUI
             TableLayoutPanel coordinates = new TableLayoutPanel();
             coordinates.Size = new Size(116, 102);
 
-            LabeledControl labeledX = new LabeledControl("X", new TextBoxFloat(coordinate.x, float.MinValue, float.MaxValue, 80), 110);
+            LabeledControl labeledX = new LabeledControl("X", new NumericTextBox<float>(coordinate.x, float.MinValue, float.MaxValue, 80), 110);
             coordinates.Controls.Add(labeledX, 0, 0);
 
-            LabeledControl labeledY = new LabeledControl("Y", new TextBoxFloat(coordinate.y, float.MinValue, float.MaxValue, 80), 110);
+            LabeledControl labeledY = new LabeledControl("Y", new NumericTextBox<float>(coordinate.y, float.MinValue, float.MaxValue, 80), 110);
             coordinates.Controls.Add(labeledY, 0, 1);
 
-            LabeledControl labeledZ = new LabeledControl("Z", new TextBoxFloat(coordinate.z, float.MinValue, float.MaxValue, 80), 110);
+            LabeledControl labeledZ = new LabeledControl("Z", new NumericTextBox<float>(coordinate.z, float.MinValue, float.MaxValue, 80), 110);
             coordinates.Controls.Add(labeledZ, 0, 2);
 
             Controls.Add(coordinates, 0, 1);

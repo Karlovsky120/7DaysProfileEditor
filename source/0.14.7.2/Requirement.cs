@@ -3,7 +3,7 @@ using SevenDaysSaveManipulator.GameData;
 
 namespace SevenDaysProfileEditor.Skills
 {
-    class Requirement
+    internal class Requirement
     {
         public int perkLevel;
         public int requiredSkillId;

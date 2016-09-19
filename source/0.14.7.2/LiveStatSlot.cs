@@ -5,7 +5,7 @@ using System.Windows.Forms;
 
 namespace SevenDaysProfileEditor.Stats
 {
-    class LiveStatSlot : TableLayoutPanel
+    internal class LiveStatSlot : TableLayoutPanel
     {
         private LiveStats liveStat;
         private string liveStatName;
@@ -16,7 +16,7 @@ namespace SevenDaysProfileEditor.Stats
             Size = new Size(196, 28);
             Margin = new Padding(0);
 
-            LabeledControl labeledValueBox = new LabeledControl(liveStatName, new TextBoxIntPercentage(liveStat.lifeLevel, max, 60), 190);
+            LabeledControl labeledValueBox = new LabeledControl(liveStatName, new PercentageIntegerTextBox(liveStat.lifeLevel, max, 60), 190);
             Controls.Add(labeledValueBox);
         }
 

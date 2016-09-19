@@ -8,13 +8,14 @@ using System.Windows.Forms;
 
 namespace SevenDaysProfileEditor.Inventory
 {
-    public abstract class InventorySlot : TableLayoutPanel, IValueListener<int>
+    public abstract class InventorySlotBase : TableLayoutPanel, IValueListener<int>
     {
         public ItemBinder itemBinder;
 
-        public TextBoxInt qualityBox;
-        public TextBoxIntInverted degradationBox;
-        public TextBoxInt magazineBox;
+        public NumericTextBox<int> qualityBox;
+        public InvertedIntegerTextBox degradationBox;
+        public NumericTextBox<int> magazineBox;
+        private ComboBox magazineItemsBox;
 
         public ComboBox selector;
         public Label imageLabel;
@@ -26,7 +27,7 @@ namespace SevenDaysProfileEditor.Inventory
         private int textBoxWidth;
         private int labeledControlWidth;
 
-        public InventorySlot(ItemBinder itemBinder, int textBoxWidth, int labeledControlWidth)
+        public InventorySlotBase(ItemBinder itemBinder, int textBoxWidth, int labeledControlWidth)
         {
             this.itemBinder = itemBinder;
             this.textBoxWidth = textBoxWidth;
@@ -56,7 +57,7 @@ namespace SevenDaysProfileEditor.Inventory
                 }
             };
 
-            selector.SelectedIndexChanged += new EventHandler(SelectionChanged);
+            selector.SelectedValueChanged += new EventHandler(SelectionChanged);
             selector.LostFocus += new EventHandler(SelectionChanged);
         }
 
@@ -68,7 +69,6 @@ namespace SevenDaysProfileEditor.Inventory
             {
                 selector.Text = selectedItem;
             }
-
             else if (!choosen.name.Equals(selectedItem))
             {
                 selectedItem = selector.Text;
@@ -87,7 +87,6 @@ namespace SevenDaysProfileEditor.Inventory
 
         protected virtual void SelectionChangedAction()
         {
-
         }
 
         protected TableLayoutPanel GenerateBasicInfo()
@@ -100,7 +99,7 @@ namespace SevenDaysProfileEditor.Inventory
             {
                 if (itemBinder.stackNumber > 1)
                 {
-                    LabeledControl countBox = new LabeledControl("Count", new TextBoxInt(itemBinder.count, 1, itemBinder.stackNumber, textBoxWidth), labeledControlWidth);
+                    LabeledControl countBox = new LabeledControl("Count", new NumericTextBox<int>(itemBinder.count, 1, itemBinder.stackNumber, textBoxWidth), labeledControlWidth);
                     basicInfo.Controls.Add(countBox);
                 }
 
@@ -108,10 +107,10 @@ namespace SevenDaysProfileEditor.Inventory
                 {
                     int degradation = itemBinder.GetMaxDegradationForQuality();
 
-                    degradationBox = new TextBoxIntInverted(itemBinder.useTimes, 1, degradation, textBoxWidth);
+                    degradationBox = new InvertedIntegerTextBox(itemBinder.useTimes, 1, degradation, textBoxWidth);
                     LabeledControl labeledDegradationBox = new LabeledControl("Durability", degradationBox, labeledControlWidth);
 
-                    qualityBox = new TextBoxInt(itemBinder.quality, 1, ItemData.MAX_QUALITY, textBoxWidth);
+                    qualityBox = new NumericTextBox<int>(itemBinder.quality, 1, ItemData.MAX_QUALITY, textBoxWidth);
                     itemBinder.quality.AddListener(this);
                     LabeledControl labeledQualityBox = new LabeledControl("Quality", qualityBox, labeledControlWidth);
 
@@ -120,7 +119,7 @@ namespace SevenDaysProfileEditor.Inventory
 
                     if (itemBinder.magazineSize > 0)
                     {
-                        magazineBox = new TextBoxInt(itemBinder.meta, 0, itemBinder.magazineSize, textBoxWidth);
+                        magazineBox = new NumericTextBox<int>(itemBinder.meta, 0, itemBinder.magazineSize, textBoxWidth);
                         LabeledControl labeledMagazineBox = new LabeledControl("Ammo loaded", magazineBox, labeledControlWidth);
 
                         basicInfo.Controls.Add(labeledMagazineBox);
@@ -135,7 +134,6 @@ namespace SevenDaysProfileEditor.Inventory
                         {
                             qualityBox.Text = itemBinder.GetQualityFromParts().ToString();
                         }
-
                         else
                         {
                             magazineBox.Enabled = false;
@@ -148,25 +146,29 @@ namespace SevenDaysProfileEditor.Inventory
 
                     if (itemBinder.magazineItems != null && itemBinder.magazineItems.Length > 1)
                     {
-                        ComboBox magazineItems = new ComboBox();
-                        magazineItems.BindingContext = new BindingContext();
-                        magazineItems.DataSource = itemBinder.magazineItems;
-                        magazineItems.SelectedIndex = itemBinder.selectedAmmoTypeIndex.Get();
+                        magazineItemsBox = new ComboBox();
+                        magazineItemsBox.BindingContext = new BindingContext();
+                        magazineItemsBox.DataSource = itemBinder.magazineItems;
+                        magazineItemsBox.SelectedIndex = itemBinder.selectedAmmoTypeIndex.Get();
 
-                        magazineItems.Width = textBoxWidth;
-                        magazineItems.DropDownStyle = ComboBoxStyle.DropDownList;
-                        magazineItems.DropDownClosed += (sender, e) =>
-                        {
-                            itemBinder.selectedAmmoTypeIndex.Set((byte)magazineItems.SelectedIndex);
-                        };
+                        magazineItemsBox.Width = textBoxWidth;
+                        magazineItemsBox.DropDownStyle = ComboBoxStyle.DropDownList;
 
-                        LabeledControl magazineComboBox = new LabeledControl("Selected ammo", magazineItems, labeledControlWidth);
+                        magazineItemsBox.DropDownClosed += new EventHandler(MagazineItemBoxChanged);
+                        magazineItemsBox.SelectedValueChanged += new EventHandler(MagazineItemBoxChanged);
+
+                        LabeledControl magazineComboBox = new LabeledControl("Selected ammo", magazineItemsBox, labeledControlWidth);
                         basicInfo.Controls.Add(magazineComboBox);
                     }
                 }
             }
 
             return basicInfo;
+        }
+
+        private void MagazineItemBoxChanged(object sender, EventArgs e)
+        {
+            itemBinder.selectedAmmoTypeIndex.Set((byte)magazineItemsBox.SelectedIndex);
         }
 
         protected void SetImage()
@@ -181,7 +183,6 @@ namespace SevenDaysProfileEditor.Inventory
             {
                 imageLabel.BackgroundImage = image;
             }
-
             else
             {
                 imageLabel.Text = "(" + itemBinder.name + ")";
@@ -191,7 +192,6 @@ namespace SevenDaysProfileEditor.Inventory
 
         public virtual void ValueUpdated(Value<int> source)
         {
-
         }
     }
 }

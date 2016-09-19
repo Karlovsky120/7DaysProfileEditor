@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace SevenDaysProfileEditor.Inventory
 {
-    public class ItemSlot : InventorySlot
+    public class InventorySlotItem : InventorySlotBase
     {
         private ViewPanel viewPanel;
 
@@ -14,7 +14,8 @@ namespace SevenDaysProfileEditor.Inventory
         private TableLayoutPanel attachments;
         private ScrollPanel scrollPanel;
 
-        public ItemSlot(ItemBinder itemBinder, ViewPanel viewPanel, int textBoxWidth, int labeledControlWidth) : base(itemBinder, textBoxWidth, labeledControlWidth)
+        public InventorySlotItem(ItemBinder itemBinder, ViewPanel viewPanel, int textBoxWidth, int labeledControlWidth)
+            : base(itemBinder, textBoxWidth, labeledControlWidth)
         {
             this.viewPanel = viewPanel;
 
@@ -53,7 +54,6 @@ namespace SevenDaysProfileEditor.Inventory
                     scrollPanel.Controls.Add(parts, 0, 0);
                 }
 
-
                 if (attachments != null)
                 {
                     scrollPanel.Controls.Add(attachments, 1, 0);
@@ -69,7 +69,7 @@ namespace SevenDaysProfileEditor.Inventory
 
             if (parts != null)
             {
-                foreach (PartSlot slotPart in parts.Controls)
+                foreach (InventorySlotPart slotPart in parts.Controls)
                 {
                     slotPart.OverrideBug();
                 }
@@ -77,7 +77,7 @@ namespace SevenDaysProfileEditor.Inventory
 
             if (attachments != null)
             {
-                foreach (AttachmentSlot slotAttachment in attachments.Controls)
+                foreach (InventorySlotAttachment slotAttachment in attachments.Controls)
                 {
                     slotAttachment.OverrideBug();
                 }
@@ -106,7 +106,6 @@ namespace SevenDaysProfileEditor.Inventory
                     scrollPanel.Controls.Add(parts, 0, 0);
                 }
 
-
                 if (attachments != null)
                 {
                     scrollPanel.Controls.Add(attachments, 1, 0);
@@ -125,11 +124,11 @@ namespace SevenDaysProfileEditor.Inventory
                 parts.CellBorderStyle = TableLayoutPanelCellBorderStyle.Inset;
 
                 for (int i = 0; i < 4; i++)
-                {                    
-                        ItemBinder part = new ItemBinder(itemBinder.parts[i]);
-                        PartSlot slotPart = new PartSlot(part, this, i, 80, 180);
+                {
+                    ItemBinder part = new ItemBinder(itemBinder.parts[i]);
+                    InventorySlotPart slotPart = new InventorySlotPart(part, this, i, 80, 180);
 
-                        parts.Controls.Add(slotPart, i / 2, i % 2);                   
+                    parts.Controls.Add(slotPart, i / 2, i % 2);
                 }
 
                 return parts;
@@ -151,7 +150,7 @@ namespace SevenDaysProfileEditor.Inventory
                 for (int i = 0; i < itemBinder.attachments.Count; i++)
                 {
                     ItemBinder attachment = new ItemBinder(itemBinder.attachments[i]);
-                    AttachmentSlot slotAttachment = new AttachmentSlot(attachment, this, i, 80, 180);
+                    InventorySlotAttachment slotAttachment = new InventorySlotAttachment(attachment, this, i, 80, 180);
 
                     attachments.Controls.Add(slotAttachment, i / 2, i % 2);
                 }

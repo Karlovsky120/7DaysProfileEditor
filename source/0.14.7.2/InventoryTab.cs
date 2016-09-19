@@ -9,7 +9,7 @@ namespace SevenDaysProfileEditor.Inventory
     public class InventoryTab : TabPage, IInitializable
     {
         public ItemBinder[] itemBinders;
-        private ItemSlot[] itemSlots;
+        private InventorySlotItem[] itemSlots;
         private ViewPanel[] viewPanels;
 
         private PlayerDataFile playerDataFile;
@@ -38,12 +38,11 @@ namespace SevenDaysProfileEditor.Inventory
         }
 
         public void SlotExited(int index)
-        { 
+        {
             if (index == activeIndex)
             {
                 viewPanels[index].BackColor = COLOR_SELECT;
             }
-
             else
             {
                 viewPanels[index].BackColor = default(Color);
@@ -67,22 +66,21 @@ namespace SevenDaysProfileEditor.Inventory
             SetUpInventory(playerDataFile.inventory);
 
             itemBinders = new ItemBinder[40];
-            itemSlots = new ItemSlot[40];
+            itemSlots = new InventorySlotItem[40];
             viewPanels = new ViewPanel[40];
 
             for (int i = 0; i < 32; i++)
             {
                 itemBinders[i] = new ItemBinder(playerDataFile.bag[i]);
                 viewPanels[i] = new ViewPanel(i, this);
-                itemSlots[i] = new ItemSlot(itemBinders[i], viewPanels[i], 140, 250);
-
+                itemSlots[i] = new InventorySlotItem(itemBinders[i], viewPanels[i], 140, 250);
             }
 
             for (int i = 32; i < 40; i++)
             {
                 itemBinders[i] = new ItemBinder(playerDataFile.inventory[i - 32]);
                 viewPanels[i] = new ViewPanel(i, this);
-                itemSlots[i] = new ItemSlot(itemBinders[i], viewPanels[i], 140, 250);
+                itemSlots[i] = new InventorySlotItem(itemBinders[i], viewPanels[i], 140, 250);
             }
 
             TableLayoutPanel basicPanel = new TableLayoutPanel();
@@ -115,7 +113,6 @@ namespace SevenDaysProfileEditor.Inventory
             Controls.Add(basicPanel);
         }
 
-
         private void SetUpInventory(ItemStack[] itemStacks)
         {
             for (int i = 0; i < itemStacks.Length; i++)
@@ -143,7 +140,6 @@ namespace SevenDaysProfileEditor.Inventory
                         {
                             attachments.Add(ItemBinder.GetAir().itemValue);
                         }
-
                     }
 
                     itemStacks[i].itemValue.attachments = attachments;

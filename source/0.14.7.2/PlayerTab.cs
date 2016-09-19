@@ -7,22 +7,23 @@ using System.Windows.Forms;
 
 namespace SevenDaysProfileEditor.GUI
 {
-    class PlayerTab : TabPage
+    internal class PlayerTab : TabPage
     {
         public PlayerDataFile playerDataFile;
         public string path;
         public string fileName;
 
-        private TabControl saveFileTabControl;
+        public TabControl saveFileTabControl;
+
         private bool[] tabInitialized;
 
-        public PlayerTab(PlayerDataFile playerDataFile, string path)
+        public PlayerTab(PlayerDataFile playerDataFile, string path, int selectedIndex)
         {
             this.path = path;
             fileName = path.Substring(path.LastIndexOf('\\') + 1);
 
             this.playerDataFile = playerDataFile;
-            Text = playerDataFile.ecd.entityName.Get() + " (" + fileName + ")          ";
+            Text = playerDataFile.ecd.entityName.Get() + "          ";
 
             saveFileTabControl = new TabControl();
             saveFileTabControl.Dock = DockStyle.Fill;
@@ -30,13 +31,15 @@ namespace SevenDaysProfileEditor.GUI
             saveFileTabControl.Controls.Add(new StatsAndGeneralTab(playerDataFile));
             saveFileTabControl.Controls.Add(new InventoryTab(playerDataFile));
             saveFileTabControl.Controls.Add(new SkillsTab(playerDataFile));
-            //saveFileTabControl.Controls.Add(new QuestsTab(playerDataFile));
+
+            saveFileTabControl.SelectedIndex = selectedIndex;
+
             saveFileTabControl.SelectedIndexChanged += OnSelectedIndexChanged;
 
             tabInitialized = new bool[saveFileTabControl.TabCount];
 
-            ((IInitializable)saveFileTabControl.Controls[0]).Initialize();
-            tabInitialized[0] = true;
+            ((IInitializable)saveFileTabControl.Controls[selectedIndex]).Initialize();
+            tabInitialized[selectedIndex] = true;
 
             Controls.Add(saveFileTabControl);
         }

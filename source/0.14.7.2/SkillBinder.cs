@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 
 namespace SevenDaysProfileEditor.Skills
 {
-    class SkillBinder
+    internal class SkillBinder
     {
         public static Dictionary<int, Skill> skillDictionary;
 
@@ -32,7 +32,6 @@ namespace SevenDaysProfileEditor.Skills
 
         public Value<int> playerLevel;
         public List<string> unlockedRecipeList;
-
 
         public SkillBinder(Skill skill, Value<int> playerLevel, List<string> unlockedRecipeList)
         {
@@ -61,7 +60,6 @@ namespace SevenDaysProfileEditor.Skills
                     {
                         requirement.requiredSkillCurrentLevel = playerLevel;
                     }
-
                     else
                     {
                         requirement.requiredSkillCurrentLevel = SkillBinder.GetSkillByName(requirement.requiredSkillName).level;
@@ -88,7 +86,6 @@ namespace SevenDaysProfileEditor.Skills
                     {
                         isLevelUnlocked = requirement.IsRequirementMet();
                     }
-
                 } while (isLevelUnlocked && (unlockedLevel < maxLevel));
 
                 return unlockedLevel;
@@ -153,7 +150,6 @@ namespace SevenDaysProfileEditor.Skills
                         {
                             requiredSkillLevel = playerDataFile.level.Get();
                         }
-
                         else
                         {
                             int skillId = requirement.requiredSkillId;
@@ -164,7 +160,7 @@ namespace SevenDaysProfileEditor.Skills
                                 requiredSkillLevel = requiredSkill.level.Get();
                             }
                         }
-                        
+
                         if (requirement.requiredSkillLevel > requiredSkillLevel)
                         {
                             skill.isLocked.Set(true);
@@ -200,7 +196,6 @@ namespace SevenDaysProfileEditor.Skills
             return null;
         }
 
-
         public static bool IsDefaultValues(Skill skill)
         {
             SkillData skillData = SkillData.GetSkillDataById(skill.id.Get());
@@ -210,7 +205,6 @@ namespace SevenDaysProfileEditor.Skills
             {
                 flag = (skill.level.Get() == 0);
             }
-
             else
             {
                 flag = false;
@@ -221,7 +215,6 @@ namespace SevenDaysProfileEditor.Skills
             {
                 flag2 = !(skillData.type == SkillType.Perk);
             }
-
             else
             {
                 flag2 = false;
@@ -239,7 +232,6 @@ namespace SevenDaysProfileEditor.Skills
 
                 return false;
             }
-
             else
             {
                 return true;

@@ -3,13 +3,14 @@ using System.Windows.Forms;
 
 namespace SevenDaysProfileEditor.GUI
 {
-    class TopMainMenu : MenuStrip
+    internal class TopMainMenu : MenuStrip
     {
         public MainMenuActions mainMenuActions;
 
         private PlayerTabControl playerTabs;
 
         private ToolStripMenuItem itemOpen;
+        private ToolStripMenuItem itemReload;
         private ToolStripMenuItem itemSave;
         private ToolStripMenuItem itemSaveAs;
         private ToolStripMenuItem itemClose;
@@ -18,7 +19,7 @@ namespace SevenDaysProfileEditor.GUI
         private ToolStripMenuItem itemAbout;
 
         public TopMainMenu(MainWindow mainWindow, PlayerTabControl tabsControlPlayer, BottomStatusBar statusBar)
-        {            
+        {
             this.playerTabs = tabsControlPlayer;
 
             mainMenuActions = new MainMenuActions(mainWindow, tabsControlPlayer, statusBar);
@@ -29,6 +30,12 @@ namespace SevenDaysProfileEditor.GUI
             itemOpen.ShortcutKeys = Keys.Control | Keys.O;
             itemOpen.Click += new EventHandler(OpenClick);
             fileMenu.DropDownItems.Add(itemOpen);
+
+            itemReload = new ToolStripMenuItem("Reload");
+            itemReload.ShortcutKeys = Keys.Control | Keys.R;
+            itemReload.Click += new EventHandler(ReloadClick);
+            itemReload.Enabled = false;
+            fileMenu.DropDownItems.Add(itemReload);
 
             itemSave = new ToolStripMenuItem("Save");
             itemSave.Click += new EventHandler(SaveClick);
@@ -78,30 +85,36 @@ namespace SevenDaysProfileEditor.GUI
         {
             if (tabs > 0)
             {
+                itemReload.Enabled = true;
                 itemSave.Enabled = true;
                 itemSaveAs.Enabled = true;
                 itemClose.Enabled = true;
                 itemCloseAll.Enabled = true;
             }
-
             else
             {
+                itemReload.Enabled = false;
                 itemSave.Enabled = false;
                 itemSaveAs.Enabled = false;
                 itemClose.Enabled = false;
-                itemCloseAll.Enabled = false;             
+                itemCloseAll.Enabled = false;
             }
         }
 
-        private void OpenClick(object sender, System.EventArgs e)
+        private void OpenClick(object sender, EventArgs e)
         {
             mainMenuActions.Open();
+        }
+
+        private void ReloadClick(object sender, EventArgs e)
+        {
+            mainMenuActions.Reload(playerTabs.GetSelectedTab());
         }
 
         private void SaveClick(object sender, EventArgs e)
         {
             if (playerTabs.GetTabCount() > 0)
-            {               
+            {
                 mainMenuActions.Save(playerTabs.GetSelectedTab());
             }
         }
@@ -129,6 +142,7 @@ namespace SevenDaysProfileEditor.GUI
                 mainMenuActions.Close(playerTabs.GetSelectedTab());
             }
         }
+
         private void CloseAllClick(object sender, EventArgs e)
         {
             foreach (PlayerTab tab in playerTabs.TabPages)

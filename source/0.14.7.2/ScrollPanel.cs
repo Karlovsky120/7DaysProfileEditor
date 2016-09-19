@@ -2,7 +2,7 @@
 
 namespace SevenDaysProfileEditor.GUI
 {
-    class ScrollPanel : TableLayoutPanel
+    internal class ScrollPanel : TableLayoutPanel
     {
         public ScrollPanel()
         {

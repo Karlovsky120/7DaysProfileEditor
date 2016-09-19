@@ -1,12 +1,11 @@
 ﻿using SevenDaysProfileEditor.Inventory;
-using SevenDaysProfileEditor.Quests;
 using SevenDaysProfileEditor.Skills;
 using System.Collections.Generic;
 using System.Xml;
 
 namespace SevenDaysProfileEditor.Data
 {
-    class XmlData
+    internal class XmlData
     {
         public static void GetBlocks()
         {
@@ -99,7 +98,6 @@ namespace SevenDaysProfileEditor.Data
                     {
                         itemData.isDeveloper = developerNode.Attributes[1].Value.Equals("true");
                     }
-
                     else
                     {
                         itemData.isDeveloper = false;
@@ -112,12 +110,10 @@ namespace SevenDaysProfileEditor.Data
                     {
                         itemData.stackNumber = int.Parse(stackNumberNode.Attributes[1].Value);
                     }
-
                     else if (partsNode != null || attributesNode != null)
                     {
                         itemData.stackNumber = 1;
                     }
-
                     else if (itemData.stackNumber == 0)
                     {
                         itemData.stackNumber = ItemData.DEFAULT_STACKNUMBER;
@@ -144,7 +140,6 @@ namespace SevenDaysProfileEditor.Data
 
                         if (attachmentsNode != null)
                         {
-
                             itemData.attachmentNames = attachmentsNode.Attributes[1].Value.Split(',');
                         }
 
@@ -169,7 +164,6 @@ namespace SevenDaysProfileEditor.Data
                     {
                         IconData.itemIconDictionary.TryGetValue(customIconNode.Attributes[1].Value, out itemData.iconPixels);
                     }
-
                     else if (IconData.itemIconDictionary.ContainsKey(itemData.name))
                     {
                         IconData.itemIconDictionary.TryGetValue(itemData.name, out itemData.iconPixels);
@@ -231,22 +225,18 @@ namespace SevenDaysProfileEditor.Data
                 {
                     skillData.type = SkillType.PlayerSkill;
                 }
-
                 else if (skillNode.Name.Equals("action_skill"))
                 {
                     skillData.type = SkillType.ActionSkill;
                 }
-
                 else if (skillNode.Name.Equals("perk"))
                 {
                     skillData.type = SkillType.Perk;
                 }
-
                 else if (skillNode.Name.Equals("crafting_skill"))
                 {
                     skillData.type = SkillType.CraftingSkill;
                 }
-
                 else
                 {
                     continue;
@@ -267,7 +257,6 @@ namespace SevenDaysProfileEditor.Data
                 {
                     skillData.maxLevel = int.Parse(maxLevelAttr.Value);
                 }
-
                 else
                 {
                     skillData.maxLevel = SkillData.maxLevelDefault;
@@ -278,12 +267,10 @@ namespace SevenDaysProfileEditor.Data
                 {
                     skillData.expToLevel = int.Parse(expToLevelAttr.Value);
                 }
-
                 else if (skillData.type == SkillType.Perk)
                 {
                     skillData.expToLevel = 0;
                 }
-
                 else
                 {
                     skillData.expToLevel = SkillData.expToLevelDefault;
@@ -317,7 +304,6 @@ namespace SevenDaysProfileEditor.Data
                             requiredSkillName = requiredSkillNameAttr.Value;
                             requiredSkillLevel = int.Parse(requiredSkillLevelAttr.Value);
                         }
-
                         else
                         {
                             requiredSkillName = "Player Level";
@@ -326,7 +312,6 @@ namespace SevenDaysProfileEditor.Data
 
                         skillData.requirements.Add(new Requirement(perkLevel, requiredSkillName, requiredSkillLevel));
                     }
-
                     else if (skillNode.ChildNodes[i].Name.Equals("recipe"))
                     {
                         XmlNode recipeNode = skillNode.ChildNodes[i];
@@ -339,71 +324,6 @@ namespace SevenDaysProfileEditor.Data
                 }
 
                 skillList.Add(skillData);
-            }
-        }
-
-        public static void GetQuests()
-        {
-            List<QuestData> questList = QuestData.questList;
-            XmlDocument document = new XmlDocument();
-            document.Load(Config.GetSetting("gameRoot") + "\\Data\\Config\\quests.xml");
-
-            int count = 0;
-            XmlNode questsNode;
-
-            do
-            {
-                questsNode = document.ChildNodes[count];
-                count++;
-            } while (!questsNode.Name.Equals("quests"));
-
-            foreach (XmlNode questNode in questsNode.ChildNodes)
-            {
-                if (questNode.Name.Equals("quest"))
-                {
-                    QuestData questData = new QuestData();
-
-                    questData.id = GetAttribute(questNode, "id").Value;
-                    questData.categoryKey = GetAttribute(questNode, "category_key").Value;
-                    questData.objectives = new List<ObjectiveData>();
-
-                    foreach (XmlNode objectiveNode in questNode.ChildNodes)
-                    {
-                        if (objectiveNode.Name.Equals("objective"))
-                        {
-                            ObjectiveData objectiveData = new ObjectiveData();
-
-                            string type = GetAttribute(objectiveNode, "type").Value;
-
-                            XmlAttribute idAttr = GetAttribute(objectiveNode, "id");
-                            string id = "";
-                            if (idAttr != null)
-                            {
-                                id = " " + idAttr.Value;
-                            }
-
-                            objectiveData.name = type + id;
-
-                            //if single value, stored in maxValue
-                            XmlAttribute valueAttr = GetAttribute(objectiveNode, "value");
-                            objectiveData.minValue = 0;
-                            objectiveData.maxValue = 0;
-                            if (valueAttr != null)
-                            {
-                                if (!int.TryParse(valueAttr.Value, out objectiveData.maxValue))
-                                {
-                                    string[] values = valueAttr.Value.Split('-');
-                                    objectiveData.minValue = int.Parse(values[0]);
-                                    objectiveData.maxValue = int.Parse(values[1]);
-                                }
-                            }
-
-                            questData.objectives.Add(objectiveData);
-                        }
-                    }
-
-                    questList.Add(questData);
-                }
             }
         }
 

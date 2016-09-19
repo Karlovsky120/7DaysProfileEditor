@@ -5,11 +5,12 @@ using System.Windows.Forms;
 
 namespace SevenDaysProfileEditor.Inventory
 {
-    public class AttachmentSlot : InventorySlot
+    public class InventorySlotAttachment : InventorySlotBase
     {
-        private ItemSlot parent;
+        private InventorySlotItem parent;
 
-        public AttachmentSlot(ItemBinder itemBinder, ItemSlot parent, int partIndex, int textBoxWidth, int labeledControlWidth) : base(itemBinder, textBoxWidth, labeledControlWidth)
+        public InventorySlotAttachment(ItemBinder itemBinder, InventorySlotItem parent, int partIndex, int textBoxWidth, int labeledControlWidth)
+            : base(itemBinder, textBoxWidth, labeledControlWidth)
         {
             this.parent = parent;
 
@@ -25,7 +26,7 @@ namespace SevenDaysProfileEditor.Inventory
 
             itemCore = new TableLayoutPanel();
             itemCore.Anchor = AnchorStyles.Right;
-            itemCore.AutoSize = true;
+            itemCore.Size = new Size(200, 100);
 
             CreateSelector(new string[] { parent.itemBinder.attachmentNames[partIndex], "air" });
             selector.DropDownStyle = ComboBoxStyle.DropDownList;

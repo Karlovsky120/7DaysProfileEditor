@@ -1,13 +1,12 @@
 ﻿using SevenDaysSaveManipulator.GameData;
-using System;
 
 namespace SevenDaysProfileEditor.GUI
 {
-    public class TextBoxIntPercentage : TextBoxInt
+    public class PercentageIntegerTextBox : NumericTextBox<int>
     {
         private int realMax;
 
-        public override void Update(object sender, EventArgs e)
+        public override void UpdateTextBox()
         {
             int newValue;
 
@@ -21,7 +20,6 @@ namespace SevenDaysProfileEditor.GUI
                 value.Set((int)((newValue * realMax) / 100));
                 Text = newValue.ToString();
             }
-
             else
             {
                 Text = newValue.ToString();
@@ -29,7 +27,8 @@ namespace SevenDaysProfileEditor.GUI
             }
         }
 
-        public TextBoxIntPercentage(Value<int> value, int realMax, int width) : base(value, 0, 100, width)
+        public PercentageIntegerTextBox(Value<int> value, int realMax, int width)
+            : base(value, 0, 100, width)
         {
             this.realMax = realMax;
 

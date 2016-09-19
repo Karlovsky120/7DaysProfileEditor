@@ -7,9 +7,9 @@ using System.Windows.Forms;
 
 namespace SevenDaysProfileEditor.Skills
 {
-    class SkillsTab : TabPage, IInitializable, IValueListener<int>, IValueListener<uint>
+    internal class SkillsTab : TabPage, IInitializable, IValueListener<int>, IValueListener<uint>
     {
-        private PlayerDataFile playerDataFile;       
+        private PlayerDataFile playerDataFile;
         private TableLayoutPanel panel;
 
         private List<SkillSlot> skillSlots;
@@ -20,7 +20,7 @@ namespace SevenDaysProfileEditor.Skills
         {
             Text = "Skills";
 
-            this.playerDataFile = playerDataFile;          
+            this.playerDataFile = playerDataFile;
         }
 
         public void Initialize()
@@ -34,14 +34,14 @@ namespace SevenDaysProfileEditor.Skills
             general.Size = new Size(478, 36);
             general.Anchor = AnchorStyles.Top;
 
-            LabeledControl LabeledPlayerLevelBox = new LabeledControl("Player level", new TextBoxInt(playerDataFile.level, 1, SkillData.maxPlayerLevel, 80), 150);
+            LabeledControl LabeledPlayerLevelBox = new LabeledControl("Player level", new NumericTextBox<int>(playerDataFile.level, 1, SkillData.maxPlayerLevel, 80), 150);
             playerDataFile.level.AddListener(this);
             general.Controls.Add(LabeledPlayerLevelBox, 0, 0);
 
-            LabeledControl LabeledSkillPointsBox = new LabeledControl("Skill points", new TextBoxInt(playerDataFile.skillPoints, 0, int.MaxValue, 80), 150);
+            LabeledControl LabeledSkillPointsBox = new LabeledControl("Skill points", new NumericTextBox<int>(playerDataFile.skillPoints, 0, int.MaxValue, 80), 150);
             general.Controls.Add(LabeledSkillPointsBox, 1, 0);
 
-            LabeledControl LabeledExperienceBox = new LabeledControl("Experience", new TextBoxUInt(playerDataFile.experience, 0u, (uint)(SkillData.expToPlayerLevel * SkillData.maxPlayerLevel), 80), 150);
+            LabeledControl LabeledExperienceBox = new LabeledControl("Experience", new NumericTextBox<uint>(playerDataFile.experience, 0u, (uint)(SkillData.expToPlayerLevel * SkillData.maxPlayerLevel), 80), 150);
             playerDataFile.experience.AddListener(this);
             general.Controls.Add(LabeledExperienceBox, 2, 0);
 
@@ -77,7 +77,7 @@ namespace SevenDaysProfileEditor.Skills
             skillSlots = new List<SkillSlot>();
             int i = 0;
 
-            foreach(KeyValuePair<int, Skill> skillEntry in playerDataFile.skills.skillDictionary)
+            foreach (KeyValuePair<int, Skill> skillEntry in playerDataFile.skills.skillDictionary)
             {
                 SkillSlot skillSlot = new SkillSlot(new SkillBinder(skillEntry.Value, playerDataFile.level, playerDataFile.unlockedRecipeList));
 

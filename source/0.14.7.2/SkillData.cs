@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace SevenDaysProfileEditor.Skills
 {
-    enum SkillType
+    internal enum SkillType
     {
         PlayerSkill,
         ActionSkill,
@@ -12,7 +12,7 @@ namespace SevenDaysProfileEditor.Skills
         Perk
     }
 
-    class SkillData
+    internal class SkillData
     {
         public static List<SkillData> skillList = new List<SkillData>();
 

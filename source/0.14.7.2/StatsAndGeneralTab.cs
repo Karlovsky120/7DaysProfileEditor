@@ -5,16 +5,16 @@ using System.Windows.Forms;
 
 namespace SevenDaysProfileEditor.Stats
 {
-    class StatsAndGeneralTab : TabPage, IInitializable
+    internal class StatsAndGeneralTab : TabPage, IInitializable
     {
         private PlayerDataFile playerDataFile;
         private TableLayoutPanel panel;
 
         public StatsAndGeneralTab(PlayerDataFile playerDataFile)
         {
-            Text = "Stats & General";   
+            Text = "Stats & General";
 
-            this.playerDataFile = playerDataFile;               
+            this.playerDataFile = playerDataFile;
         }
 
         public void Initialize()

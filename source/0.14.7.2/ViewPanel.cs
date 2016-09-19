@@ -12,7 +12,7 @@ namespace SevenDaysProfileEditor.Inventory
         public ViewPanel(int index, InventoryTab inventoryTab)
         {
             this.index = index;
-            this.tabInventory = inventoryTab;           
+            this.tabInventory = inventoryTab;
 
             Size cellSize = new Size(IconData.ICON_WIDTH, IconData.ICON_HEIGHT);
             Size = cellSize;

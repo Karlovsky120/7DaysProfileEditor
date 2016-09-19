@@ -6,14 +6,14 @@ using System.Windows.Forms;
 
 namespace SevenDaysProfileEditor.Stats
 {
-    class StatSlot : TableLayoutPanel, IValueListener<float>
+    internal class StatSlot : TableLayoutPanel, IValueListener<float>
     {
         private Stat stat;
         private string statName;
         private float min;
         private Stat max;
 
-        private TextBoxFloat valueBox;
+        private NumericTextBox<float> valueBox;
 
         private void GenerateSlot()
         {
@@ -28,7 +28,7 @@ namespace SevenDaysProfileEditor.Stats
                 max.value.AddListener(this);
             }
 
-            valueBox = new TextBoxFloat(stat.value, min, maxValue, 60);
+            valueBox = new NumericTextBox<float>(stat.value, min, maxValue, 60);
             LabeledControl labeledValueBox = new LabeledControl(statName, valueBox, 190);
             stat.value.AddListener(this);
 
@@ -53,7 +53,6 @@ namespace SevenDaysProfileEditor.Stats
             {
                 stat.originalValue.Set(stat.value.Get());
             }
-
             else if (source == max.value)
             {
                 valueBox.UpdateMax(max.value.Get());

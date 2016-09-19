@@ -4,7 +4,7 @@ using System.IO;
 
 namespace SevenDaysProfileEditor.Data
 {
-    class AssetInfo
+    internal class AssetInfo
     {
         public static List<AssetInfo> assetInfoList;
 

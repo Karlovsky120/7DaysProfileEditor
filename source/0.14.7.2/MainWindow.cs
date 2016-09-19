@@ -3,7 +3,7 @@ using System.Windows.Forms;
 
 namespace SevenDaysProfileEditor.GUI
 {
-    class MainWindow : Form
+    internal class MainWindow : Form
     {
         public TopMainMenu mainMenu;
         public PlayerTabControl tabs;

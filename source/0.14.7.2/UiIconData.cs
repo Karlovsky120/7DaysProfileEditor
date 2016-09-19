@@ -1,6 +1,6 @@
 ﻿namespace SevenDaysProfileEditor.Data
 {
-    struct UIIconData
+    internal struct UIIconData
     {
         public byte[] data;
         public int width;

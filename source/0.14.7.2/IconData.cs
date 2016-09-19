@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 
 namespace SevenDaysProfileEditor.Data
 {
-    class IconData
+    internal class IconData
     {
         public static int ICON_WIDTH = 116;
         public static int ICON_HEIGHT = 80;
@@ -26,7 +26,6 @@ namespace SevenDaysProfileEditor.Data
             IconData.ReadModdedItemIcons();
             IconData.ReadDefaultItemIcons();
             IconData.ReadUIIcons();
-            
         }
 
         private static void ReadModdedItemIcons()
@@ -200,7 +199,7 @@ namespace SevenDaysProfileEditor.Data
             byte[] imagePixels = ExtractImageFromTexture(pixelReader, ICON_MAP_DIMENSION, YCoord, XCoord, ICON_WIDTH, ICON_HEIGHT);
             byte[] dummy;
 
-            if (!itemIconDictionary.TryGetValue(name, out dummy))                
+            if (!itemIconDictionary.TryGetValue(name, out dummy))
             {
                 itemIconDictionary.Add(name, imagePixels);
             }

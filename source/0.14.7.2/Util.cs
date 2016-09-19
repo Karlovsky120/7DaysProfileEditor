@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace SevenDaysProfileEditor
 {
-    class Util
+    internal class Util
     {
         public static string[] Quicksort(string[] array, int start, int end)
         {
@@ -69,12 +69,10 @@ namespace SevenDaysProfileEditor
                 {
                     return true;
                 }
-
                 else if (big < small)
                 {
                     return false;
                 }
-
                 else
                 {
                     i++;
@@ -127,4 +125,3 @@ namespace SevenDaysProfileEditor
         }
     }
 }
-

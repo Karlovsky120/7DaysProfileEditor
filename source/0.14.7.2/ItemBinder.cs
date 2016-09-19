@@ -41,21 +41,20 @@ namespace SevenDaysProfileEditor.Inventory
 
         public bool isDeveloper;
 
-
         public ItemBinder(ItemStack itemStack)
         {
             this.itemStack = itemStack;
             count = itemStack.count;
 
-            ConstructValueAndData(itemStack.itemValue);   
+            ReferenceValueAndData(itemStack.itemValue);
         }
 
         public ItemBinder(ItemValue itemValue)
         {
-            ConstructValueAndData(itemValue);
+            ReferenceValueAndData(itemValue);
         }
 
-        private void ConstructValueAndData(ItemValue itemValue)
+        private void ReferenceValueAndData(ItemValue itemValue)
         {
             this.itemValue = itemValue;
 
@@ -95,7 +94,7 @@ namespace SevenDaysProfileEditor.Inventory
 
             ItemBinder.ResetItemValue(itemData, itemValue);
 
-            ConstructValueAndData(itemValue);
+            ReferenceValueAndData(itemValue);
         }
 
         private static void ResetItemValue(ItemData itemData, ItemValue itemValue)
@@ -106,7 +105,7 @@ namespace SevenDaysProfileEditor.Inventory
             itemValue.meta = new Value<int>(0);
             itemValue.selectedAmmoTypeIndex = new Value<byte>(0);
             itemValue.activated = new Value<bool>(false);
-            itemValue.parts = new ItemValue[0];
+            itemValue.parts = new ItemValue[4];
             itemValue.attachments = new List<ItemValue>();
 
             if (itemData.name != "air")
@@ -172,7 +171,7 @@ namespace SevenDaysProfileEditor.Inventory
 
         public int GetQualityFromParts()
         {
-            if(HasAllParts())
+            if (HasAllParts())
             {
                 int quality = 0;
 
@@ -186,7 +185,6 @@ namespace SevenDaysProfileEditor.Inventory
 
             return 0;
         }
-
 
         public Bitmap GetImage(int width, int height)
         {

@@ -8,11 +8,11 @@ using System.Windows.Forms;
 
 namespace SevenDaysProfileEditor.GUI
 {
-    class MainMenuActions
+    internal class MainMenuActions
     {
-        MainWindow mainWindow;
-        PlayerTabControl playerTabControl;
-        BottomStatusBar bottomStatusBar;
+        private MainWindow mainWindow;
+        private PlayerTabControl playerTabControl;
+        private BottomStatusBar bottomStatusBar;
 
         public MainMenuActions(MainWindow mainWindow, PlayerTabControl playerTabControl, BottomStatusBar statusBar)
         {
@@ -35,64 +35,79 @@ namespace SevenDaysProfileEditor.GUI
 
                 foreach (string fileName in openFile.FileNames)
                 {
-                    PlayerDataFile playerDataFile = new PlayerDataFile(fileName);
-
-                    ItemStack[] inventory = playerDataFile.inventory;
-                    ItemStack[] bag = playerDataFile.bag;
-
-                    List<string> devItems = new List<string>();
-
-                    for (int i = 0; i < bag.Length; i++)
-                    {
-                        ItemData devItem = ItemData.GetDevItemById(bag[i].itemValue.type.Get());
-                        if (devItem != null)
-                        {
-                            devItems.Add(devItem.name + " at position: row " + ((i / 8) + 1) + ", column " + ((i % 8) + 1) + "\n");
-                        }
-                    }
-
-                    for (int i = 0; i < inventory.Length; i++)
-                    {
-                        ItemData devItem = ItemData.GetDevItemById(inventory[i].itemValue.type.Get());
-                        if (devItem != null)
-                        {
-                            devItems.Add(devItem.name + " at position: row 5, column " + (i + 1) + "\n");
-                        }
-                    }
-
-                    if (devItems.Count == 0)
-                    {
-                        try
-                        {
-                            playerTabControl.AddTab(new PlayerTab(playerDataFile, fileName));
-                        }
-
-                        catch (Exception e2)
-                        {
-                            Log.WriteError(e2);
-                            MessageBox.Show("Failed to open file " + fileName + ". " + e2.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-                    }
-
-                    else
-                    {
-                        string text = "You have following developer items in your inventory:\n";
-
-                        for (int i = 0; i < devItems.Count; i++)
-                        {
-                            text += devItems[i] + "\n";
-                        }
-
-                        text += "\nPlease remove these items before continuing.";
-
-                        MessageBox.Show(text, "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    }
+                    OpenFile(fileName, new PlayerDataFile(fileName), 0);
                 }
 
                 bottomStatusBar.Reset();
             };
 
             openFile.ShowDialog();
+        }
+
+        private void OpenFile(string fileName, PlayerDataFile playerDataFile, int selectedIndex)
+        {
+            ItemStack[] inventory = playerDataFile.inventory;
+            ItemStack[] bag = playerDataFile.bag;
+
+            List<string> devItems = new List<string>();
+
+            for (int i = 0; i < bag.Length; i++)
+            {
+                ItemData devItem = ItemData.GetDevItemById(bag[i].itemValue.type.Get());
+                if (devItem != null)
+                {
+                    devItems.Add(devItem.name + " at position: row " + ((i / 8) + 1) + ", column " + ((i % 8) + 1) + "\n");
+                }
+            }
+
+            for (int i = 0; i < inventory.Length; i++)
+            {
+                ItemData devItem = ItemData.GetDevItemById(inventory[i].itemValue.type.Get());
+                if (devItem != null)
+                {
+                    devItems.Add(devItem.name + " at position: row 5, column " + (i + 1) + "\n");
+                }
+            }
+
+            if (devItems.Count == 0)
+            {
+                try
+                {
+                    PlayerTab tab = new PlayerTab(playerDataFile, fileName, selectedIndex);
+                    playerTabControl.AddTab(tab);
+                }
+                catch (Exception e2)
+                {
+                    Log.WriteError(e2);
+                    MessageBox.Show("Failed to open file " + fileName + ". " + e2.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                string text = "You have following developer items in your inventory:\n";
+
+                for (int i = 0; i < devItems.Count; i++)
+                {
+                    text += devItems[i] + "\n";
+                }
+
+                text += "\nPlease remove these items before continuing.";
+
+                MessageBox.Show(text, "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        public void Reload(PlayerTab tab)
+        {
+            bottomStatusBar.SetText("Reloading...");
+
+            string path = tab.path;
+            int selectedIndex = tab.saveFileTabControl.SelectedIndex;
+
+            playerTabControl.TabPages.Remove(tab);
+            OpenFile(path, new PlayerDataFile(path), selectedIndex);
+
+            bottomStatusBar.Reset();
         }
 
         public void Save(PlayerTab tab)
@@ -105,8 +120,6 @@ namespace SevenDaysProfileEditor.GUI
             mainWindow.focusDummy.Focus();
 
             bottomStatusBar.SetText("Saving...");
-
-            bool success = false;
 
             try
             {
@@ -123,21 +136,18 @@ namespace SevenDaysProfileEditor.GUI
 
                 playerDataFile.Write(path);
 
-                success = true;
-            }
+                tab.path = path;
+                tab.fileName = path.Substring(path.LastIndexOf('\\') + 1);
 
+                MessageBox.Show("File " + path.Substring(path.LastIndexOf('\\') + 1) + " saved!", "Success!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
             catch (Exception e)
             {
                 Log.WriteError(e);
-                MessageBox.Show("Failed to save file " + path.Substring(path.LastIndexOf('\\')+1) + ". " + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Failed to save file " + path.Substring(path.LastIndexOf('\\') + 1) + ". " + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             bottomStatusBar.Reset();
-
-            if (success)
-            {
-                MessageBox.Show("File " + path.Substring(path.LastIndexOf('\\') + 1) + " saved!", "Success!", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
         }
 
         public void Close(PlayerTab tab)
@@ -158,8 +168,7 @@ namespace SevenDaysProfileEditor.GUI
                 default:
                     break;
             }
-
-        }        
+        }
 
         private void PostProcess(PlayerDataFile playerDataFile)
         {
