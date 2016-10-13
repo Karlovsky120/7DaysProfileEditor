@@ -10,32 +10,33 @@ namespace SevenDaysProfileEditor
     {
         private static void Initialize(string path)
         {
-            //try
-            //{
-            //AssetInfo.GenerateAssetDictionary();
-            IconData.itemIconDictionary = new System.Collections.Generic.Dictionary<string, byte[]>();
-            IconData.uiIconDictionary = new System.Collections.Generic.Dictionary<string, UIIconData>();
-            //IconData.CreateIconDictionarys();
-            /*}
+            try
+            {
+                AssetInfo.GenerateAssetDictionary();
+
+                IconData.itemIconDictionary = new System.Collections.Generic.Dictionary<string, byte[]>();
+                IconData.uiIconDictionary = new System.Collections.Generic.Dictionary<string, UIIconData>();
+                IconData.CreateIconDictionarys();
+            }
             catch (Exception e)
             {
                 Log.WriteError(e);
                 MessageBox.Show("No icons will be loaded. Failed to load asset files." + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }*/
+            }
 
-            //try
-            //{
-            XmlData.GetBlocks();
-            XmlData.GetItems();
-            XmlData.ArrangeItemList();
-            XmlData.GetSkills();
-            /*}
+            try
+            {
+                XmlData.GetBlocks();
+                XmlData.GetItems();
+                XmlData.ArrangeItemList();
+                XmlData.GetSkills();
+            }
             catch (Exception e)
             {
                 Log.WriteError(e);
                 MessageBox.Show("Failed to load XML files. " + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Environment.Exit(0);
-            }*/
+            }
         }
 
         [STAThread]
