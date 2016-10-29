@@ -32,8 +32,7 @@ namespace SevenDaysProfileEditor {
             }
             catch (Exception e) {
                 Log.WriteException(e);
-
-                MessageBox.Show(string.Format("Failed to load XML files! {0} Program will now terminate!", e.Message), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(string.Format("Failed to load XML files!\n{0}\nProgram will now terminate!", e.Message), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Environment.Exit(0);
             }
         }

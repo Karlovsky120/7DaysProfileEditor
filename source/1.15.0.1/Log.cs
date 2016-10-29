@@ -20,10 +20,12 @@ namespace SevenDaysProfileEditor {
             writer.WriteLine("Source: " + e.Source);
             writer.WriteLine("Inner Exception: " + e.InnerException);
             writer.WriteLine("Stack Trace: " + e.StackTrace);
-            writer.WriteLine("Target Site: " + e.TargetSite);
+            writer.WriteLine(string.Format("Target Site: {0}\n\n", e.TargetSite));
             writer.WriteLine();
             writer.WriteLine();
             writer.WriteLine();
+
+            writer.Close();
         }
     }
 }
