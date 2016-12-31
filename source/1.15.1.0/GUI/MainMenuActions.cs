@@ -230,7 +230,11 @@ namespace SevenDaysProfileEditor.GUI {
                 }
             }
             else {
-                string text = "You have following developer items in your inventory:\n";
+                // Split the full path into an array where the last element will be the short filename
+                string[] fullPathFileNameArray = fileName.Split('\\');
+                // Capture the short filename from the last element of the array
+                string shortFileName = fullPathFileNameArray[fullPathFileNameArray.Length - 1];
+                string text = string.Format("Player file {0} has the following developer items in their inventory:\n\n", shortFileName);
 
                 for (int i = 0; i < devItems.Count; i++) {
                     text += devItems[i] + "\n";
