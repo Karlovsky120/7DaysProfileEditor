@@ -1,0 +1,206 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{E768DEB5-B73C-4671-9B4A-2CD7420E43CC}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>_7DaysProfileEditor</RootNamespace>
+    <AssemblyName>7DaysProfileEditor</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x86'">
+    <OutputPath>bin\x86\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Config.cs" />
+    <Compile Include="Data\AssetInfo.cs" />
+    <Compile Include="Data\IconData.cs" />
+    <Compile Include="Data\UIIconData.cs" />
+    <Compile Include="Data\XmlData.cs" />
+    <Compile Include="Data\XmlNullReferenceException.cs" />
+    <Compile Include="GUI\AboutWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\BottomStatusBar.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUI\InvertedIntegerTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUI\LabeledControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUI\LabeledCoordinate.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUI\MainMenuActions.cs" />
+    <Compile Include="GUI\MainMenuStrip.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUI\MainWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GUI\NumericTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUI\PercentageIntegerTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUI\PlayerTab.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUI\PlayerTabControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUI\ScrollPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Inventory\InventorySlotAttachment.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Inventory\InventorySlotBase.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Inventory\InventorySlotItem.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Inventory\InventorySlotPart.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Inventory\InventoryTab.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Inventory\ItemBinder.cs" />
+    <Compile Include="Inventory\ItemData.cs" />
+    <Compile Include="Inventory\ViewPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Log.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Skills\Requirement.cs" />
+    <Compile Include="Skills\SkillBinder.cs" />
+    <Compile Include="Skills\SkillData.cs" />
+    <Compile Include="Skills\SkillSlot.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Skills\SkillsTab.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Skills\SkillType.cs" />
+    <Compile Include="StatsAndGeneral\LabeledSchematicRecipe.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="StatsAndGeneral\LiveStatSlot.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="StatsAndGeneral\RecipeBinder.cs" />
+    <Compile Include="StatsAndGeneral\RecipeData.cs" />
+    <Compile Include="StatsAndGeneral\SchematicsRecipesPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="StatsAndGeneral\ScorePanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="StatsAndGeneral\StatsAndGeneralTab.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="StatsAndGeneral\StatSlot.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="StatsAndGeneral\StatsPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Util.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\7DaysSaveManipulator\7DaysSaveManipulator.csproj">
+      <Project>{5358c4ca-e436-44a3-a6eb-36d2732f439f}</Project>
+      <Name>7DaysSaveManipulator</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

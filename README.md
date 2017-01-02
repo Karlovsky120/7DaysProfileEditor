@@ -6,4 +6,6 @@ It uses 7DaysSaveManipulator.dll to read and write to the *.ttp
 
 You need to have 7DaysSaveManipulator.dll in the same folder as the 7DaysProfileEditor.exe for it to work.
 
+This is released as a VS project so you can edit the source code yourselves. If you just want the program to use, go to download folder and choose the apropriate version.
+
 
