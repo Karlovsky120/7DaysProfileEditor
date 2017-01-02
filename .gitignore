@@ -47,4 +47,6 @@ Temporary Items
 .apdisk
 
 # Custom
-*/obj/*
+*.manifest
+*.pdb
+*.vshost.exe
