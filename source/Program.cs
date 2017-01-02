@@ -31,7 +31,7 @@ namespace SevenDaysProfileEditor
                 else
                 {
                     OpenFileDialog gameRootDialog = new OpenFileDialog();
-                    gameRootDialog.Title = "Tool needs to find the game exe!";
+                    gameRootDialog.Title = "Tool needs to find the 7DaysToDie.exe!";
 
                     gameRootDialog.FileOk += (sender1, e1) =>
                     {

@@ -17,6 +17,7 @@ namespace SevenDaysProfileEditor.Inventory
             panel = new TableLayoutPanel();
             
             panel.Dock = DockStyle.Fill;
+            panel.AutoScroll = true;
             panel.AutoSize = true;
             panel.RowCount = 5;
             panel.ColumnCount = 8;           

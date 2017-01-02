@@ -1,4 +1,5 @@
-﻿using SevenDaysProfileEditor.Skills;
+﻿using SevenDaysProfileEditor.Inventory;
+using SevenDaysProfileEditor.Skills;
 using SevenDaysSaveManipulator.GameData;
 using System;
 using System.Collections.Generic;
@@ -111,7 +112,49 @@ namespace SevenDaysProfileEditor.GUI
 
                 foreach (string fileName in openFile.FileNames)
                 {
-                    tabs.addTab(new TabPlayer(fileName));
+                    PlayerDataFile playerDataFile = new PlayerDataFile(fileName);
+
+                    ItemStack[] inventory = playerDataFile.inventory;
+                    ItemStack[] bag = playerDataFile.bag;
+
+                    bool hasDevItem = false;
+
+                    for (int i = 0; i < inventory.Length; i++)
+                    {
+                        if (DataItem.getDevItemById(inventory[i].itemValue.type.get()) != null)
+                        {
+                            hasDevItem = true;
+                            MessageBox.Show("You have a dev item in inventory slot row " + i / 4 + ", column " + i % 4 + ". Please remove it from inventory before using this program.");
+                            break;
+                        }
+                    }
+
+                    if (!hasDevItem)
+                    {
+                        for (int i = 0; i < bag.Length; i++)
+                        {
+                            if (DataItem.getDevItemById(bag[i].itemValue.type.get()) != null)
+                            {
+                                hasDevItem = true;
+                                MessageBox.Show("You have a dev item in toolbelt slot" + i + ". Please remove it from inventory before using this program.");
+                                break;
+                            }
+                        }
+
+                        if (!hasDevItem)
+                        {
+                            try
+                            {
+                                tabs.addTab(new TabPlayer(playerDataFile, fileName));
+                            }
+
+                            catch (Exception e2)
+                            {
+                                Log.writeError(e2);
+                                MessageBox.Show("Failed to open file " + fileName + ". " + e2.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            }
+                        }
+                    }                   
                 }
 
                 statusBar.reset();
@@ -178,38 +221,53 @@ namespace SevenDaysProfileEditor.GUI
         {
             statusBar.setText("Saving...");
 
+            bool success = false;
             string name = tab.fileName;
             string path = tab.path;
 
-            backupFile(path);
+            try
+            {   
+                backupFile(path);
 
-            if (!name.EndsWith(".ttp"))
-            {
-                name += ".ttp";
-            }
-
-            //NEED TO CHECK SKILLS TO REMOVE DEFAULTS!!!
-            PlayerDataFile copy = tab.playerDataFile.clone();
-            Dictionary<int, Skill> newSkillDictionary = new Dictionary<int, Skill>();
-
-            foreach (int key in copy.skills.skillDictionary.Keys)
-            {
-                Skill skill = null;
-                copy.skills.skillDictionary.TryGetValue(key, out skill);
-
-                if (!BinderSkill.isDefaultValues(skill))
+                if (!name.EndsWith(".ttp"))
                 {
-                    newSkillDictionary.Add(key, skill);
+                    name += ".ttp";
                 }
+
+                //NEED TO CHECK SKILLS TO REMOVE DEFAULTS!!!
+                PlayerDataFile copy = tab.playerDataFile.clone();
+                Dictionary<int, Skill> newSkillDictionary = new Dictionary<int, Skill>();
+
+                foreach (int key in copy.skills.skillDictionary.Keys)
+                {
+                    Skill skill = null;
+                    copy.skills.skillDictionary.TryGetValue(key, out skill);
+
+                    if (!BinderSkill.isDefaultValues(skill))
+                    {
+                        newSkillDictionary.Add(key, skill);
+                    }
+                }
+
+                copy.skills.skillDictionary = newSkillDictionary;
+
+                copy.Write(path);
+
+                success = true;
             }
 
-            copy.skills.skillDictionary = newSkillDictionary;
-
-            copy.Write(path);
+            catch (Exception e)
+            {
+                Log.writeError(e);
+                MessageBox.Show("Failed to save file " + name + ". " + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
             statusBar.reset();
 
-            MessageBox.Show("File " + tab.fileName + " saved!", "Success!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            if (success)
+            {
+                MessageBox.Show("File " + tab.fileName + " saved!", "Success!", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
         private void backupFile(string path)

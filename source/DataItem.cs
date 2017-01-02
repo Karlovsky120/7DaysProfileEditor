@@ -8,10 +8,11 @@ namespace SevenDaysProfileEditor.Inventory
     class DataItem
     {
         public static List<DataItem> itemList = new List<DataItem>();
+        public static List<DataItem> devItems = new List<DataItem>();
         public static string[] nameList;
 
         public const int MAX_QUALITY = 600;
-        public const int DEF_STACKNUMBER = 500;
+        public const int DEFAULT_STACKNUMBER = 500;
 
         public int id;
         public string name;
@@ -84,6 +85,19 @@ namespace SevenDaysProfileEditor.Inventory
             nameList.CopyTo(list, 0);
 
             return list;
+        }
+
+        public static DataItem getDevItemById(int id)
+        {
+            foreach (DataItem itemData in devItems)
+            {
+                if (itemData.id == id)
+                {
+                    return itemData;
+                }
+            }
+
+            return null;
         }
     }
 }

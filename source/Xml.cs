@@ -5,6 +5,7 @@ using SevenDaysSaveManipulator.GameData;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Windows.Forms;
 using System.Xml;
 
 namespace SevenDaysProfileEditor
@@ -13,10 +14,25 @@ namespace SevenDaysProfileEditor
     {       
         public static void initialize(string gameRoot)
         {
-            List<DataItem> itemList = DataItem.itemList;
-            List<DataSkill> skillList = DataSkill.skillList;
+            try
+            {
+                getBlocks(gameRoot);
+                getItems(gameRoot);
+                arrangeItemList();
+                getSkills(gameRoot);
+            }
 
-            //BLOCKS
+            catch (Exception e)
+            {
+                Log.writeError(e);
+                MessageBox.Show("Failed to load XML files. " + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                Application.Exit();
+            }
+        }
+
+        private static void getBlocks(string gameRoot)
+        {
+            List<DataItem> itemList = DataItem.itemList;
             XmlDocument document = new XmlDocument();
             document.Load(gameRoot + "\\Data\\Config\\blocks.xml");
 
@@ -36,18 +52,21 @@ namespace SevenDaysProfileEditor
 
                     if (!isDeveloper)
                     {
-                        DataItem itemData = new DataItem();
-                        itemData.id = int.Parse(block.Attributes[0].Value);
-                        itemData.name = block.Attributes[1].Value;
-                        itemData.stackNumber = 500;
+                        DataItem dataItem = new DataItem();
+                        dataItem.id = int.Parse(block.Attributes[0].Value);
+                        dataItem.name = block.Attributes[1].Value;
+                        dataItem.stackNumber = 500;
 
-                        itemList.Add(itemData);
+                        itemList.Add(dataItem);
                     }
                 }
             }
+        }
 
-            //ITEMS
-            document = new XmlDocument();
+        private static void getItems(string gameRoot)
+        {
+            List<DataItem> itemList = DataItem.itemList;
+            XmlDocument document = new XmlDocument();
             document.Load(gameRoot + "\\Data\\Config\\items.xml");
 
             XmlNode items = document.DocumentElement;
@@ -103,14 +122,14 @@ namespace SevenDaysProfileEditor
                         itemData.stackNumber = int.Parse(stackNumber.Attributes[1].Value);
                     }
 
-                    else if (attributes != null || parts != null)
+                    else if (parts != null || attributes != null)
                     {
                         itemData.stackNumber = 1;
                     }
 
                     else if (itemData.stackNumber == 0)
                     {
-                        itemData.stackNumber = DataItem.DEF_STACKNUMBER;
+                        itemData.stackNumber = DataItem.DEFAULT_STACKNUMBER;
                     }
 
                     if (repairTools != null || partType != null)
@@ -157,34 +176,43 @@ namespace SevenDaysProfileEditor
                     itemList.Add(itemData);
                 }
             }
+        }
+
+        private static void arrangeItemList()
+        {
+            List<DataItem> itemList = DataItem.itemList;
+            List<DataItem> devItems = DataItem.devItems;
 
             //REMOVE DEVELOPER ITEMS
             for (int i = 0; i < itemList.Count; i++)
             {
                 if (itemList[i].isDeveloper)
                 {
-                    itemList.Remove(itemList[i]);
+                    devItems.Add(itemList[i]);
+                    itemList.Remove(itemList[i]); 
                     i--;
                 }
             }
 
             //CREATE NAME-ONLY LIST
-            string[] nameList = new string[itemList.Count];
+            DataItem.nameList = new string[itemList.Count];
+
             int k = 0;
 
             foreach (DataItem itemData in itemList)
             {
-                nameList[k] = itemData.name;
+                DataItem.nameList[k] = itemData.name;
                 k++;
             }
 
             //SORT ITEMS
-            Util.quicksort(nameList, 0, itemList.Count);
-
-            DataItem.nameList = nameList;
-
-            //SKILLS
-            document = new XmlDocument();
+            Util.quicksort(DataItem.nameList, 0, itemList.Count);
+        }  
+        
+        private static void getSkills(string gameRoot)
+        {
+            List<DataSkill> skillList = DataSkill.skillList;
+            XmlDocument document = new XmlDocument();
             document.Load(gameRoot + "\\Data\\Config\\progression.xml");
 
             XmlNode progression = document.DocumentElement;
@@ -299,7 +327,7 @@ namespace SevenDaysProfileEditor
 
                 skillList.Add(dataSkill);
             }
-        }         
+        }  
 
         private static XmlNode getChildNodeByName(XmlNode node, string propertyName)
         {
