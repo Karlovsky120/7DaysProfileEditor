@@ -159,11 +159,10 @@ namespace SevenDaysProfileEditor.Inventory
 
         public SlotInventory(BinderItem itemBinder, string[] comboBoxList)
         {
-            BackColor = System.Drawing.Color.Red; //DEBUG
-
             this.itemBinder = itemBinder;
             list = comboBoxList;
             selectedItem = itemBinder.name;
+            CellBorderStyle = TableLayoutPanelCellBorderStyle.Single;
             Width = 230;
             Height = 160;
 

@@ -10,12 +10,9 @@ namespace SevenDaysProfileEditor.GUI
     {
         public LabeledBox(string name, Control textBox)
         {
-            BackColor = System.Drawing.Color.Coral;
-
             AutoSize = true;
 
             Label label = new Label();
-            label.BackColor = System.Drawing.Color.Chartreuse;
             label.Text = name + ":";
             label.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
 

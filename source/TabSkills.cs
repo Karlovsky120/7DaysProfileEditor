@@ -22,11 +22,9 @@ namespace SevenDaysProfileEditor.Skills
             panel = new TableLayoutPanel();
 
             panel.Dock = DockStyle.Fill;
-            panel.BackColor = System.Drawing.Color.Black;
 
             TableLayoutPanel general = new TableLayoutPanel();
             general.Dock = DockStyle.Fill;
-            general.BackColor = System.Drawing.Color.Gold;
 
             TextBoxPlayerLevel playerLevelBox = new TextBoxPlayerLevel(playerDataFile.level, 1, DataSkill.maxPlayerLevel, playerListeners);
             LabeledBox labeledPlayerLevelBox = new LabeledBox("Player level", playerLevelBox);
@@ -40,7 +38,6 @@ namespace SevenDaysProfileEditor.Skills
 
             TableLayoutPanel skillsPanel = new TableLayoutPanel();
             skillsPanel.Dock = DockStyle.Fill;
-            skillsPanel.BackColor = System.Drawing.Color.Aqua;
             skillsPanel.AutoScroll = true;
 
             List<SlotSkill> skillSlotList = new List<SlotSkill>();

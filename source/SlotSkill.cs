@@ -22,12 +22,11 @@ namespace SevenDaysProfileEditor.Skills
 
         public void generateSlot(BinderSkill binderSkill)
         {
-            BackColor = System.Drawing.Color.DeepSkyBlue;
             Width = 250;
             Height = 80;
+            CellBorderStyle = TableLayoutPanelCellBorderStyle.Single;
 
             Label name = new Label();
-            name.BackColor = System.Drawing.Color.DarkRed;
             name.Text = binderSkill.name;
             name.AutoSize = true;
 

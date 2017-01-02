@@ -19,10 +19,7 @@ namespace SevenDaysProfileEditor.Inventory
             panel.Dock = DockStyle.Fill;
             panel.AutoSize = true;
             panel.RowCount = 5;
-            panel.ColumnCount = 8;         
-
-            panel.CellBorderStyle = TableLayoutPanelCellBorderStyle.Single; //DEBUG
-            panel.BackColor = System.Drawing.Color.Yellow; //DEBUG        
+            panel.ColumnCount = 8;           
 
             for (int i = 0; i < 4; i++)
             {

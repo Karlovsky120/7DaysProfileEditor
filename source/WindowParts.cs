@@ -91,7 +91,6 @@ namespace SevenDaysProfileEditor.Inventory
 
             TableLayoutPanel mainPanel = new TableLayoutPanel();
             mainPanel.Dock = DockStyle.Fill;
-            mainPanel.BackColor = System.Drawing.Color.Yellow;
             mainPanel.CellBorderStyle = TableLayoutPanelCellBorderStyle.Single;
 
             TableLayoutPanel parts = new TableLayoutPanel();
