@@ -1,4 +1,4 @@
-# 7DaysProfileEditor
+# 7DaysProfileEditor 0.14.4.1
 Tool for editing *.ttp files made by 7 Days To Die
 
 The program is still in Alpha and is unfinished. For now, you can only change your inventory and skills.
