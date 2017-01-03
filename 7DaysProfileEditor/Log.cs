@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Text;
 
 namespace SevenDaysProfileEditor {
 
@@ -13,16 +14,32 @@ namespace SevenDaysProfileEditor {
         /// </summary>
         /// <param name="e">Exception to write</param>
         public static void WriteException(Exception e) {
-            StreamWriter writer = new StreamWriter("ProfileEditorCrash.log", true);
+            StringBuilder sb = new StringBuilder();
 
-            writer.WriteLine("Time Stamp: " + DateTime.Now.ToString());
-            writer.WriteLine("Message: " + e.Message);
-            writer.WriteLine("Source: " + e.Source);
-            writer.WriteLine("Inner Exception: " + e.InnerException);
-            writer.WriteLine("Stack Trace: " + e.StackTrace);
-            writer.WriteLine(string.Format("Target Site: {0}\n\n", e.TargetSite));
-            writer.WriteLine();
-            writer.WriteLine();
+            sb.AppendLine("Time Stamp: " + DateTime.Now.ToString());
+            sb.AppendLine("Message: " + e.Message);
+            sb.AppendLine("Source: " + e.Source);
+            sb.AppendLine("Inner Exception: " + e.InnerException);
+            sb.AppendLine("Stack Trace: " + e.StackTrace);
+            sb.AppendLine(string.Format("Target Site: {0}\n\n", e.TargetSite));
+            sb.AppendLine();
+            sb.AppendLine();
+
+            StreamWriter writer = new StreamWriter("ProfileEditor.log", true);
+
+            writer.WriteLine(sb.ToString());
+            writer.Close();
+        }
+
+        /// <summary>
+        /// A method to be called on program startup.
+        /// </summary>
+        public static void startLog() {
+            StreamWriter writer = new StreamWriter("ProfileEditor.log", true);
+
+            writer.WriteLine("-----------------------------------------------------");
+            writer.WriteLine("Log started at: " + DateTime.Now.ToString());
+            writer.WriteLine("-----------------------------------------------------");
             writer.WriteLine();
 
             writer.Close();

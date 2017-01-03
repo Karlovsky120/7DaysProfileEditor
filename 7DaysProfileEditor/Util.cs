@@ -42,7 +42,18 @@ namespace SevenDaysProfileEditor {
 
                 while (character != endingChar) {
                     charList.Add(character);
-                    character = reader.ReadChar();
+
+                    char next = (char)reader.ReadByte();
+
+                    if (Char.IsSurrogate(next))
+                    {
+                        return "Non-valid string value";
+                    }
+
+                    else
+                    {
+                        character = next;
+                    }
                 }
 
                 char[] charArray = charList.ToArray();
@@ -59,7 +70,15 @@ namespace SevenDaysProfileEditor {
                 char[] charArray = new char[length];
 
                 for (int i = 0; i < length; i++) {
-                    charArray[i] = reader.ReadChar();
+                    char next = (char)reader.ReadByte();
+
+                    if (Char.IsSurrogate(next)) {
+                        return "Non-valid string value";
+                    }
+
+                    else {
+                        charArray[i] = next;
+                    }
                 }
 
                 return new string(charArray);

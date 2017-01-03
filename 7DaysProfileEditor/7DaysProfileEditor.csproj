@@ -79,6 +79,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression.FileSystem" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -90,6 +91,7 @@
   <ItemGroup>
     <Compile Include="Config.cs" />
     <Compile Include="Data\AssetInfo.cs" />
+    <Compile Include="ErrorHandler.cs" />
     <Compile Include="Data\IconData.cs" />
     <Compile Include="Data\UIIconData.cs" />
     <Compile Include="Data\XmlData.cs" />
