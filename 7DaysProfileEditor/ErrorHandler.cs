@@ -124,13 +124,19 @@ namespace SevenDaysProfileEditor
             StreamWriter writer = new StreamWriter("errorReport\\Info.txt", true);
             writer.WriteLine();
 
-            writer.WriteLine("Currently installed mods (iconwise):");
-
             string gameRoot = Config.GetSetting("gameRoot");
+            string path = gameRoot + "\\Mods";
 
-            string[] modList = Directory.GetDirectories(Config.GetSetting("gameRoot") + "\\Mods");
-            foreach (string modName in modList) {
-                writer.WriteLine(modName.Substring(modName.LastIndexOf('\\') + 1));
+            if (Directory.Exists(path)) {
+                writer.WriteLine("Currently installed mods (iconwise):");
+
+                string[] modList = Directory.GetDirectories(path);
+                foreach (string modName in modList) {
+                    writer.WriteLine(modName.Substring(modName.LastIndexOf('\\') + 1));
+                }
+
+            } else {
+                writer.WriteLine("No mods installed");
             }
 
             writer.WriteLine();
