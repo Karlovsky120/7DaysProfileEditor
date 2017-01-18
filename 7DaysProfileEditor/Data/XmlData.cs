@@ -68,7 +68,7 @@ namespace SevenDaysProfileEditor.Data {
                     itemData.name = blockNode.Attributes[1].Value;
                     itemData.stackNumber = ItemData.DEFAULT_STACKNUMBER;
 
-                    if (IconData.itemIconDictionary.ContainsKey(itemData.name)) {
+                    if ((IconData.itemIconDictionary != null) && (IconData.itemIconDictionary.ContainsKey(itemData.name))) {
                         IconData.itemIconDictionary.TryGetValue(itemData.name, out itemData.iconPixels);
                     }
 
@@ -173,10 +173,10 @@ namespace SevenDaysProfileEditor.Data {
                         }
                     }
 
-                    if (customIconNode != null) {
+                    if ((customIconNode != null) && (IconData.itemIconDictionary != null)) {
                         IconData.itemIconDictionary.TryGetValue(customIconNode.Attributes[1].Value, out itemData.iconPixels);
                     }
-                    else if (IconData.itemIconDictionary.ContainsKey(itemData.name)) {
+                    else if ((IconData.itemIconDictionary != null) && (IconData.itemIconDictionary.ContainsKey(itemData.name))) {
                         IconData.itemIconDictionary.TryGetValue(itemData.name, out itemData.iconPixels);
                     }
 
@@ -241,8 +241,9 @@ namespace SevenDaysProfileEditor.Data {
                 XmlAttribute iconAttr = GetAttribute(skillNode, "icon");
                 if (iconAttr != null) {
                     string iconName = "ui_game_symbol_" + iconAttr.Value;
-
-                    IconData.uiIconDictionary.TryGetValue(iconName, out skillData.iconData);
+                    if (IconData.itemIconDictionary != null) {
+                        IconData.uiIconDictionary.TryGetValue(iconName, out skillData.iconData);
+                    }
                 }
 
                 XmlAttribute maxLevelAttr = GetAttribute(skillNode, "max_level");

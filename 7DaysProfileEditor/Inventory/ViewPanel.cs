@@ -20,18 +20,17 @@ namespace SevenDaysProfileEditor.Inventory {
             this.index = index;
             this.tabInventory = inventoryTab;
 
-            Size cellSize = new Size(IconData.ICON_WIDTH, IconData.ICON_HEIGHT);
-            Size = cellSize;
+            Size = new Size(IconData.ICON_WIDTH, IconData.ICON_HEIGHT);
             Margin = new Padding(0);
 
             SetImage(inventoryTab.itemBinders[index]);
 
-            MouseEnter += (sender, e) => {
-                inventoryTab.SlotEntered(index);
-            };
-
             MouseClick += (sender, e) => {
                 inventoryTab.SlotClicked(index);
+            };
+
+             MouseEnter += (sender, e) => {
+                inventoryTab.SlotEntered(index);
             };
 
             MouseLeave += (sender, e) => {
@@ -59,3 +58,4 @@ namespace SevenDaysProfileEditor.Inventory {
         }
     }
 }
+ 

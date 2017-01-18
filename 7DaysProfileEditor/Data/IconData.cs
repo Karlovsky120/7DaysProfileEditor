@@ -165,28 +165,30 @@ namespace SevenDaysProfileEditor.Data {
         private static void ReadModdedItemIcons() {
             string path = Config.GetSetting("gameRoot") + "\\Mods";
 
-            string[] modDirectories = Directory.GetDirectories(path, "*");
+            if (Directory.Exists(path)) {
+                string[] modDirectories = Directory.GetDirectories(path, "*");
 
-            foreach (string modDirectory in modDirectories) {
-                path = modDirectory + "\\ItemIcons";
+                foreach (string modDirectory in modDirectories) {
+                    path = modDirectory + "\\ItemIcons";
 
-                string[] imagePaths = Directory.GetFiles(path);
+                    string[] imagePaths = Directory.GetFiles(path);
 
-                foreach (string imagePath in imagePaths) {
-                    string name = Path.GetFileNameWithoutExtension(imagePath);
+                    foreach (string imagePath in imagePaths) {
+                        string name = Path.GetFileNameWithoutExtension(imagePath);
 
-                    Image image = Image.FromFile(imagePath);
-                    image.RotateFlip(RotateFlipType.RotateNoneFlipY);
+                        Image image = Image.FromFile(imagePath);
+                        image.RotateFlip(RotateFlipType.RotateNoneFlipY);
 
-                    MemoryStream byteStream = new MemoryStream();
-                    image.Save(byteStream, ImageFormat.Bmp);
+                        MemoryStream byteStream = new MemoryStream();
+                        image.Save(byteStream, ImageFormat.Bmp);
 
-                    byte[] pngBytes = byteStream.ToArray();
-                    byte[] bmpBytes = new byte[ICON_BYTE_LENGTH];
+                        byte[] pngBytes = byteStream.ToArray();
+                        byte[] bmpBytes = new byte[ICON_BYTE_LENGTH];
 
-                    Array.Copy(pngBytes, 54, bmpBytes, 0, ICON_BYTE_LENGTH);
+                        Array.Copy(pngBytes, 54, bmpBytes, 0, ICON_BYTE_LENGTH);
 
-                    itemIconDictionary.Add(name, bmpBytes);
+                        itemIconDictionary.Add(name, bmpBytes);
+                    }
                 }
             }
         }

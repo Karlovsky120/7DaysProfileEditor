@@ -71,19 +71,21 @@ namespace SevenDaysProfileEditor {
                 else {
                     OpenFileDialog gameRootDialog = new OpenFileDialog() {
                         Title = "Tool needs to find the 7DaysToDie.exe!",
-                        Filter = "7DaysToDie.exe|7DaysToDie.exe"
+                        Filter = "7DaysToDie.exe|7DaysToDie.exe",
+                        CheckFileExists = true
                     };
 
                     gameRootDialog.FileOk += (sender1, e1) => {
                         gameRoot = gameRootDialog.FileName.Substring(0, gameRootDialog.FileName.LastIndexOf('\\'));
                         Config.SetSetting("gameRoot", gameRoot);
-                        Start(window);
                     };
 
                     if (gameRootDialog.ShowDialog() != DialogResult.OK) {
                         Application.Exit();
                         return;
                     }
+
+                    Start(window);
                 }
             }
             else {
