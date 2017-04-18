@@ -1,5 +1,5 @@
 ﻿using SevenDaysSaveManipulator;
-using SevenDaysSaveManipulator.GameData;
+using SevenDaysSaveManipulator.PlayerData;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -21,7 +21,7 @@ namespace SevenDaysProfileEditor.StatsAndGeneral {
         /// <param name="recipeBinder">RecipeBinder to display</param>
         /// <param name="unlockedRecipesList">List of all unlocked recipes in playerDataFile</param>
         public LabeledSchematicRecipe(RecipeBinder recipeBinder, List<string> unlockedRecipesList) {
-            AutoSize = true;
+            Size = new Size(180, 20);
 
             this.recipeBinder = recipeBinder;
             recipeBinder.unlocked.AddListener(this);
@@ -35,7 +35,7 @@ namespace SevenDaysProfileEditor.StatsAndGeneral {
                 Text = recipeBinder.recipeData.name,
                 TextAlign = ContentAlignment.MiddleLeft,
                 AutoSize = true,
-                Anchor = AnchorStyles.None
+                Anchor = AnchorStyles.Left,
             };
 
             Controls.Add(recipeNameLabel, 1, 0);

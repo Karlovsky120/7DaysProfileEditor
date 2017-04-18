@@ -1,6 +1,6 @@
 ﻿using SevenDaysProfileEditor.Inventory;
 using SevenDaysProfileEditor.Skills;
-using SevenDaysSaveManipulator.GameData;
+using SevenDaysSaveManipulator.PlayerData;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -126,8 +126,7 @@ namespace SevenDaysProfileEditor.GUI {
                 MessageBox.Show(string.Format("File {0} saved!", path.Substring(path.LastIndexOf('\\') + 1)), "Success!", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             catch (Exception e) {
-                Log.WriteException(e);
-                MessageBox.Show(string.Format("Failed to save file {0}. {1}", path.Substring(path.LastIndexOf('\\') + 1), e.Message), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ErrorHandler.HandleError(string.Format("Failed to save file {0}. {1}", path.Substring(path.LastIndexOf('\\') + 1), e.Message), e, true, tab.path);
             }
 
             bottomStatusBar.Reset();
@@ -224,9 +223,8 @@ namespace SevenDaysProfileEditor.GUI {
                     PlayerTab tab = new PlayerTab(playerDataFile, fileName, selectedIndex);
                     playerTabControl.AddTab(tab);
                 }
-                catch (Exception e2) {
-                    Log.WriteException(e2);
-                    MessageBox.Show(string.Format("Failed to open file {0}. {1}", fileName, e2.Message), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                catch (Exception e) {
+                    ErrorHandler.HandleError(string.Format("Failed to open file {0}. {1}", fileName, e.Message), e, true, fileName);
                 }
             }
             else {

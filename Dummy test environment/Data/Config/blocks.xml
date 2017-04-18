@@ -688,6 +688,7 @@ group desc for stuff like metal siding
 	<property name="IsDeveloper" value="true" />
 	<property name="CustomIcon" value="blueberrySeed" />
 	<property name="Material" value="plants" />
+	<property name="LightOpacity" value="0" />
 	<property name="StabilitySupport" value="false" />
 	<property name="Shape" value="BillboardPlant" />
 	<property name="Mesh" value="grass" />
@@ -711,6 +712,7 @@ group desc for stuff like metal siding
 <block id="120" name="cropsHarvestableMaster">
 	<property name="IsDeveloper" value="true" />
 	<property name="Material" value="plants" />
+	<property name="LightOpacity" value="0" />
 	<property name="StabilitySupport" value="false" />
 	<property name="Shape" value="BillboardPlant" />
 	<property name="Mesh" value="grass" />
@@ -845,6 +847,7 @@ group desc for stuff like metal siding
 	<property name="Class" value="ModelTree" />
 	<property name="Shape" value="ModelTree" />
 	<property name="Material" value="treeWoodSmall" />
+	<property name="LightOpacity" value="0" />
 	<property name="Texture" value="116" />
 	<property name="IsDeveloper" value="true" />
 	<property name="CanPlayersSpawnOn" value="false" />
@@ -4472,6 +4475,7 @@ kind of free
 
 <block id="530" name="plantedMushroom1">
 	<property name="Material" value="Mmushrooms" />
+	<property name="LightOpacity" value="0" />
 	<property name="Shape" value="Ext3dModel" />
 	<property name="Mesh" value="models" />
 	<property name="Texture" value="241" />
@@ -7837,6 +7841,7 @@ kind of free
 <block id="903" name="plantedCornDead"> <!-- dead corn for prefab use -->
 	<property name="CustomIcon" value="plantedCorn3Harvest" /> <property name="CustomIconTint" value="ffffa0" />
 	<property name="Material" value="Mcorn" />
+	<property name="LightOpacity" value="0" />
 	<property name="StabilitySupport" value="false" />
 	<property name="Shape" value="New" />
 	<property name="Model" value="corn_dead_shape" />

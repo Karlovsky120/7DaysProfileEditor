@@ -17,6 +17,7 @@ namespace SevenDaysProfileEditor.GUI {
         private ToolStripMenuItem itemReload;
         private ToolStripMenuItem itemSave;
         private ToolStripMenuItem itemSaveAs;
+        private ToolStripMenuItem itemSendReport;
         private PlayerTabControl playerTabs;
 
         /// <summary>
@@ -79,6 +80,10 @@ namespace SevenDaysProfileEditor.GUI {
             Items.Add(fileMenu);
 
             ToolStripMenuItem helpMenu = new ToolStripMenuItem("Help");
+
+            itemSendReport = new ToolStripMenuItem("Send error report");
+            itemSendReport.Click += new EventHandler(sendReportClick);
+            helpMenu.DropDownItems.Add(itemSendReport);
 
             itemAbout = new ToolStripMenuItem("About");
             itemAbout.Click += new EventHandler(AboutClick);
@@ -197,6 +202,22 @@ namespace SevenDaysProfileEditor.GUI {
             if (playerTabs.GetTabCount() > 0) {
                 mainMenuActions.Save(playerTabs.GetSelectedTab());
             }
+        }
+
+        /// <summary>
+        /// Event handler for save error report button.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void sendReportClick(object sender, EventArgs e) {
+
+            string path = "";
+
+            if (playerTabs.GetTabCount() > 0) {
+                path = playerTabs.GetSelectedTab().path;
+            }
+
+            ErrorHandler.SaveReport(path);
         }
     }
 }

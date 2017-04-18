@@ -1,7 +1,7 @@
 ﻿using SevenDaysProfileEditor.Inventory;
 using SevenDaysProfileEditor.Skills;
 using SevenDaysProfileEditor.StatsAndGeneral;
-using SevenDaysSaveManipulator.GameData;
+using SevenDaysSaveManipulator.PlayerData;
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;

@@ -1,5 +1,5 @@
 ﻿using SevenDaysProfileEditor.GUI;
-using SevenDaysSaveManipulator.GameData;
+using SevenDaysSaveManipulator.PlayerData;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
@@ -69,6 +69,12 @@ namespace SevenDaysProfileEditor.Inventory {
                 Size = new Size(946, 412)
             };
 
+            inventoryDisplay.MouseLeave += (sender, e) => {
+                itemView.Controls.RemoveAt(0);
+                itemView.Controls.Add(itemSlots[activeIndex]);
+                itemSlots[activeIndex].OverrideBug();
+            };
+
             for (int i = 0; i < 40; i++) {
                 inventoryDisplay.Controls.Add(viewPanels[i], i % 8, i / 8);
             }
@@ -112,9 +118,9 @@ namespace SevenDaysProfileEditor.Inventory {
             else {
                 viewPanels[index].BackColor = default(Color);
 
-                itemView.Controls.RemoveAt(0);
-                itemView.Controls.Add(itemSlots[activeIndex]);
-                itemSlots[activeIndex].OverrideBug();
+                //itemView.Controls.RemoveAt(0);
+                /*itemView.Controls.Add(itemSlots[activeIndex]);
+                itemSlots[activeIndex].OverrideBug();*/
             }
         }
 

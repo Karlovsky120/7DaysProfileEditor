@@ -1,4 +1,4 @@
-﻿using SevenDaysSaveManipulator.GameData;
+﻿using SevenDaysSaveManipulator.PlayerData;
 
 namespace SevenDaysProfileEditor.GUI {
 

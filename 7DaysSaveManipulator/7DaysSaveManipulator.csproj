@@ -7,7 +7,7 @@
     <ProjectGuid>{5358C4CA-E436-44A3-A6EB-36D2732F439F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>_7DaysSaveManipulator</RootNamespace>
+    <RootNamespace>SevenDaysSaveManipulator</RootNamespace>
     <AssemblyName>7DaysSaveManipulator</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -73,6 +73,9 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>bin\x86\Debug\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -83,61 +86,85 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BaseObjective.cs" />
-    <Compile Include="BodyDamage.cs" />
-    <Compile Include="Buff.cs" />
-    <Compile Include="BuffDescriptor.cs" />
-    <Compile Include="BuffModifier.cs" />
-    <Compile Include="BuffModifierSetTickRate.cs" />
-    <Compile Include="BuffTimer.cs" />
-    <Compile Include="BuffTimerDuration.cs" />
-    <Compile Include="BuffTimerNull.cs" />
-    <Compile Include="BuffTimerScheduled.cs" />
-    <Compile Include="Colour.cs" />
-    <Compile Include="CraftingData.cs" />
-    <Compile Include="EntityCreationData.cs" />
-    <Compile Include="EntityStats.cs" />
-    <Compile Include="EnumBuffCategoryFlags.cs" />
-    <Compile Include="EnumBuffClassId.cs" />
-    <Compile Include="EnumBuffModifierClassId.cs" />
-    <Compile Include="EnumBuffTimerClassId.cs" />
-    <Compile Include="EnumSpawnerSource.cs" />
-    <Compile Include="EnumStatModifierClassId.cs" />
-    <Compile Include="Equipment.cs" />
-    <Compile Include="ItemStack.cs" />
-    <Compile Include="ItemValue.cs" />
-    <Compile Include="IValueListener.cs" />
-    <Compile Include="JournalEntry.cs" />
-    <Compile Include="LiveStats.cs" />
-    <Compile Include="MultiBuff.cs" />
-    <Compile Include="MultiBuffAction.cs" />
-    <Compile Include="MultiBuffPrefabAttachmentDescriptor.cs" />
-    <Compile Include="MultiBuffVariable.cs" />
-    <Compile Include="PlayerDataFile.cs" />
-    <Compile Include="PlayerJournal.cs" />
-    <Compile Include="PlayerProfile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Quest.cs" />
-    <Compile Include="QuestJournal.cs" />
-    <Compile Include="Recipe.cs" />
-    <Compile Include="RecipeQueueItem.cs" />
-    <Compile Include="Skill.cs" />
-    <Compile Include="Skills.cs" />
-    <Compile Include="Stat.cs" />
-    <Compile Include="StatModifier.cs" />
-    <Compile Include="StatModifierMax.cs" />
-    <Compile Include="StatModifierModifyValue.cs" />
-    <Compile Include="StatModifierMulValue.cs" />
-    <Compile Include="StatModifierSetValue.cs" />
-    <Compile Include="StatModifierValueOT.cs" />
-    <Compile Include="TileEntityLootContainer.cs" />
-    <Compile Include="Utils.cs" />
-    <Compile Include="Value.cs" />
-    <Compile Include="Vector3D.cs" />
-    <Compile Include="Waypoint.cs" />
-    <Compile Include="WaypointCollection.cs" />
+    <Compile Include="source\PlayerData\BaseObjective.cs" />
+    <Compile Include="source\PlayerData\BodyDamage.cs" />
+    <Compile Include="source\PlayerData\Buff.cs" />
+    <Compile Include="source\PlayerData\BuffDescriptor.cs" />
+    <Compile Include="source\PlayerData\BuffModifier.cs" />
+    <Compile Include="source\PlayerData\BuffModifierSetTickRate.cs" />
+    <Compile Include="source\PlayerData\BuffTimer.cs" />
+    <Compile Include="source\PlayerData\BuffTimerDuration.cs" />
+    <Compile Include="source\PlayerData\BuffTimerNull.cs" />
+    <Compile Include="source\PlayerData\BuffTimerScheduled.cs" />
+    <Compile Include="source\PlayerData\Colour.cs" />
+    <Compile Include="source\PlayerData\CraftingData.cs" />
+    <Compile Include="source\PlayerData\EntityCreationData.cs" />
+    <Compile Include="source\PlayerData\EntityStats.cs" />
+    <Compile Include="source\PlayerData\EnumBuffCategoryFlags.cs" />
+    <Compile Include="source\PlayerData\EnumBuffClassId.cs" />
+    <Compile Include="source\PlayerData\EnumBuffModifierClassId.cs" />
+    <Compile Include="source\PlayerData\EnumBuffTimerClassId.cs" />
+    <Compile Include="source\PlayerData\EnumSpawnerSource.cs" />
+    <Compile Include="source\PlayerData\EnumStatModifierClassId.cs" />
+    <Compile Include="source\PlayerData\Equipment.cs" />
+    <Compile Include="source\PlayerData\ItemStack.cs" />
+    <Compile Include="source\PlayerData\ItemValue.cs" />
+    <Compile Include="source\PlayerData\IValueListener.cs" />
+    <Compile Include="source\PlayerData\JournalEntry.cs" />
+    <Compile Include="source\PlayerData\LiveStats.cs" />
+    <Compile Include="source\PlayerData\MultiBuff.cs" />
+    <Compile Include="source\PlayerData\MultiBuffAction.cs" />
+    <Compile Include="source\PlayerData\MultiBuffPrefabAttachmentDescriptor.cs" />
+    <Compile Include="source\PlayerData\MultiBuffVariable.cs" />
+    <Compile Include="source\PlayerData\PlayerDataFile.cs" />
+    <Compile Include="source\PlayerData\PlayerJournal.cs" />
+    <Compile Include="source\PlayerData\PlayerProfile.cs" />
+    <Compile Include="source\PlayerData\Quest.cs" />
+    <Compile Include="source\PlayerData\QuestJournal.cs" />
+    <Compile Include="source\PlayerData\Recipe.cs" />
+    <Compile Include="source\PlayerData\RecipeQueueItem.cs" />
+    <Compile Include="source\PlayerData\Skill.cs" />
+    <Compile Include="source\PlayerData\Skills.cs" />
+    <Compile Include="source\PlayerData\Stat.cs" />
+    <Compile Include="source\PlayerData\StatModifier.cs" />
+    <Compile Include="source\PlayerData\StatModifierMax.cs" />
+    <Compile Include="source\PlayerData\StatModifierModifyValue.cs" />
+    <Compile Include="source\PlayerData\StatModifierMulValue.cs" />
+    <Compile Include="source\PlayerData\StatModifierSetValue.cs" />
+    <Compile Include="source\PlayerData\StatModifierValueOT.cs" />
+    <Compile Include="source\PlayerData\Utils.cs" />
+    <Compile Include="source\PlayerData\Value.cs" />
+    <Compile Include="source\PlayerData\Vector3D.cs" />
+    <Compile Include="source\PlayerData\Waypoint.cs" />
+    <Compile Include="source\PlayerData\WaypointCollection.cs" />
+    <Compile Include="source\RegionData\CBCLayer.cs" />
+    <Compile Include="source\RegionData\Chunk.cs" />
+    <Compile Include="source\RegionData\ChunkBlockChannel.cs" />
+    <Compile Include="source\RegionData\ChunkBlockLayer.cs" />
+    <Compile Include="source\RegionData\ChunkCustomData.cs" />
+    <Compile Include="source\RegionData\EntitySpawner.cs" />
+    <Compile Include="source\RegionData\Region.cs" />
+    <Compile Include="source\RegionData\TileEntity.cs" />
+    <Compile Include="source\RegionData\TileEntityCampfire.cs" />
+    <Compile Include="source\RegionData\TileEntityForge.cs" />
+    <Compile Include="source\RegionData\TileEntityLootContainer.cs" />
+    <Compile Include="source\RegionData\TileEntitySecure.cs" />
+    <Compile Include="source\RegionData\TileEntitySecureDoor.cs" />
+    <Compile Include="source\RegionData\TileEntitySecureLootContainer.cs" />
+    <Compile Include="source\RegionData\TileEntitySign.cs" />
+    <Compile Include="source\RegionData\TileEntityTrader.cs" />
+    <Compile Include="source\RegionData\TileEntityType.cs" />
+    <Compile Include="source\RegionData\TileEntityVendingMachine.cs" />
+    <Compile Include="source\RegionData\TileEntityWorkstation.cs" />
+    <Compile Include="source\RegionData\TraderData.cs" />
+    <Compile Include="source\RegionData\Utils.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

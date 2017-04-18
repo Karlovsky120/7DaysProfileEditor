@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\MSBuild.ILMerge.Task.1.0.5\build\MSBuild.ILMerge.Task.props" Condition="Exists('..\packages\MSBuild.ILMerge.Task.1.0.5\build\MSBuild.ILMerge.Task.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -12,6 +13,8 @@
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -92,107 +95,107 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Config.cs" />
-    <Compile Include="Data\AssetInfo.cs" />
-    <Compile Include="ErrorHandler.cs" />
-    <Compile Include="Data\IconData.cs" />
-    <Compile Include="Data\UIIconData.cs" />
-    <Compile Include="Data\XmlData.cs" />
-    <Compile Include="Data\XmlNullReferenceException.cs" />
-    <Compile Include="GUI\AboutWindow.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GUI\BottomStatusBar.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="GUI\InvertedIntegerTextBox.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="GUI\LabeledControl.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="GUI\LabeledCoordinate.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="GUI\MainMenuActions.cs" />
-    <Compile Include="GUI\MainMenuStrip.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="GUI\MainWindow.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="GUI\NumericTextBox.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="GUI\PercentageIntegerTextBox.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="GUI\PlayerTab.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="GUI\PlayerTabControl.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="GUI\ScrollPanel.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Inventory\InventorySlotAttachment.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Inventory\InventorySlotBase.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Inventory\InventorySlotItem.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Inventory\InventorySlotPart.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Inventory\InventoryTab.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Inventory\ItemBinder.cs" />
-    <Compile Include="Inventory\ItemData.cs" />
-    <Compile Include="Inventory\ViewPanel.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="Log.cs" />
-    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Skills\Requirement.cs" />
-    <Compile Include="Skills\SkillBinder.cs" />
-    <Compile Include="Skills\SkillData.cs" />
-    <Compile Include="Skills\SkillSlot.cs">
+    <Compile Include="source\Config.cs" />
+    <Compile Include="source\Data\AssetInfo.cs" />
+    <Compile Include="source\Data\IconData.cs" />
+    <Compile Include="source\Data\UIIconData.cs" />
+    <Compile Include="source\Data\XmlData.cs" />
+    <Compile Include="source\Data\XmlNullReferenceException.cs" />
+    <Compile Include="source\ErrorHandler.cs" />
+    <Compile Include="source\GUI\AboutWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="source\GUI\BottomStatusBar.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Skills\SkillsTab.cs">
+    <Compile Include="source\GUI\InvertedIntegerTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Skills\SkillType.cs" />
-    <Compile Include="StatsAndGeneral\LabeledSchematicRecipe.cs">
+    <Compile Include="source\GUI\LabeledControl.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="StatsAndGeneral\LiveStatSlot.cs">
+    <Compile Include="source\GUI\LabeledCoordinate.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="StatsAndGeneral\RecipeBinder.cs" />
-    <Compile Include="StatsAndGeneral\RecipeData.cs" />
-    <Compile Include="StatsAndGeneral\SchematicsRecipesPanel.cs">
+    <Compile Include="source\GUI\MainMenuActions.cs" />
+    <Compile Include="source\GUI\MainMenuStrip.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="StatsAndGeneral\ScorePanel.cs">
+    <Compile Include="source\GUI\MainWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="source\GUI\NumericTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="StatsAndGeneral\StatsAndGeneralTab.cs">
+    <Compile Include="source\GUI\PercentageIntegerTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="StatsAndGeneral\StatSlot.cs">
+    <Compile Include="source\GUI\PlayerTab.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="StatsAndGeneral\StatsPanel.cs">
+    <Compile Include="source\GUI\PlayerTabControl.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Util.cs" />
+    <Compile Include="source\GUI\ScrollPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="source\Inventory\InventorySlotAttachment.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="source\Inventory\InventorySlotBase.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="source\Inventory\InventorySlotItem.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="source\Inventory\InventorySlotPart.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="source\Inventory\InventoryTab.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="source\Inventory\ItemBinder.cs" />
+    <Compile Include="source\Inventory\ItemData.cs" />
+    <Compile Include="source\Inventory\ViewPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="source\Log.cs" />
+    <Compile Include="source\Program.cs" />
+    <Compile Include="source\Skills\Requirement.cs" />
+    <Compile Include="source\Skills\SkillBinder.cs" />
+    <Compile Include="source\Skills\SkillData.cs" />
+    <Compile Include="source\Skills\SkillSlot.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="source\Skills\SkillsTab.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="source\Skills\SkillType.cs" />
+    <Compile Include="source\StatsAndGeneral\LabeledSchematicRecipe.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="source\StatsAndGeneral\LiveStatSlot.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="source\StatsAndGeneral\RecipeBinder.cs" />
+    <Compile Include="source\StatsAndGeneral\RecipeData.cs" />
+    <Compile Include="source\StatsAndGeneral\SchematicsRecipesPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="source\StatsAndGeneral\ScorePanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="source\StatsAndGeneral\StatsAndGeneralTab.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="source\StatsAndGeneral\StatSlot.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="source\StatsAndGeneral\StatsPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="source\Util.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\7DaysSaveManipulator\7DaysSaveManipulator.csproj">
@@ -200,7 +203,22 @@
       <Name>7DaysSaveManipulator</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="ILMerge.props" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ILMergeOrder.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\MSBuild.ILMerge.Task.1.0.5\build\MSBuild.ILMerge.Task.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MSBuild.ILMerge.Task.1.0.5\build\MSBuild.ILMerge.Task.props'))" />
+    <Error Condition="!Exists('..\packages\MSBuild.ILMerge.Task.1.0.5\build\MSBuild.ILMerge.Task.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MSBuild.ILMerge.Task.1.0.5\build\MSBuild.ILMerge.Task.targets'))" />
+  </Target>
+  <Import Project="..\packages\MSBuild.ILMerge.Task.1.0.5\build\MSBuild.ILMerge.Task.targets" Condition="Exists('..\packages\MSBuild.ILMerge.Task.1.0.5\build\MSBuild.ILMerge.Task.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

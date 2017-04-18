@@ -7,10 +7,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "7DaysProfileEditor", "7Days
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "7DaysSaveManipulator", "7DaysSaveManipulator\7DaysSaveManipulator.csproj", "{5358C4CA-E436-44A3-A6EB-36D2732F439F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorldEditorTest", "WorldEditorTest\WorldEditorTest.csproj", "{79948A17-FE7D-441B-87C2-407A3743C8CB}"
+EndProject
 Global
-	GlobalSection(Performance) = preSolution
-		HasPerformanceSessions = true
-	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
 		Debug|x86 = Debug|x86
@@ -34,6 +33,14 @@ Global
 		{5358C4CA-E436-44A3-A6EB-36D2732F439F}.Release|x64.Build.0 = Release|x64
 		{5358C4CA-E436-44A3-A6EB-36D2732F439F}.Release|x86.ActiveCfg = Release|x86
 		{5358C4CA-E436-44A3-A6EB-36D2732F439F}.Release|x86.Build.0 = Release|x86
+		{79948A17-FE7D-441B-87C2-407A3743C8CB}.Debug|x64.ActiveCfg = Debug|x64
+		{79948A17-FE7D-441B-87C2-407A3743C8CB}.Debug|x64.Build.0 = Debug|x64
+		{79948A17-FE7D-441B-87C2-407A3743C8CB}.Debug|x86.ActiveCfg = Debug|x86
+		{79948A17-FE7D-441B-87C2-407A3743C8CB}.Debug|x86.Build.0 = Debug|x86
+		{79948A17-FE7D-441B-87C2-407A3743C8CB}.Release|x64.ActiveCfg = Release|x64
+		{79948A17-FE7D-441B-87C2-407A3743C8CB}.Release|x64.Build.0 = Release|x64
+		{79948A17-FE7D-441B-87C2-407A3743C8CB}.Release|x86.ActiveCfg = Release|x86
+		{79948A17-FE7D-441B-87C2-407A3743C8CB}.Release|x86.Build.0 = Release|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

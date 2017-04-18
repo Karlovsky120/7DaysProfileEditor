@@ -12,7 +12,7 @@ namespace SevenDaysProfileEditor {
         /// <summary>
         /// Initializes the static data of the program
         /// </summary>
-        private static void Initialize() {
+        private static bool Initialize() {
             try {
                 AssetInfo.GenerateAssetInfoList();
                 IconData.itemIconDictionary = new Dictionary<string, byte[]>();
@@ -20,8 +20,7 @@ namespace SevenDaysProfileEditor {
                 IconData.PopulateIconDictionaries();
             }
             catch (Exception e) {
-                Log.WriteException(e);
-                MessageBox.Show("No icons will be loaded. Failed to load asset files." + e.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                ErrorHandler.HandleError("No icons will be loaded. Failed to load asset files." + e.Message, e, true);
             }
 
             try {
@@ -32,14 +31,30 @@ namespace SevenDaysProfileEditor {
                 AssetInfo.ClearAssetInfoList();
             }
             catch (Exception e) {
-                Log.WriteException(e);
-                MessageBox.Show(string.Format("Failed to load XML files!\n{0}\nProgram will now terminate!", e.Message), "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Environment.Exit(0);
+                ErrorHandler.HandleError(string.Format("Failed to load XML files!\n\n{0}\n\nProgram will now terminate!", e.Message), e, true);
+                return false;
+            }
+
+            return true;
+        }
+
+        private static void Start(MainWindow window) {
+            if (Initialize())
+            {
+                window.Show();
+                Application.Run(window);
+            }
+
+            else
+            {
+                Application.Exit();
             }
         }
 
         [STAThread]
         private static void Main() {
+            Log.startLog();
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
@@ -51,34 +66,31 @@ namespace SevenDaysProfileEditor {
             // If no game root is specified in the config, we check if we are inside the game root. If not, we ask the user.
             if (gameRoot == null) {
                 if (File.Exists(Environment.CurrentDirectory + "7DaysToDie.exe")) {
-                    Initialize();
-                    window.Show();
+                    Start(window);
                 }
                 else {
                     OpenFileDialog gameRootDialog = new OpenFileDialog() {
                         Title = "Tool needs to find the 7DaysToDie.exe!",
-                        Filter = "7DaysToDie.exe|7DaysToDie.exe"
+                        Filter = "7DaysToDie.exe|7DaysToDie.exe",
+                        CheckFileExists = true
                     };
 
                     gameRootDialog.FileOk += (sender1, e1) => {
                         gameRoot = gameRootDialog.FileName.Substring(0, gameRootDialog.FileName.LastIndexOf('\\'));
                         Config.SetSetting("gameRoot", gameRoot);
-                        Initialize();
-                        window.Show();
                     };
 
                     if (gameRootDialog.ShowDialog() != DialogResult.OK) {
                         Application.Exit();
                         return;
                     }
+
+                    Start(window);
                 }
             }
             else {
-                Initialize();
-                window.Show();
+                Start(window);
             }
-
-            Application.Run(window);
         }
     }
 }

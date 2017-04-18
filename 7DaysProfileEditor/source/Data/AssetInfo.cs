@@ -101,11 +101,13 @@ namespace SevenDaysProfileEditor.Data {
                 }
 
                 AssetInfo assetInfo = new AssetInfo(index, name, absoluteOffset + additionalOffset, currentFileSize - additionalOffset, currentFileType);
-                AssetInfo.assetInfoList.Add(assetInfo);
+                assetInfoList.Add(assetInfo);
 
                 // We restore the position, ready to read the next file.
                 reader.BaseStream.Position = position;
             }
+
+            int a = 5;
         }
 
         /// <summary>

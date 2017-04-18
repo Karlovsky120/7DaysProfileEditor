@@ -1,4 +1,4 @@
-﻿using SevenDaysSaveManipulator.GameData;
+﻿using SevenDaysSaveManipulator.PlayerData;
 using System;
 using System.Collections.Generic;
 using System.Drawing;

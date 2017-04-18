@@ -1,5 +1,5 @@
 ﻿using SevenDaysSaveManipulator;
-using SevenDaysSaveManipulator.GameData;
+using SevenDaysSaveManipulator.PlayerData;
 using System;
 using System.Reflection;
 using System.Windows.Forms;

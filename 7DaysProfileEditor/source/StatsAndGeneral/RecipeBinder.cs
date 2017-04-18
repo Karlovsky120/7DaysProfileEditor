@@ -1,5 +1,5 @@
 ﻿using SevenDaysProfileEditor.Skills;
-using SevenDaysSaveManipulator.GameData;
+using SevenDaysSaveManipulator.PlayerData;
 using System.Collections.Generic;
 
 namespace SevenDaysProfileEditor.StatsAndGeneral {
