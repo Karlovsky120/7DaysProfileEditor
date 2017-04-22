@@ -52,6 +52,6 @@ obj/
 *.pdb
 *.vshost.exe
 *.log
-7DaysProfileEditor/bin/x64/Debug/7DaysProfileEditor.config
-7DaysProfileEditor/bin/x64/Release/7DaysProfileEditor.config
+*.bat
+*ICSharpCode.SharpZipLib.dll
 *.config
