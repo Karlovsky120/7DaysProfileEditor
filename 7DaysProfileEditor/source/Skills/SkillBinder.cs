@@ -38,7 +38,9 @@ namespace SevenDaysProfileEditor.Skills {
                         int requiredSkillLevel = 499;
                         recipeData.skillUnlockConditions.TryGetValue(skillData, out requiredSkillLevel);
 
-                        recipeBinder.relevantSkillList.Add(this, requiredSkillLevel);
+                        if (!recipeBinder.relevantSkillList.ContainsKey(this)) {
+                            recipeBinder.relevantSkillList.Add(this, requiredSkillLevel);
+                        }
                     }
                 }
             }

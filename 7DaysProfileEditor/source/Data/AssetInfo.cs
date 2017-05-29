@@ -106,8 +106,6 @@ namespace SevenDaysProfileEditor.Data {
                 // We restore the position, ready to read the next file.
                 reader.BaseStream.Position = position;
             }
-
-            int a = 5;
         }
 
         /// <summary>
