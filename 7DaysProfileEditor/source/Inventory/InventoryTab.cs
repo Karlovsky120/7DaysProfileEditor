@@ -130,7 +130,8 @@ namespace SevenDaysProfileEditor.Inventory {
         /// <param name="itemStacks">Inventory to be set up</param>
         private void SetUpInventory(ItemStack[] itemStacks) {
             for (int i = 0; i < itemStacks.Length; i++) {
-                string[] attachmentNames = ItemData.GetItemDataByItemValue(itemStacks[i].itemValue).attachmentNames;
+                ItemData itemData = ItemData.GetItemDataByItemValue(itemStacks[i].itemValue);
+                string[] attachmentNames = itemData.attachmentNames;
 
                 if (attachmentNames != null) {
                     List<ItemValue> attachments = new List<ItemValue>();
