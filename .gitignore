@@ -53,6 +53,5 @@ obj/
 *.vshost.exe
 *.log
 *.bat
-*ICSharpCode.SharpZipLib.dll
 *.config
 *.suo
