@@ -179,7 +179,7 @@
     <Content Include="ILMergeOrder.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\7DaysSaveManipulator\7DaysSaveManipulator.csproj">
+    <ProjectReference Include="..\submodules\7DaysSaveManipulator\7DaysSaveManipulator\7DaysSaveManipulator\7DaysSaveManipulator.csproj">
       <Project>{5358c4ca-e436-44a3-a6eb-36d2732f439f}</Project>
       <Name>7DaysSaveManipulator</Name>
     </ProjectReference>
@@ -206,7 +206,8 @@
   </Target>
   <Import Project="..\packages\MSBuild.ILMerge.Task.1.0.5\build\MSBuild.ILMerge.Task.targets" Condition="Exists('..\packages\MSBuild.ILMerge.Task.1.0.5\build\MSBuild.ILMerge.Task.targets')" />
   <PropertyGroup>
-    <PreBuildEvent>xcopy "$(SolutionDir)dependencies\7DaysSaveManipulator\7DaysSaveManipulator\7DaysSaveManipulator" "$(SolutionDir)7DaysSaveManipulator\" /Y /E</PreBuildEvent>
+    <PreBuildEvent>
+    </PreBuildEvent>
   </PropertyGroup>
   <PropertyGroup>
     <PostBuildEvent>mkdir $(SolutionDir)download
