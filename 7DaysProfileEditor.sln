@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.26430.14
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "7DaysProfileEditor", "7DaysProfileEditor\7DaysProfileEditor.csproj", "{E768DEB5-B73C-4671-9B4A-2CD7420E43CC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "7DaysSaveManipulator", "7DaysSaveManipulator\7DaysSaveManipulator.csproj", "{5358C4CA-E436-44A3-A6EB-36D2732F439F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "7DaysSaveManipulator", "submodules\7DaysSaveManipulator\7DaysSaveManipulator\7DaysSaveManipulator\7DaysSaveManipulator.csproj", "{5358C4CA-E436-44A3-A6EB-36D2732F439F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
