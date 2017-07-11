@@ -209,13 +209,13 @@ namespace SevenDaysProfileEditor.Data {
 
             XmlNode progressionNode = document.DocumentElement;
 
-            XmlNode playerNode = progressionNode.ChildNodes[0];
-            SkillData.maxPlayerLevel = int.Parse(playerNode.Attributes[0].Value);
-            SkillData.expToPlayerLevel = int.Parse(playerNode.Attributes[1].Value);
-
-            XmlNode skillsNode = progressionNode.ChildNodes[2];
-            SkillData.maxLevelDefault = int.Parse(skillsNode.Attributes[0].Value);
-            SkillData.expToLevelDefault = int.Parse(skillsNode.Attributes[1].Value);
+            XmlNode playerNode = progressionNode.SelectSingleNode("player");
+            SkillData.maxPlayerLevel = int.Parse(playerNode.Attributes["max_level"].Value);
+            SkillData.expToPlayerLevel = int.Parse(playerNode.Attributes["exp_to_level"].Value);
+            
+            XmlNode skillsNode = progressionNode.SelectSingleNode("skills");
+            SkillData.maxLevelDefault = int.Parse(skillsNode.Attributes["max_level"].Value);
+            SkillData.expToLevelDefault = int.Parse(skillsNode.Attributes["exp_to_level"].Value);
 
             foreach (XmlNode skillNode in skillsNode.ChildNodes) {
                 SkillData skillData = new SkillData();
@@ -236,9 +236,9 @@ namespace SevenDaysProfileEditor.Data {
                     continue;
                 }
 
-                skillData.name = GetAttribute(skillNode, "name").Value;
+                skillData.name = skillNode.Attributes["name"].Value;
 
-                XmlAttribute iconAttr = GetAttribute(skillNode, "icon");
+                XmlAttribute iconAttr = skillNode.Attributes["icon"];
                 if (iconAttr != null) {
                     string iconName = "ui_game_symbol_" + iconAttr.Value;
                     if (IconData.itemIconDictionary != null) {
@@ -246,7 +246,7 @@ namespace SevenDaysProfileEditor.Data {
                     }
                 }
 
-                XmlAttribute maxLevelAttr = GetAttribute(skillNode, "max_level");
+                XmlAttribute maxLevelAttr = skillNode.Attributes["max_level"];
                 if (maxLevelAttr != null) {
                     skillData.maxLevel = int.Parse(maxLevelAttr.Value);
                 }
@@ -254,7 +254,7 @@ namespace SevenDaysProfileEditor.Data {
                     skillData.maxLevel = SkillData.maxLevelDefault;
                 }
 
-                XmlAttribute expToLevelAttr = GetAttribute(skillNode, "exp_to_level");
+                XmlAttribute expToLevelAttr = skillNode.Attributes["exp_to_level"];
                 if (expToLevelAttr != null) {
                     skillData.expToLevel = int.Parse(expToLevelAttr.Value);
                 }
@@ -272,13 +272,13 @@ namespace SevenDaysProfileEditor.Data {
                     if (skillNode.ChildNodes[i].Name.Equals("requirement")) {
                         XmlNode requirementNode = skillNode.ChildNodes[i];
 
-                        XmlAttribute thisPerkLevelAttr = GetAttribute(requirementNode, "perk_level");
-                        XmlAttribute requiredSkillNameAttr = GetAttribute(requirementNode, "required_skill_name");
-                        XmlAttribute requiredSkillLevelAttr = GetAttribute(requirementNode, "required_skill_level");
-                        XmlAttribute requiredPlayerLevelAttr = GetAttribute(requirementNode, "required_player_level");
+                        XmlAttribute thisPerkLevelAttr = requirementNode.Attributes["perk_level"];
+                        XmlAttribute requiredSkillNameAttr = requirementNode.Attributes["required_skill_name"];
+                        XmlAttribute requiredSkillLevelAttr = requirementNode.Attributes["required_skill_level"];
+                        XmlAttribute requiredPlayerLevelAttr = requirementNode.Attributes["required_player_level"];
 
                         if (thisPerkLevelAttr == null) {
-                            thisPerkLevelAttr = GetAttribute(requirementNode, "skill_level");
+                            thisPerkLevelAttr = requirementNode.Attributes["skill_level"];
                         }
 
                         int perkLevel = int.Parse(thisPerkLevelAttr.Value);
@@ -299,8 +299,8 @@ namespace SevenDaysProfileEditor.Data {
                     else if (skillNode.ChildNodes[i].Name.Equals("recipe")) {
                         XmlNode recipeNode = skillNode.ChildNodes[i];
 
-                        XmlAttribute recipeNameAttr = GetAttribute(recipeNode, "name");
-                        XmlAttribute recipeUnlockLevelAttr = GetAttribute(recipeNode, "unlock_level");
+                        XmlAttribute recipeNameAttr = recipeNode.Attributes["name"];
+                        XmlAttribute recipeUnlockLevelAttr = recipeNode.Attributes["unlock_level"];
 
                         RecipeData skillsRecipe = RecipeData.GetRecipeDataByName(recipeNameAttr.Value);
                         if (skillsRecipe == null) {
@@ -331,7 +331,10 @@ namespace SevenDaysProfileEditor.Data {
         /// <param name="node">Node to look for attribute in</param>
         /// <param name="attributeName">Name of the attribute</param>
         /// <returns>Attribute if found, else null</returns>
+        [System.Obsolete("GetAttribute is deprecated, please use node.Attribute['name'] instead.")]
         private static XmlAttribute GetAttribute(XmlNode node, string attributeName) {
+            return node.Attributes[attributeName];
+            /*
             foreach (XmlAttribute attribute in node.Attributes) {
                 if (attribute.Name == attributeName) {
                     return attribute;
@@ -339,6 +342,7 @@ namespace SevenDaysProfileEditor.Data {
             }
 
             return null;
+            */
         }
 
         /// <summary>
@@ -348,6 +352,11 @@ namespace SevenDaysProfileEditor.Data {
         /// <param name="propertyName">Name of the leading attribute</param>
         /// <returns>Node if found, else null</returns>
         private static XmlNode GetChildNodeByName(XmlNode node, string propertyName) {
+            //TODO: Remove function.
+            //Faster way by using XPath, but need to figure out exact syntax.
+            //something like...
+            //return node.SelectSingleNode("\[@" + propertyName + "]");
+       
             foreach (XmlNode child in node.ChildNodes) {
                 if (child.Attributes != null && child.Attributes[0].Value == propertyName) {
                     return child;
