@@ -179,7 +179,7 @@
     <Content Include="ILMergeOrder.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\submodules\7DaysSaveManipulator\7DaysSaveManipulator\7DaysSaveManipulator\7DaysSaveManipulator.csproj">
+    <ProjectReference Include="..\submodules\7DaysSaveManipulator\7DaysSaveManipulator\7DaysSaveManipulator.csproj">
       <Project>{5358c4ca-e436-44a3-a6eb-36d2732f439f}</Project>
       <Name>7DaysSaveManipulator</Name>
     </ProjectReference>
