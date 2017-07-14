@@ -1,5 +1,9 @@
-﻿using System.Drawing;
+﻿using System;
+using System.IO;
+using System.Reflection;
+using System.Drawing;
 using System.Windows.Forms;
+
 
 namespace SevenDaysProfileEditor.GUI {
 
@@ -16,9 +20,10 @@ namespace SevenDaysProfileEditor.GUI {
         /// Default constructor.
         /// </summary>
         public MainWindow() {
+
             Size = new Size(1000, 850);
 
-            Text = "7 Days Profile Editor";
+            Text = "7 Days Profile Editor - v" + Assembly.GetEntryAssembly().GetName().Version;
             StartPosition = FormStartPosition.CenterScreen;
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
@@ -34,6 +39,8 @@ namespace SevenDaysProfileEditor.GUI {
             Controls.Add(tabs);
             Controls.Add(mainMenu);
             Controls.Add(statusBar);
+
+           
         }
     }
 }

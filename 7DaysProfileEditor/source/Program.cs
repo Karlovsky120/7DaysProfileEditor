@@ -12,6 +12,8 @@ namespace SevenDaysProfileEditor {
         /// Initializes the static data of the program
         /// </summary>
         private static bool Initialize() {
+
+
             try {
                 AssetInfo.GenerateAssetInfoList();
                 IconData.itemIconDictionary = new Dictionary<string, byte[]>();
@@ -58,9 +60,11 @@ namespace SevenDaysProfileEditor {
         [STAThread]
         private static void Main() {
             Log.startLog();
-
+            
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+            Updater.DoUpdate();
 
             MainWindow window = new MainWindow();
             Config.Load();
