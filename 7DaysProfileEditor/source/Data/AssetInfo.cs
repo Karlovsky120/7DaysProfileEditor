@@ -1,13 +1,16 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.IO;
 
-namespace SevenDaysProfileEditor.Data {
+namespace SevenDaysProfileEditor.Data
+{
 
     /// <summary>
     /// Holds the list of all the assets and is used to populate it.
     /// </summary>
-    internal class AssetInfo {
+    internal class AssetInfo
+    {
         public static List<AssetInfo> assetInfoList;
 
         public uint currentFileSize;
@@ -24,7 +27,8 @@ namespace SevenDaysProfileEditor.Data {
         /// <param name="offsetToFileStart">Offset from the files start of the asset</param>
         /// <param name="currentFileSize">Size of the asset</param>
         /// <param name="currentFileType">Type of the asset</param>
-        public AssetInfo(UInt64 index, string name, uint offsetToFileStart, uint currentFileSize, uint currentFileType) {
+        public AssetInfo(UInt64 index, string name, uint offsetToFileStart, uint currentFileSize, uint currentFileType)
+        {
             this.index = index;
             this.name = name;
             this.offsetToFileStart = offsetToFileStart;
@@ -35,7 +39,8 @@ namespace SevenDaysProfileEditor.Data {
         /// <summary>
         /// Populates assetInfoList with assets formatted as AssetInfo objects.
         /// </summary>
-        public static void GenerateAssetInfoList() {
+        public static void GenerateAssetInfoList()
+        {
             AssetInfo.assetInfoList = new List<AssetInfo>();
 
             string path = Config.GetSetting("gameRoot") + "\\7DaysToDie_Data\\resources.assets";
@@ -55,16 +60,19 @@ namespace SevenDaysProfileEditor.Data {
             reader.BaseStream.Position += 12;
             bool hasTypeTree = reader.ReadBoolean();
             uint fieldCount = reader.ReadUInt32();
-            for (int i = 0; i < fieldCount; i++) {
+            for (int i = 0; i < fieldCount; i++)
+            {
                 int classId = reader.ReadInt32();
 
-                if (classId < 0) {
+                if (classId < 0)
+                {
                     reader.BaseStream.Position += 16;
                 }
 
                 reader.BaseStream.Position += 16;
 
-                if (hasTypeTree) {
+                if (hasTypeTree)
+                {
                     uint typeFieldsExCount = reader.ReadUInt32();
                     uint stringTableLen = reader.ReadUInt32();
 
@@ -76,7 +84,8 @@ namespace SevenDaysProfileEditor.Data {
             uint sizeFiles = reader.ReadUInt32();
             reader.BaseStream.Position += 3;
 
-            for (int i = 0; i < sizeFiles; i++) {
+            for (int i = 0; i < sizeFiles; i++)
+            {
                 UInt64 index = reader.ReadUInt64();
                 uint offsetCurrentFile = reader.ReadUInt32();
                 uint currentFileSize = reader.ReadUInt32();
@@ -96,7 +105,8 @@ namespace SevenDaysProfileEditor.Data {
                 // Since this is 4-byte aligned, we have to account for any trailing zero bytes.
                 uint additionalOffset = 4 + (4 * ((uint)nameLength / 4));
 
-                if (nameLength % 4 != 0) {
+                if (nameLength % 4 != 0)
+                {
                     additionalOffset += 4;
                 }
 
@@ -113,14 +123,20 @@ namespace SevenDaysProfileEditor.Data {
         /// </summary>
         /// <param name="index">Specified index</param>
         /// <returns>The AssetInfo requested, or null if no such asset was not found</returns>
-        public static AssetInfo GetAssetInfoByIndex(ulong index) {
-            foreach (AssetInfo assetInfo in assetInfoList) {
-                if (assetInfo.index == index) {
+        public static AssetInfo GetAssetInfoByIndex(ulong index)
+        {
+            return assetInfoList.Where(q => q.index == index).FirstOrDefault();
+            /*
+            foreach (AssetInfo assetInfo in assetInfoList)
+            {
+                if (assetInfo.index == index)
+                {
                     return assetInfo;
                 }
             }
 
             return null;
+            */
         }
 
         /// <summary>
@@ -129,20 +145,26 @@ namespace SevenDaysProfileEditor.Data {
         /// <param name="name">Specified name</param>
         /// <param name="type">Specified type</param>
         /// <returns>The AssetInfo requested, or null if no such asset was not found</returns>
-        public static AssetInfo GetAssetInfoByNameAndType(string name, uint type) {
-            foreach (AssetInfo assetInfo in assetInfoList) {
-                if (assetInfo.name.Equals(name) && assetInfo.currentFileType == type) {
+        public static AssetInfo GetAssetInfoByNameAndType(string name, uint type)
+        {
+            return assetInfoList.Where(q => q.name == name && q.currentFileType== type).FirstOrDefault();
+            /*
+            foreach (AssetInfo assetInfo in assetInfoList)
+            {
+                if (assetInfo.name.Equals(name) && assetInfo.currentFileType == type)
+                {
                     return assetInfo;
                 }
             }
-
             return null;
+            */
         }
 
         /// <summary>
         /// Clears assetInfo list
         /// </summary>
-        public static void ClearAssetInfoList() {
+        public static void ClearAssetInfoList()
+        {
             //assetInfoList.Clear();
             assetInfoList = null;
         }
