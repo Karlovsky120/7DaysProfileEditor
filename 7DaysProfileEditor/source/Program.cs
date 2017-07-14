@@ -5,47 +5,38 @@ using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
 
-namespace SevenDaysProfileEditor
-{
+namespace SevenDaysProfileEditor {
 
-    internal static class Program
-    {
+    internal static class Program {
         /// <summary>
         /// Initializes the static data of the program
         /// </summary>
-        private static bool Initialize()
-        {
-            try
-            {
+        private static bool Initialize() {
+            try {
                 AssetInfo.GenerateAssetInfoList();
                 IconData.itemIconDictionary = new Dictionary<string, byte[]>();
                 IconData.uiIconDictionary = new Dictionary<string, UIIconData>();
             }
-            catch (Exception e)
-            {
+            catch (Exception e) {
                 ErrorHandler.HandleError("Error while processing icons. Failed to load asset files." + e.Message, e, true);
             }
-            try
-            {
+            try {
                 //This step normally fails. Lets suppressed the error message.
                 //We get inventory icons
                 IconData.PopulateIconDictionaries();
             }
-            catch (Exception e)
-            {
+            catch (Exception e) {
                 // ErrorHandler.HandleError("Error while processing icons. Failed to load asset files." + e.Message, e, true);
             }
 
-            try
-            {
+            try {
                 XmlData.GetBlocks();
                 XmlData.GetItems();
                 XmlData.ArrangeItemList();
                 XmlData.GetSkills();
                 AssetInfo.ClearAssetInfoList();
             }
-            catch (Exception e)
-            {
+            catch (Exception e) {
                 ErrorHandler.HandleError(string.Format("Failed to load XML files!\n\n{0}\n\nProgram will now terminate!", e.Message), e, true);
                 return false;
             }
@@ -53,23 +44,19 @@ namespace SevenDaysProfileEditor
             return true;
         }
 
-        private static void Start(MainWindow window)
-        {
-            if (Initialize())
-            {
+        private static void Start(MainWindow window) {
+            if (Initialize()) {
                 window.Show();
                 Application.Run(window);
             }
 
-            else
-            {
+            else {
                 Application.Exit();
             }
         }
 
         [STAThread]
-        private static void Main()
-        {
+        private static void Main() {
             Log.startLog();
 
             Application.EnableVisualStyles();
@@ -81,29 +68,23 @@ namespace SevenDaysProfileEditor
             string gameRoot = Config.GetSetting("gameRoot");
 
             // If no game root is specified in the config, we check if we are inside the game root. If not, we ask the user.
-            if (gameRoot == null)
-            {
-                if (File.Exists(Environment.CurrentDirectory + "7DaysToDie.exe"))
-                {
+            if (gameRoot == null) {
+                if (File.Exists(Environment.CurrentDirectory + "7DaysToDie.exe")) {
                     Start(window);
                 }
-                else
-                {
-                    OpenFileDialog gameRootDialog = new OpenFileDialog()
-                    {
+                else {
+                    OpenFileDialog gameRootDialog = new OpenFileDialog() {
                         Title = "Tool needs to find the 7DaysToDie.exe!",
                         Filter = "7DaysToDie.exe|7DaysToDie.exe",
                         CheckFileExists = true
                     };
 
-                    gameRootDialog.FileOk += (sender1, e1) =>
-                    {
+                    gameRootDialog.FileOk += (sender1, e1) => {
                         gameRoot = gameRootDialog.FileName.Substring(0, gameRootDialog.FileName.LastIndexOf('\\'));
                         Config.SetSetting("gameRoot", gameRoot);
                     };
 
-                    if (gameRootDialog.ShowDialog() != DialogResult.OK)
-                    {
+                    if (gameRootDialog.ShowDialog() != DialogResult.OK) {
                         Application.Exit();
                         return;
                     }
@@ -111,8 +92,7 @@ namespace SevenDaysProfileEditor
                     Start(window);
                 }
             }
-            else
-            {
+            else {
                 Start(window);
             }
         }
