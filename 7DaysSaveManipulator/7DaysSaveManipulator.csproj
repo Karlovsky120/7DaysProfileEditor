@@ -1,0 +1,153 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\MSBuild.ILMerge.Task.1.0.5\build\MSBuild.ILMerge.Task.props" Condition="Exists('..\packages\MSBuild.ILMerge.Task.1.0.5\build\MSBuild.ILMerge.Task.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{5358C4CA-E436-44A3-A6EB-36D2732F439F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SevenDaysSaveManipulator</RootNamespace>
+    <AssemblyName>7DaysSaveManipulator</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>lib\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="source\PlayerData\BaseObjective.cs" />
+    <Compile Include="source\PlayerData\BodyDamage.cs" />
+    <Compile Include="source\PlayerData\Buff.cs" />
+    <Compile Include="source\PlayerData\BuffDescriptor.cs" />
+    <Compile Include="source\PlayerData\BuffModifier.cs" />
+    <Compile Include="source\PlayerData\BuffModifierSetTickRate.cs" />
+    <Compile Include="source\PlayerData\BuffTimer.cs" />
+    <Compile Include="source\PlayerData\BuffTimerDuration.cs" />
+    <Compile Include="source\PlayerData\BuffTimerNull.cs" />
+    <Compile Include="source\PlayerData\BuffTimerScheduled.cs" />
+    <Compile Include="source\PlayerData\Colour.cs" />
+    <Compile Include="source\PlayerData\CraftingData.cs" />
+    <Compile Include="source\PlayerData\EntityCreationData.cs" />
+    <Compile Include="source\PlayerData\EntityStats.cs" />
+    <Compile Include="source\PlayerData\EnumBuffCategoryFlags.cs" />
+    <Compile Include="source\PlayerData\EnumBuffClassId.cs" />
+    <Compile Include="source\PlayerData\EnumBuffModifierClassId.cs" />
+    <Compile Include="source\PlayerData\EnumBuffTimerClassId.cs" />
+    <Compile Include="source\PlayerData\EnumSpawnerSource.cs" />
+    <Compile Include="source\PlayerData\EnumStatModifierClassId.cs" />
+    <Compile Include="source\PlayerData\Equipment.cs" />
+    <Compile Include="source\PlayerData\ItemStack.cs" />
+    <Compile Include="source\PlayerData\ItemValue.cs" />
+    <Compile Include="source\PlayerData\IValueListener.cs" />
+    <Compile Include="source\PlayerData\JournalEntry.cs" />
+    <Compile Include="source\PlayerData\LiveStats.cs" />
+    <Compile Include="source\PlayerData\MultiBuff.cs" />
+    <Compile Include="source\PlayerData\MultiBuffAction.cs" />
+    <Compile Include="source\PlayerData\MultiBuffPrefabAttachmentDescriptor.cs" />
+    <Compile Include="source\PlayerData\MultiBuffVariable.cs" />
+    <Compile Include="source\PlayerData\PlayerDataFile.cs" />
+    <Compile Include="source\PlayerData\PlayerJournal.cs" />
+    <Compile Include="source\PlayerData\PlayerProfile.cs" />
+    <Compile Include="source\PlayerData\Quest.cs" />
+    <Compile Include="source\PlayerData\QuestJournal.cs" />
+    <Compile Include="source\PlayerData\Recipe.cs" />
+    <Compile Include="source\PlayerData\RecipeQueueItem.cs" />
+    <Compile Include="source\PlayerData\Skill.cs" />
+    <Compile Include="source\PlayerData\Skills.cs" />
+    <Compile Include="source\PlayerData\Stat.cs" />
+    <Compile Include="source\PlayerData\StatModifier.cs" />
+    <Compile Include="source\PlayerData\StatModifierMax.cs" />
+    <Compile Include="source\PlayerData\StatModifierModifyValue.cs" />
+    <Compile Include="source\PlayerData\StatModifierMulValue.cs" />
+    <Compile Include="source\PlayerData\StatModifierSetValue.cs" />
+    <Compile Include="source\PlayerData\StatModifierValueOT.cs" />
+    <Compile Include="source\PlayerData\Utils.cs" />
+    <Compile Include="source\PlayerData\Value.cs" />
+    <Compile Include="source\PlayerData\Vector3D.cs" />
+    <Compile Include="source\PlayerData\Waypoint.cs" />
+    <Compile Include="source\PlayerData\WaypointCollection.cs" />
+    <Compile Include="source\RegionData\CBCLayer.cs" />
+    <Compile Include="source\RegionData\Chunk.cs" />
+    <Compile Include="source\RegionData\ChunkBlockChannel.cs" />
+    <Compile Include="source\RegionData\ChunkBlockLayer.cs" />
+    <Compile Include="source\RegionData\ChunkCustomData.cs" />
+    <Compile Include="source\RegionData\EntitySpawner.cs" />
+    <Compile Include="source\RegionData\Region.cs" />
+    <Compile Include="source\RegionData\TileEntity.cs" />
+    <Compile Include="source\RegionData\TileEntityCampfire.cs" />
+    <Compile Include="source\RegionData\TileEntityForge.cs" />
+    <Compile Include="source\RegionData\TileEntityLootContainer.cs" />
+    <Compile Include="source\RegionData\TileEntitySecure.cs" />
+    <Compile Include="source\RegionData\TileEntitySecureDoor.cs" />
+    <Compile Include="source\RegionData\TileEntitySecureLootContainer.cs" />
+    <Compile Include="source\RegionData\TileEntitySign.cs" />
+    <Compile Include="source\RegionData\TileEntityTrader.cs" />
+    <Compile Include="source\RegionData\TileEntityType.cs" />
+    <Compile Include="source\RegionData\TileEntityVendingMachine.cs" />
+    <Compile Include="source\RegionData\TileEntityWorkstation.cs" />
+    <Compile Include="source\RegionData\TraderData.cs" />
+    <Compile Include="source\RegionData\Utils.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ILMerge.props" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ILMergeOrder.txt" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\MSBuild.ILMerge.Task.1.0.5\build\MSBuild.ILMerge.Task.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MSBuild.ILMerge.Task.1.0.5\build\MSBuild.ILMerge.Task.props'))" />
+    <Error Condition="!Exists('..\packages\MSBuild.ILMerge.Task.1.0.5\build\MSBuild.ILMerge.Task.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MSBuild.ILMerge.Task.1.0.5\build\MSBuild.ILMerge.Task.targets'))" />
+  </Target>
+  <Import Project="..\packages\MSBuild.ILMerge.Task.1.0.5\build\MSBuild.ILMerge.Task.targets" Condition="Exists('..\packages\MSBuild.ILMerge.Task.1.0.5\build\MSBuild.ILMerge.Task.targets')" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
