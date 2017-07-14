@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.IO;
 
@@ -114,13 +115,18 @@ namespace SevenDaysProfileEditor.Data {
         /// <param name="index">Specified index</param>
         /// <returns>The AssetInfo requested, or null if no such asset was not found</returns>
         public static AssetInfo GetAssetInfoByIndex(ulong index) {
-            foreach (AssetInfo assetInfo in assetInfoList) {
-                if (assetInfo.index == index) {
+            return assetInfoList.Where(q => q.index == index).FirstOrDefault();
+            /*
+            foreach (AssetInfo assetInfo in assetInfoList)
+            {
+                if (assetInfo.index == index)
+                {
                     return assetInfo;
                 }
             }
 
             return null;
+            */
         }
 
         /// <summary>
@@ -130,13 +136,17 @@ namespace SevenDaysProfileEditor.Data {
         /// <param name="type">Specified type</param>
         /// <returns>The AssetInfo requested, or null if no such asset was not found</returns>
         public static AssetInfo GetAssetInfoByNameAndType(string name, uint type) {
-            foreach (AssetInfo assetInfo in assetInfoList) {
-                if (assetInfo.name.Equals(name) && assetInfo.currentFileType == type) {
+            return assetInfoList.Where(q => q.name == name && q.currentFileType == type).FirstOrDefault();
+            /*
+            foreach (AssetInfo assetInfo in assetInfoList)
+            {
+                if (assetInfo.name.Equals(name) && assetInfo.currentFileType == type)
+                {
                     return assetInfo;
                 }
             }
-
             return null;
+            */
         }
 
         /// <summary>

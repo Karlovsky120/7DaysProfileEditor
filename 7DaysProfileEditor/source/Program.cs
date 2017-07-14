@@ -8,7 +8,6 @@ using System.Windows.Forms;
 namespace SevenDaysProfileEditor {
 
     internal static class Program {
-
         /// <summary>
         /// Initializes the static data of the program
         /// </summary>
@@ -17,10 +16,17 @@ namespace SevenDaysProfileEditor {
                 AssetInfo.GenerateAssetInfoList();
                 IconData.itemIconDictionary = new Dictionary<string, byte[]>();
                 IconData.uiIconDictionary = new Dictionary<string, UIIconData>();
+            }
+            catch (Exception e) {
+                ErrorHandler.HandleError("Error while processing icons. Failed to load asset files." + e.Message, e, true);
+            }
+            try {
+                //This step normally fails. Lets suppressed the error message.
+                //We get inventory icons
                 IconData.PopulateIconDictionaries();
             }
             catch (Exception e) {
-                ErrorHandler.HandleError("No icons will be loaded. Failed to load asset files." + e.Message, e, true);
+                // ErrorHandler.HandleError("Error while processing icons. Failed to load asset files." + e.Message, e, true);
             }
 
             try {
@@ -39,14 +45,12 @@ namespace SevenDaysProfileEditor {
         }
 
         private static void Start(MainWindow window) {
-            if (Initialize())
-            {
+            if (Initialize()) {
                 window.Show();
                 Application.Run(window);
             }
 
-            else
-            {
+            else {
                 Application.Exit();
             }
         }
