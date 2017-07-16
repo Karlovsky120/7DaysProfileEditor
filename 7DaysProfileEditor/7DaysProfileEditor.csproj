@@ -55,11 +55,36 @@
   <PropertyGroup>
     <StartupObject />
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>source\GUI\icon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.IO.Compression.FileSystem" />
+    <Reference Include="System.Management" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -82,6 +107,12 @@
     </Compile>
     <Compile Include="source\GUI\BottomStatusBar.cs">
       <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="source\GUI\frmErrorReport.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="source\GUI\frmErrorReport.Designer.cs">
+      <DependentUpon>frmErrorReport.cs</DependentUpon>
     </Compile>
     <Compile Include="source\GUI\InvertedIntegerTextBox.cs">
       <SubType>Component</SubType>
@@ -169,6 +200,7 @@
     <Compile Include="source\StatsAndGeneral\StatsPanel.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="source\Updater.cs" />
     <Compile Include="source\Util.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -177,6 +209,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ILMergeOrder.txt" />
+    <Content Include="source\GUI\icon.ico" />
+    <Content Include="version.xml" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
@@ -195,6 +229,15 @@
       <Project>{5358c4ca-e436-44a3-a6eb-36d2732f439f}</Project>
       <Name>7DaysSaveManipulator</Name>
     </ProjectReference>
+    <ProjectReference Include="..\AutoUpdater.NET\AutoUpdater.NET.csproj">
+      <Project>{fb9e7e6b-b19f-4f37-a708-2996190cef13}</Project>
+      <Name>AutoUpdater.NET</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="source\GUI\frmErrorReport.resx">
+      <DependentUpon>frmErrorReport.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

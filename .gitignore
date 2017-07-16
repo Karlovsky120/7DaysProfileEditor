@@ -288,3 +288,6 @@ __pycache__/
 *.xsd.cs
 download/
 submodules/7DaysSaveManipulator
+7DaysProfileEditor.Web/Web.config
+7DaysProfileEditor.Web/Web.Debug.config
+7DaysProfileEditor.Web/Web.Release.config

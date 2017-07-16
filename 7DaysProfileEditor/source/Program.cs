@@ -12,6 +12,8 @@ namespace SevenDaysProfileEditor {
         /// Initializes the static data of the program
         /// </summary>
         private static bool Initialize() {
+
+
             try {
                 AssetInfo.GenerateAssetInfoList();
                 IconData.itemIconDictionary = new Dictionary<string, byte[]>();
@@ -26,7 +28,7 @@ namespace SevenDaysProfileEditor {
                 IconData.PopulateIconDictionaries();
             }
             catch (Exception e) {
-                // ErrorHandler.HandleError("Error while processing icons. Failed to load asset files." + e.Message, e, true);
+                ErrorHandler.HandleError("Error while processing icons. Failed to load asset files." + e.Message, e, false);
             }
 
             try {
@@ -61,6 +63,8 @@ namespace SevenDaysProfileEditor {
 
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+            Updater.DoUpdate();
 
             MainWindow window = new MainWindow();
             Config.Load();
