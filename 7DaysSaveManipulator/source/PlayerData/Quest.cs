@@ -60,7 +60,12 @@ namespace SevenDaysSaveManipulator.PlayerData {
             for (int j = 0; j < dataVariableCount; j++) {
                 string key = reader.ReadString();
                 string value = reader.ReadString();
-                dataVariables.Add(key, value);
+
+                //Issue 17 reported on GitHub
+                //https://github.com/Karlovsky120/7DaysProfileEditor/issues/17
+                if (!this.dataVariables.ContainsKey(key)) {
+                    dataVariables.Add(key, value);
+                }
             }
         }
 
@@ -71,6 +76,7 @@ namespace SevenDaysSaveManipulator.PlayerData {
             writer.Write((byte)currentState.Get());
             writer.Write(isTracked.Get());
             writer.Write(finishTime.Get());
+
             writer.Write((byte)objectives.Count);
             for (int i = 0; i < objectives.Count; i++) {
                 objectives[i].Write(writer);
