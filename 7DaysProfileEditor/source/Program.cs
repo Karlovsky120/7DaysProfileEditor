@@ -28,7 +28,7 @@ namespace SevenDaysProfileEditor {
                 IconData.PopulateIconDictionaries();
             }
             catch (Exception e) {
-                // ErrorHandler.HandleError("Error while processing icons. Failed to load asset files." + e.Message, e, true);
+                ErrorHandler.HandleError("Error while processing icons. Failed to load asset files." + e.Message, e, false);
             }
 
             try {
@@ -60,7 +60,7 @@ namespace SevenDaysProfileEditor {
         [STAThread]
         private static void Main() {
             Log.startLog();
-            
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 

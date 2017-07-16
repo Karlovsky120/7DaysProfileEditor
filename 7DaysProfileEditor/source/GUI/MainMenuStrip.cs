@@ -216,8 +216,7 @@ namespace SevenDaysProfileEditor.GUI {
             if (playerTabs.GetTabCount() > 0) {
                 path = playerTabs.GetSelectedTab().path;
             }
-
-            ErrorHandler.SaveReport(path);
+            frmErrorReport frm = new frmErrorReport("Send Report?", null, path);
         }
     }
 }

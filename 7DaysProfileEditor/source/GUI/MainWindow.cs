@@ -40,7 +40,6 @@ namespace SevenDaysProfileEditor.GUI {
             Controls.Add(mainMenu);
             Controls.Add(statusBar);
 
-           
         }
     }
 }
