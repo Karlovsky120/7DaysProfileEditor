@@ -32,6 +32,9 @@ namespace SevenDaysSaveManipulator.PlayerData {
         //ID
         public string id;
 
+        //CurrentQuestVersion
+        public Value<byte> CurrentPhase;
+
         //Q
         public Value<bool> isTracked;
 
@@ -47,6 +50,10 @@ namespace SevenDaysSaveManipulator.PlayerData {
             isTracked = new Value<bool>(reader.ReadBoolean());
             finishTime = new Value<ulong>(reader.ReadUInt64());
 
+            //Issue 21, A16 added Current Phase.
+            if (this.currentFileVersion.Get() > 1) {
+                this.CurrentPhase = new Value<byte>(reader.ReadByte());
+            }
             //num
             int objectiveCount = reader.ReadByte();
             for (int i = 0; i < objectiveCount; i++) {
@@ -76,6 +83,11 @@ namespace SevenDaysSaveManipulator.PlayerData {
             writer.Write((byte)currentState.Get());
             writer.Write(isTracked.Get());
             writer.Write(finishTime.Get());
+
+            //Issue 21, A16 added Current Phase.
+            if (this.currentFileVersion.Get() > 1) {
+                writer.Write(CurrentPhase.Get());
+            }
 
             writer.Write((byte)objectives.Count);
             for (int i = 0; i < objectives.Count; i++) {
