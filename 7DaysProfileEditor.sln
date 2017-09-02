@@ -1,11 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.15
+VisualStudioVersion = 15.0.26730.10
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "7DaysProfileEditor", "7DaysProfileEditor\7DaysProfileEditor.csproj", "{E768DEB5-B73C-4671-9B4A-2CD7420E43CC}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "7DaysSaveManipulator", "7DaysSaveManipulator\7DaysSaveManipulator.csproj", "{5358C4CA-E436-44A3-A6EB-36D2732F439F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AutoUpdater.NET", "AutoUpdater.NET\AutoUpdater.NET.csproj", "{FB9E7E6B-B19F-4F37-A708-2996190CEF13}"
 EndProject
@@ -19,10 +17,6 @@ Global
 		{E768DEB5-B73C-4671-9B4A-2CD7420E43CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E768DEB5-B73C-4671-9B4A-2CD7420E43CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E768DEB5-B73C-4671-9B4A-2CD7420E43CC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5358C4CA-E436-44A3-A6EB-36D2732F439F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5358C4CA-E436-44A3-A6EB-36D2732F439F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5358C4CA-E436-44A3-A6EB-36D2732F439F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5358C4CA-E436-44A3-A6EB-36D2732F439F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FB9E7E6B-B19F-4F37-A708-2996190CEF13}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FB9E7E6B-B19F-4F37-A708-2996190CEF13}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FB9E7E6B-B19F-4F37-A708-2996190CEF13}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -30,5 +24,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {32D95B50-B226-455F-A4CC-D0DDC4C10264}
 	EndGlobalSection
 EndGlobal
