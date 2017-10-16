@@ -225,8 +225,13 @@ namespace SevenDaysProfileEditor.Data {
             path = Config.GetSetting("gameRoot") + "\\7DaysToDie_Data\\resources.assets";
             reader = new BinaryReader(new FileStream(path, FileMode.Open, FileAccess.Read));
 
-            AssetInfo uiIconText = AssetInfo.GetAssetInfoByIndex(43116);
 
+            //need a better way to do this. Thanks to DorHans for the new offset.
+            //ulong skillidx = 43116;
+            ulong skillidx = 59162;
+            
+            AssetInfo uiIconText = AssetInfo.GetAssetInfoByIndex(skillidx);
+            
             reader.BaseStream.Position = uiIconText.offsetToFileStart + 40;
 
             BinaryReader textureReader = new BinaryReader(new MemoryStream(textureStream));

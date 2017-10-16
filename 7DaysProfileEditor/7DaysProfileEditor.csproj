@@ -286,7 +286,9 @@
   <ItemGroup>
     <Content Include="ILMergeOrder.txt" />
     <Content Include="source\GUI\icon.ico" />
-    <Content Include="version.xml" />
+    <Content Include="version.xml">
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
