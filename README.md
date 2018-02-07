@@ -6,3 +6,5 @@ First of all, anyone can contribute to this project! Fork the repository, do wha
 If you want to download the tool and you're unsure how, go to https://github.com/Karlovsky120/7DaysProfileEditor/releases and get the latest version there.
 
 As far as licensing goes, you can do everything short of making money from this. I'd also appreciate if you'd link to this repository, should you want to distribute this further in any form, but that's up to you.
+
+THIS PROJECT IS PUT ON HOLD UNTIL I AQUIRE A SERVER OF MY OWN.
