@@ -11,7 +11,7 @@ namespace SevenDaysProfileEditor.Skills {
     /// <summary>
     /// Tab for dealing with skills.
     /// </summary>
-    internal class SkillsTab : TabPage, IValueListener<int>, IValueListener<uint> {
+    internal class SkillsTab : TabPage, IValueListener<int>{
         private bool locked;
         private TableLayoutPanel panel;
         private PlayerDataFile playerDataFile;
@@ -35,20 +35,19 @@ namespace SevenDaysProfileEditor.Skills {
             panel.Dock = DockStyle.Fill;
 
             TableLayoutPanel general = new TableLayoutPanel() {
-                Size = new Size(478, 36),
+                Size = new Size(550, 36),
                 Anchor = AnchorStyles.Top
             };
 
-            LabeledControl LabeledPlayerLevelBox = new LabeledControl("Player level", new NumericTextBox<int>(playerDataFile.level, 1, SkillData.maxPlayerLevel, 80), 150);
+            LabeledControl LabeledPlayerLevelBox = new LabeledControl("Player level", new NumericTextBox<int>(playerDataFile.level, 1, SkillData.maxPlayerLevel, 60), 150);
             playerDataFile.level.AddListener(this);
             general.Controls.Add(LabeledPlayerLevelBox, 0, 0);
 
-            LabeledControl LabeledSkillPointsBox = new LabeledControl("Skill points", new NumericTextBox<int>(playerDataFile.skillPoints, 0, int.MaxValue, 80), 150);
+            LabeledControl LabeledSkillPointsBox = new LabeledControl("Skill points", new NumericTextBox<int>(playerDataFile.skillPoints, 0, int.MaxValue, 60), 150);
             general.Controls.Add(LabeledSkillPointsBox, 1, 0);
 
-            LabeledControl LabeledExperienceBox = new LabeledControl("Experience", new NumericTextBox<uint>(playerDataFile.experience, 0u, (uint)(SkillData.expToPlayerLevel * SkillData.maxPlayerLevel), 80), 150);
-            playerDataFile.experience.AddListener(this);
-            general.Controls.Add(LabeledExperienceBox, 2, 0);
+            LabeledControl LabeledExpToNextLevelBox = new LabeledControl("Exp to next level", new NumericTextBox<uint>(playerDataFile.experience, 0u, (uint)(SkillData.expToPlayerLevel * SkillData.maxPlayerLevel), 60), 175);
+            general.Controls.Add(LabeledExpToNextLevelBox, 2, 0);
 
             panel.Controls.Add(general);
 
@@ -104,7 +103,7 @@ namespace SevenDaysProfileEditor.Skills {
         public void ValueUpdated(Value<int> source) {
             if (!locked) {
                 locked = true;
-                playerDataFile.experience.Set((uint)(source.Get() * SkillData.expToPlayerLevel));
+                playerDataFile.experience.Set((uint)(SkillData.expToPlayerLevel * System.Math.Pow(SkillData.experienceMultiplier, source.Get())));
                 locked = false;
             }
         }
@@ -113,13 +112,15 @@ namespace SevenDaysProfileEditor.Skills {
         /// Updates player level based on experience.
         /// </summary>
         /// <param name="source"></param>
-        public void ValueUpdated(Value<uint> source) {
-            if (!locked) {
-                locked = true;
-                playerDataFile.level.Set((int)source.Get() / SkillData.expToPlayerLevel);
-                locked = false;
-            }
-        }
+
+        // This does not return the correct value, complicated maths involved.
+        //public void ValueUpdated(Value<uint> source) {
+        //    if (!locked) {
+        //        locked = true;
+        //        playerDataFile.level.Set((int)source.Get() / SkillData.expToPlayerLevel);
+        //        locked = false;
+        //    }
+        //}
 
         /// <summary>
         /// Sets up skills for editing.
