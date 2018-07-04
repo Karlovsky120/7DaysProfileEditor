@@ -11,6 +11,7 @@ namespace SevenDaysProfileEditor.Skills {
     internal class SkillData {
         public static int expToLevelDefault;
         public static int expToPlayerLevel;
+        public static double experienceMultiplier;
         public static int maxLevelDefault;
         public static int maxPlayerLevel;
         public static List<SkillData> skillList = new List<SkillData>();
