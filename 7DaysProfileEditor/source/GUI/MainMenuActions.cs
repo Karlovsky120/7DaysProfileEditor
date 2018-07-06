@@ -37,16 +37,16 @@ namespace SevenDaysProfileEditor.GUI {
 
             switch (result) {
                 case DialogResult.Yes:
-                Save(tab);
-                playerTabControl.TabPages.Remove(tab);
-                break;
+                    Save(tab);
+                    playerTabControl.TabPages.Remove(tab);
+                    break;
 
                 case DialogResult.No:
-                playerTabControl.TabPages.Remove(tab);
-                break;
+                    playerTabControl.TabPages.Remove(tab);
+                    break;
 
                 default:
-                break;
+                    break;
             }
         }
 
@@ -64,14 +64,7 @@ namespace SevenDaysProfileEditor.GUI {
                 bottomStatusBar.SetText("Opening...");
 
                 foreach (string fileName in openFile.FileNames) {
-                    try {
-
-                        OpenFile(fileName, new PlayerDataFile(fileName), 0);
-                    }
-                    catch (Exception ex) {
-                        frmErrorReport frm = new frmErrorReport(string.Format("Failed to open file {0}.", fileName.Substring(fileName.LastIndexOf('\\') + 1)), ex, fileName);
-                        frm.ShowDialog();
-                    }
+                    OpenFile(fileName, new PlayerDataFile(fileName), 0);
                 }
 
                 bottomStatusBar.Reset();
