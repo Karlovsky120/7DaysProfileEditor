@@ -58,13 +58,12 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
     <DebugSymbols>true</DebugSymbols>
     <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>TRACE;DEBUG</DefineConstants>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
     <DebugType>full</DebugType>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <Prefer32Bit>false</Prefer32Bit>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
     <OutputPath>bin\Release\</OutputPath>
@@ -81,9 +80,6 @@
     <ApplicationIcon>source\GUI\icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ICSharpCode.SharpZipLib">
-      <HintPath>lib\ICSharpCode.SharpZipLib.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -170,79 +166,7 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="source\Log.cs" />
-    <Compile Include="source\PlayerData\BaseObjective.cs" />
-    <Compile Include="source\PlayerData\BodyDamage.cs" />
-    <Compile Include="source\PlayerData\Buff.cs" />
-    <Compile Include="source\PlayerData\BuffDescriptor.cs" />
-    <Compile Include="source\PlayerData\BuffModifier.cs" />
-    <Compile Include="source\PlayerData\BuffModifierSetTickRate.cs" />
-    <Compile Include="source\PlayerData\BuffTimer.cs" />
-    <Compile Include="source\PlayerData\BuffTimerDuration.cs" />
-    <Compile Include="source\PlayerData\BuffTimerNull.cs" />
-    <Compile Include="source\PlayerData\BuffTimerScheduled.cs" />
-    <Compile Include="source\PlayerData\Colour.cs" />
-    <Compile Include="source\PlayerData\CraftingData.cs" />
-    <Compile Include="source\PlayerData\EntityCreationData.cs" />
-    <Compile Include="source\PlayerData\EntityStats.cs" />
-    <Compile Include="source\PlayerData\EnumBuffCategoryFlags.cs" />
-    <Compile Include="source\PlayerData\EnumBuffClassId.cs" />
-    <Compile Include="source\PlayerData\EnumBuffModifierClassId.cs" />
-    <Compile Include="source\PlayerData\EnumBuffTimerClassId.cs" />
-    <Compile Include="source\PlayerData\EnumSpawnerSource.cs" />
-    <Compile Include="source\PlayerData\EnumStatModifierClassId.cs" />
-    <Compile Include="source\PlayerData\Equipment.cs" />
-    <Compile Include="source\PlayerData\ItemStack.cs" />
-    <Compile Include="source\PlayerData\ItemValue.cs" />
-    <Compile Include="source\PlayerData\IValueListener.cs" />
-    <Compile Include="source\PlayerData\JournalEntry.cs" />
-    <Compile Include="source\PlayerData\LiveStats.cs" />
-    <Compile Include="source\PlayerData\MultiBuff.cs" />
-    <Compile Include="source\PlayerData\MultiBuffAction.cs" />
-    <Compile Include="source\PlayerData\MultiBuffPrefabAttachmentDescriptor.cs" />
-    <Compile Include="source\PlayerData\MultiBuffVariable.cs" />
-    <Compile Include="source\PlayerData\PlayerDataFile.cs" />
-    <Compile Include="source\PlayerData\PlayerJournal.cs" />
-    <Compile Include="source\PlayerData\PlayerProfile.cs" />
-    <Compile Include="source\PlayerData\Quest.cs" />
-    <Compile Include="source\PlayerData\QuestJournal.cs" />
-    <Compile Include="source\PlayerData\Recipe.cs" />
-    <Compile Include="source\PlayerData\RecipeQueueItem.cs" />
-    <Compile Include="source\PlayerData\Skill.cs" />
-    <Compile Include="source\PlayerData\Skills.cs" />
-    <Compile Include="source\PlayerData\Stat.cs" />
-    <Compile Include="source\PlayerData\StatModifier.cs" />
-    <Compile Include="source\PlayerData\StatModifierMax.cs" />
-    <Compile Include="source\PlayerData\StatModifierModifyValue.cs" />
-    <Compile Include="source\PlayerData\StatModifierMulValue.cs" />
-    <Compile Include="source\PlayerData\StatModifierSetValue.cs" />
-    <Compile Include="source\PlayerData\StatModifierValueOT.cs" />
-    <Compile Include="source\PlayerData\Utils.cs" />
-    <Compile Include="source\PlayerData\Value.cs" />
-    <Compile Include="source\PlayerData\Vector3D.cs" />
-    <Compile Include="source\PlayerData\Waypoint.cs" />
-    <Compile Include="source\PlayerData\WaypointCollection.cs" />
     <Compile Include="source\Program.cs" />
-    <Compile Include="source\RegionData\CBCLayer.cs" />
-    <Compile Include="source\RegionData\Chunk.cs" />
-    <Compile Include="source\RegionData\ChunkBlockChannel.cs" />
-    <Compile Include="source\RegionData\ChunkBlockLayer.cs" />
-    <Compile Include="source\RegionData\ChunkCustomData.cs" />
-    <Compile Include="source\RegionData\EntitySpawner.cs" />
-    <Compile Include="source\RegionData\Region.cs" />
-    <Compile Include="source\RegionData\TileEntity.cs" />
-    <Compile Include="source\RegionData\TileEntityCampfire.cs" />
-    <Compile Include="source\RegionData\TileEntityForge.cs" />
-    <Compile Include="source\RegionData\TileEntityLootContainer.cs" />
-    <Compile Include="source\RegionData\TileEntitySecure.cs" />
-    <Compile Include="source\RegionData\TileEntitySecureDoor.cs" />
-    <Compile Include="source\RegionData\TileEntitySecureLootContainer.cs" />
-    <Compile Include="source\RegionData\TileEntitySign.cs" />
-    <Compile Include="source\RegionData\TileEntityTrader.cs" />
-    <Compile Include="source\RegionData\TileEntityType.cs" />
-    <Compile Include="source\RegionData\TileEntityVendingMachine.cs" />
-    <Compile Include="source\RegionData\TileEntityWorkstation.cs" />
-    <Compile Include="source\RegionData\TraderData.cs" />
-    <Compile Include="source\RegionData\Utils.cs" />
     <Compile Include="source\Skills\Requirement.cs" />
     <Compile Include="source\Skills\SkillBinder.cs" />
     <Compile Include="source\Skills\SkillData.cs" />
@@ -303,6 +227,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\7DaysSaveManipulator\7DaysSaveManipulator.csproj">
+      <Project>{5358c4ca-e436-44a3-a6eb-36d2732f439f}</Project>
+      <Name>7DaysSaveManipulator</Name>
+    </ProjectReference>
     <ProjectReference Include="..\AutoUpdater.NET\AutoUpdater.NET.csproj">
       <Project>{fb9e7e6b-b19f-4f37-a708-2996190cef13}</Project>
       <Name>AutoUpdater.NET</Name>
@@ -321,7 +249,7 @@
     <Error Condition="!Exists('..\packages\MSBuild.ILMerge.Task.1.0.5\build\MSBuild.ILMerge.Task.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MSBuild.ILMerge.Task.1.0.5\build\MSBuild.ILMerge.Task.props'))" />
     <Error Condition="!Exists('..\packages\MSBuild.ILMerge.Task.1.0.5\build\MSBuild.ILMerge.Task.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\MSBuild.ILMerge.Task.1.0.5\build\MSBuild.ILMerge.Task.targets'))" />
   </Target>
-  <Import Project="..\packages\MSBuild.ILMerge.Task.1.0.5\build\MSBuild.ILMerge.Task.targets" Condition="'$(Configuration)'=='Release' AND Exists('..\packages\MSBuild.ILMerge.Task.1.0.5\build\MSBuild.ILMerge.Task.targets')" />
+  <Import Project="..\packages\MSBuild.ILMerge.Task.1.0.5\build\MSBuild.ILMerge.Task.targets" Condition="Exists('..\packages\MSBuild.ILMerge.Task.1.0.5\build\MSBuild.ILMerge.Task.targets')" />
   <PropertyGroup>
     <PreBuildEvent>
     </PreBuildEvent>

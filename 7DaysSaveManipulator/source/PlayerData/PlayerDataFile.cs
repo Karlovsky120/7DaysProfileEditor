@@ -138,16 +138,13 @@ namespace SevenDaysSaveManipulator.PlayerData {
         //unlockedRecipeList
         public List<string> unlockedRecipeList;
 
-        //added in Version 36.
-        public Value<ulong> gameStageLifetimeTicks;
-
         //waypoints
         public WaypointCollection waypoints;
 
         //zombieKills
         public Value<int> zombieKills;
 
-        private PlayerDataFile() { }
+        private PlayerDataFile(){}
 
         public PlayerDataFile(string path) {
             Read(path);
@@ -186,7 +183,7 @@ namespace SevenDaysSaveManipulator.PlayerData {
 
                 //Adding version checks to the segments. This will make the app blowup
                 //where an unknown version has been introduced.
-                if (saveFileVersion.Get() > 36) //Last known version is 35.
+                if (saveFileVersion.Get() > 35) //Last known version is 35.
                     throw new Exception("Unknown save file version! " + saveFileVersion);
 
                 ecd = new EntityCreationData();
@@ -286,9 +283,6 @@ namespace SevenDaysSaveManipulator.PlayerData {
                 totalItemsCrafted = new Value<uint>(reader.ReadUInt32());
                 distanceWalked = new Value<float>(reader.ReadSingle());
                 longestLife = new Value<float>(reader.ReadSingle());
-
-                if (saveFileVersion.Get() > 35)
-                    gameStageLifetimeTicks = new Value<ulong>(reader.ReadUInt64());
 
                 waypoints = new WaypointCollection();
                 waypoints.Read(reader);
@@ -414,10 +408,6 @@ namespace SevenDaysSaveManipulator.PlayerData {
             writer.Write(totalItemsCrafted.Get());
             writer.Write(distanceWalked.Get());
             writer.Write(longestLife.Get());
-
-            if (saveFileVersion.Get() > 35)
-                writer.Write(gameStageLifetimeTicks.Get());
-
             waypoints.Write(writer);
             writer.Write(skillPoints.Get());
 
