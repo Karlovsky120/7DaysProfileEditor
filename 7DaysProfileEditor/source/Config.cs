@@ -13,17 +13,16 @@ namespace SevenDaysProfileEditor {
         /// Gets the requested setting.
         /// </summary>
         /// <param name="key">Setting to get</param>
-        /// <returns>Setting value</returns>
+        /// <returns>Setting value or null if not found</returns>
         public static string GetSetting(string key) {
             string value = null;
-
             config.TryGetValue(key, out value);
 
             return value;
         }
 
         /// <summary>
-        /// Loads a configuration file.
+        /// Loads the configuration file.
         /// </summary>
         public static void Load() {
             if (File.Exists("7DaysProfileEditor.config")) {
