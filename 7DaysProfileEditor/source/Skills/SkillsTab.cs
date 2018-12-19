@@ -103,24 +103,12 @@ namespace SevenDaysProfileEditor.Skills {
         public void ValueUpdated(Value<int> source) {
             if (!locked) {
                 locked = true;
+                // This does not return the correct value, complicated maths involved.
+                // playerDataFile.level.Set((int)source.Get() / SkillData.expToPlayerLevel);
                 playerDataFile.experience.Set((uint)(SkillData.expToPlayerLevel * System.Math.Pow(SkillData.experienceMultiplier, source.Get())));
                 locked = false;
             }
         }
-
-        /// <summary>
-        /// Updates player level based on experience.
-        /// </summary>
-        /// <param name="source"></param>
-
-        // This does not return the correct value, complicated maths involved.
-        //public void ValueUpdated(Value<uint> source) {
-        //    if (!locked) {
-        //        locked = true;
-        //        playerDataFile.level.Set((int)source.Get() / SkillData.expToPlayerLevel);
-        //        locked = false;
-        //    }
-        //}
 
         /// <summary>
         /// Sets up skills for editing.

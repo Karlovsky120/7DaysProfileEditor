@@ -68,7 +68,7 @@ namespace SevenDaysProfileEditor {
             string gameRoot = Config.GetSetting("gameRoot");
 
             // If they gave a gameroot, launch app.
-            if (gameRoot != null) {
+            if (gameRoot != null && File.Exists(gameRoot)) {
                 Start(window);
                 return;
             }
