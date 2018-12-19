@@ -1,4 +1,6 @@
-﻿using System;
+﻿using SevenDaysSaveManipulator.source.PlayerData;
+using System;
+using System.Collections.Generic;
 using System.IO;
 
 namespace SevenDaysSaveManipulator.PlayerData {
@@ -6,30 +8,26 @@ namespace SevenDaysSaveManipulator.PlayerData {
     [Serializable]
     public class Equipment {
 
-        //notSaved = 1
-        public static Value<byte> equipmentVersion;
+        //m_slots
+        public List<ItemValue> slots = new List<ItemValue>(32);
 
-        //S
-        public ItemValue[] slots = new ItemValue[32];
+        public Equipment() {}
 
-        public static Equipment Read(BinaryReader reader) {
-            equipmentVersion = new Value<byte>(reader.ReadByte());
-            
-            //If the version changes, throw an exception, so we know what has changed.
-            if (equipmentVersion.Get() > 1)
-                throw new Exception("Unknown Equipment version! " + equipmentVersion);
-
-            Equipment equipment = new Equipment();
-            for (int i = 0; i < equipment.slots.Length; i++) {
-                equipment.slots[i] = new ItemValue();
-                equipment.slots[i].Read(reader);
-            }
-            return equipment;
+        internal Equipment(BinaryReader reader) {
+            Read(reader);
         }
 
-        public void Write(BinaryWriter writer) {
-            writer.Write(equipmentVersion.Get());
-            for (int i = 0; i < slots.Length; i++) {
+        internal void Read(BinaryReader reader) {
+           Utils.VerifyVersion(reader.ReadByte(), SaveVersionConstants.EQUIPMENT);
+
+            for (int i = 0; i < 32; ++i) {
+                slots[i] = new ItemValue(reader);
+            }
+        }
+
+        internal void Write(BinaryWriter writer) {
+            writer.Write(SaveVersionConstants.EQUIPMENT);
+            for (int i = 0; i < 32; ++i) {
                 slots[i].Write(writer);
             }
         }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SevenDaysSaveManipulator.source.PlayerData;
+using System;
 using System.Collections.Generic;
 using System.IO;
 
@@ -10,41 +11,40 @@ namespace SevenDaysSaveManipulator.PlayerData {
         //num
         public static Value<int> buffClassId;
 
-        //version = 6
-        public static Value<int> buffVersion;
+        //smth
+        public static Value<ushort> buffVersion;
 
-        //D
-        public static Dictionary<EnumBuffClassId, Type> dictionary;
+        //obfuscated
+        public static Dictionary<EnumBuffClassId, Type> buffClassIdDictionary;
 
-        //W
+        //obfuscated
         public List<BuffModifier> buffModifierList;
 
-        //C
+        //obfuscated
         public BuffDescriptor descriptor;
 
-        //RandomLetter
+        //obfuscated
         public Value<int> instigatorId;
 
-        //G
+        //obfuscated
         public Value<bool> isOverriden;
 
-        //O
+        //obfuscated
         public List<StatModifier> statModifierList;
 
-        //E
+        //obfuscated
         public BuffTimer timer;
 
         static Buff() {
-            dictionary = new Dictionary<EnumBuffClassId, Type>();
+            buffClassIdDictionary = new Dictionary<EnumBuffClassId, Type>();
             RegisterClass(EnumBuffClassId.MultiBuff, typeof(MultiBuff));
         }
 
         public static Buff Read(BinaryReader reader, Dictionary<ushort, StatModifier> idTable) {
-            buffVersion = new Value<int>((int)reader.ReadUInt16());
+            buffVersion = new Value<ushort>((ushort)reader.ReadUInt16());
             buffClassId = new Value<int>((int)reader.ReadByte());
 
-            Type type;
-            dictionary.TryGetValue((EnumBuffClassId)buffClassId.Get(), out type);
+            buffClassIdDictionary.TryGetValue((EnumBuffClassId)buffClassId.Get(), out Type type);
 
             Buff buff = Activator.CreateInstance(type, null) as Buff;
             buff.Read(reader, buffVersion.Get(), idTable);
@@ -52,7 +52,7 @@ namespace SevenDaysSaveManipulator.PlayerData {
         }
 
         public static void RegisterClass(EnumBuffClassId classId, Type type) {
-            dictionary[classId] = type;
+            buffClassIdDictionary[classId] = type;
         }
 
         public virtual void Read(BinaryReader reader, int buffVersion, Dictionary<ushort, StatModifier> idTable) {
@@ -62,7 +62,7 @@ namespace SevenDaysSaveManipulator.PlayerData {
 
             int statModifierListCount = reader.ReadByte();
             statModifierList = new List<StatModifier>();
-            for (int i = 0; i < statModifierListCount; i++) {
+            for (int i = 0; i < statModifierListCount; ++i) {
                 ushort key = reader.ReadUInt16();
                 StatModifier statModifier = idTable[key];
                 statModifierList.Add(statModifier);
@@ -80,7 +80,7 @@ namespace SevenDaysSaveManipulator.PlayerData {
         }
 
         public virtual void Write(BinaryWriter writer) {
-            writer.Write((ushort)buffVersion.Get());
+            writer.Write(buffVersion.Get());
             writer.Write((byte)buffClassId.Get());
             timer.Write(writer);
             descriptor.Write(writer);

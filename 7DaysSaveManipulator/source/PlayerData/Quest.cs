@@ -1,24 +1,13 @@
-﻿using System;
+﻿using SevenDaysSaveManipulator.source.PlayerData;
+using SevenDaysXMLParser.Quests;
+using System;
 using System.Collections.Generic;
 using System.IO;
 
 namespace SevenDaysSaveManipulator.PlayerData {
 
     [Serializable]
-    public enum QuestState {
-        InProgress,
-        Completed,
-        Failed
-    }
-
-    [Serializable]
     public class Quest {
-
-        //CurrentFileVersion
-        public Value<byte> currentFileVersion;
-
-        //CurrentQuestVersion
-        public Value<byte> currentQuestVersion;
 
         //CurrentState
         public Value<QuestState> currentState;
@@ -32,11 +21,8 @@ namespace SevenDaysSaveManipulator.PlayerData {
         //ID
         public string id;
 
-        //CurrentQuestVersion
-        public Value<byte> CurrentPhase;
-
-        //Q
-        public Value<bool> isTracked;
+        //tracked
+        public Value<bool> tracked;
 
         //Objectives
         public List<BaseObjective> objectives = new List<BaseObjective>();
@@ -44,60 +30,156 @@ namespace SevenDaysSaveManipulator.PlayerData {
         //OwnerJournal
         public QuestJournal ownerJournal;
 
-        public void Read(BinaryReader reader) {
-            currentFileVersion = new Value<byte>(reader.ReadByte());
-            currentState = new Value<QuestState>((QuestState)reader.ReadByte());
-            isTracked = new Value<bool>(reader.ReadBoolean());
-            finishTime = new Value<ulong>(reader.ReadUInt64());
+        //SharedOwnerID
+        public Value<int> sharedOwnerId;
 
-            //Issue 21, A16 added Current Phase.
-            if (this.currentFileVersion.Get() > 1) {
-                this.CurrentPhase = new Value<byte>(reader.ReadByte());
+        //QuestGiverID
+        public Value<int> questGiverId;
+
+        //CurrentPhase
+        public Value<byte> currentPhase;
+
+        //QuestCode
+        public Value<int> questCode;
+
+        //PositionData
+        public Dictionary<PositionDataTypes, Vector3D<float>> positionData = new Dictionary<PositionDataTypes, Vector3D<float>>();
+
+        //RallyMarkerActivated
+        public Value<bool> rallyMarkerActivated;
+
+        //Rewards
+        public List<byte> rewardIndexes;
+
+        public enum PositionDataTypes {
+            QuestGiver,
+            Location,
+            POIPosition,
+            POISize,
+            TreasurePoint,
+            FetchContainer,
+            HiddenCache,
+            Activate
+        }
+
+        public enum QuestState {
+            NotStarted,
+            InProgress,
+            ReadyForTurnIn,
+            Completed,
+            Failed
+        }
+
+        public Quest() {}
+
+        internal Quest(BinaryReader reader, QuestsXml questsXml) {
+            Read(reader, questsXml);
+        }
+
+        internal void Read(BinaryReader reader, QuestsXml questsXml) {
+            id = reader.ReadString();
+            Utils.VerifyVersion(reader.ReadByte(), SaveVersionConstants.QUEST_QUEST);
+            Utils.VerifyVersion(reader.ReadByte(), SaveVersionConstants.QUEST_FILE);
+
+            currentState = new Value<QuestState>((QuestState)reader.ReadByte());
+            sharedOwnerId = new Value<int>(reader.ReadInt32());
+            questGiverId = new Value<int>(reader.ReadInt32());
+
+            if (currentState.Get() == QuestState.InProgress) {
+                tracked = new Value<bool>(reader.ReadBoolean());
+                currentPhase = new Value<byte>(reader.ReadByte());
+                questCode = new Value<int>(reader.ReadInt32());
             }
-            //num
-            int objectiveCount = reader.ReadByte();
-            for (int i = 0; i < objectiveCount; i++) {
-                BaseObjective baseObjective = new BaseObjective();
-                baseObjective.Read(reader);
-                objectives.Add(baseObjective);
+
+            int objectiveCount = questsXml.quests[id].objectives.Count;
+            for (int i = 0; i < objectiveCount; ++i) {
+                objectives.Add(new BaseObjective(reader));
             }
 
             //num2
-            int dataVariableCount = reader.ReadByte();
-            for (int j = 0; j < dataVariableCount; j++) {
+            byte dataVariableCount = reader.ReadByte();
+            for (byte i = 0; i < dataVariableCount; i++) {
                 string key = reader.ReadString();
                 string value = reader.ReadString();
 
-                //Issue 17 reported on GitHub
-                //https://github.com/Karlovsky120/7DaysProfileEditor/issues/17
-                if (!this.dataVariables.ContainsKey(key)) {
+                if (!dataVariables.ContainsKey(key)) {
                     dataVariables.Add(key, value);
+                } else {
+                    dataVariables[key] = value;
+                }
+            }
+
+            if (currentState.Get() == QuestState.InProgress) {
+                byte positionDataLength = reader.ReadByte();
+                for (int i = 0; i < positionDataLength; ++i) {
+                    PositionDataTypes key = (PositionDataTypes)reader.ReadByte();
+                    Vector3D<float> value = new Vector3D<float> {
+                        x = new Value<float>(reader.ReadSingle()),
+                        y = new Value<float>(reader.ReadSingle()),
+                        z = new Value<float>(reader.ReadSingle())
+                    };
+
+                    if (!positionData.ContainsKey(key)) {
+                        positionData.Add(key, value);
+                    } else {
+                        positionData[key] = value;
+                    }
+                }
+
+                rallyMarkerActivated = new Value<bool>(reader.ReadBoolean());
+            } else {
+                finishTime = new Value<ulong>(reader.ReadUInt64());
+            }
+
+            if (currentState.Get() == QuestState.InProgress || currentState.Get() == QuestState.ReadyForTurnIn) {
+                int rewardsCount = questsXml.quests[id].rewards.Count;
+                for (int i = 0; i < rewardsCount; ++i) {
+                    rewardIndexes.Add(reader.ReadByte());
                 }
             }
         }
 
-        public void Write(BinaryWriter writer) {
+        internal void Write(BinaryWriter writer) {
             writer.Write(id);
-            writer.Write(currentQuestVersion.Get());
-            writer.Write(currentFileVersion.Get());
+            writer.Write(SaveVersionConstants.QUEST_QUEST); //???
+            writer.Write(SaveVersionConstants.QUEST_FILE);
             writer.Write((byte)currentState.Get());
-            writer.Write(isTracked.Get());
-            writer.Write(finishTime.Get());
+            writer.Write(sharedOwnerId.Get());
+            writer.Write(questGiverId.Get());
 
-            //Issue 21, A16 added Current Phase.
-            if (this.currentFileVersion.Get() > 1) {
-                writer.Write(CurrentPhase.Get());
+            if (currentState.Get() == QuestState.InProgress) {
+                writer.Write(tracked.Get());
+                writer.Write(currentPhase.Get());
+                writer.Write(questCode.Get());
             }
 
-            writer.Write((byte)objectives.Count);
-            for (int i = 0; i < objectives.Count; i++) {
+            for (int i = 0; i < objectives.Count; ++i) {
                 objectives[i].Write(writer);
             }
 
             writer.Write((byte)dataVariables.Count);
-            foreach (string current in dataVariables.Keys) {
-                writer.Write(current);
-                writer.Write(dataVariables[current]);
+            foreach (KeyValuePair<string, string> current in dataVariables) {
+                writer.Write(current.Key);
+                writer.Write(current.Value);
+            }
+
+            if (currentState.Get() == QuestState.InProgress) {
+                writer.Write((byte)positionData.Count);
+                foreach(KeyValuePair<PositionDataTypes, Vector3D<float>> current in positionData) {
+                    writer.Write((byte)current.Key);
+                    writer.Write(current.Value.x.Get());
+                    writer.Write(current.Value.y.Get());
+                    writer.Write(current.Value.z.Get());
+                }
+                writer.Write(rallyMarkerActivated.Get());
+            } else {
+                writer.Write(finishTime.Get());
+            }
+
+            if (currentState.Get() == QuestState.InProgress || currentState.Get() == QuestState.ReadyForTurnIn) {
+                for (int i = 0; i < rewardIndexes.Count; ++i) {
+                    writer.Write(rewardIndexes[i]);
+                }
             }
         }
     }

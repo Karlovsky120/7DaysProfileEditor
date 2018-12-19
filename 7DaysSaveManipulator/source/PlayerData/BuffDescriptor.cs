@@ -21,15 +21,16 @@ namespace SevenDaysSaveManipulator.PlayerData {
 
         public static BuffDescriptor Read(BinaryReader reader) {
             buffDescriptorVersion = new Value<int>(reader.ReadInt32());
-            BuffDescriptor buffDescriptor = new BuffDescriptor();
-            buffDescriptor.categoryFlags = (EnumBuffCategoryFlags)reader.ReadInt32();
+            BuffDescriptor buffDescriptor = new BuffDescriptor {
+                categoryFlags = (EnumBuffCategoryFlags)reader.ReadInt32(),
 
-            buffDescriptor.notificationClass = reader.ReadString();
+                notificationClass = reader.ReadString()
+            };
 
             //
             int overrideCount = reader.ReadInt32();
             buffDescriptor.overrides = new HashSet<string>();
-            for (int i = 0; i < overrideCount; i++) {
+            for (int i = 0; i < overrideCount; ++i) {
                 buffDescriptor.overrides.Add(reader.ReadString());
             }
 

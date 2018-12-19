@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace SevenDaysSaveManipulator.RegionData {
-    class TileEntityTrader : TileEntity {
+    public class TileEntityTrader : TileEntity {
 
         Value<int> version;
 

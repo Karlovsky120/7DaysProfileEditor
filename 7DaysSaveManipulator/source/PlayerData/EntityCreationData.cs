@@ -1,11 +1,12 @@
 ﻿using SevenDaysSaveManipulator.RegionData;
+using SevenDaysSaveManipulator.source.PlayerData;
 using System;
 using System.IO;
 
 namespace SevenDaysSaveManipulator.PlayerData {
 
     [Serializable]
-    public class EntityCreationData {
+    public class EntityCreationData { 
 
         //belongsPlayerId
         public Value<int> belongsPlayerId;
@@ -13,20 +14,17 @@ namespace SevenDaysSaveManipulator.PlayerData {
         //bodyDamage
         public BodyDamage bodyDamage;
 
-        //blockValue.rawData
-        public Value<uint> blockValueRawData;
+        //blockValue
+        public Value<uint> blockValue;
 
         //blockPos
         public Vector3D<int> blockPosition;
 
         //deathTime
-        public Value<int> deathTime;
+        public Value<short> deathTime;
 
         //entityClass
         public Value<int> entityClass;
-
-        //readFileVersion = 22
-        public Value<byte> entityCreationDataVersion;
 
         //entityData
         public MemoryStream entityData;
@@ -40,14 +38,14 @@ namespace SevenDaysSaveManipulator.PlayerData {
         //holdingItem
         public ItemValue holdingItem;
 
-        //Q
+        //homePosition
         public Vector3D<int> homePosition;
 
         //id
         public Value<int> id;
 
-        //isTraderEntity = false for save files
-        public Value<bool> isTraderEntity;
+        //traderData
+        public TileEntityTrader traderData;
 
         //itemStack
         public ItemStack itemStack;
@@ -73,72 +71,70 @@ namespace SevenDaysSaveManipulator.PlayerData {
         //skinTexture
         public Value<string> skinTexture;
 
-        //P
+        //spawnerSource
         public EnumSpawnerSource spawnerSource;
 
         //stats
         public EntityStats stats;
 
         //teamNumber
-        public Value<int> teamNumber;
+        public Value<byte> teamNumber;
 
-        //type
-        public Value<int> type;
+        //textureFull
+        public Value<long> textureFull;
 
-        //D = -1
-        public Value<int> unknownD;
+        //homeRange
+        public Value<short> homeRange;
 
-        public void Read(BinaryReader reader) {
-            entityCreationDataVersion = new Value<byte>(reader.ReadByte());
+        public EntityCreationData() {}
 
-            //Adding version checks to the segments. This will make the app blowup
-            //where an unknown version has been introduced.
-            if (entityCreationDataVersion.Get() > 25) //Last known version is 25.
-                throw new Exception("Unknown EntityCreationData version! " + entityCreationDataVersion.Get());
+        internal EntityCreationData(BinaryReader reader) {
+            Read(reader);
+        }
+
+        internal void Read(BinaryReader reader) {
+            Utils.VerifyVersion(reader.ReadByte(), SaveVersionConstants.ENTITY_CREATION_DATA);
 
             entityClass = new Value<int>(reader.ReadInt32());
 
             id = new Value<int>(reader.ReadInt32());
             lifetime = new Value<float>(reader.ReadSingle());
 
-            pos = new Vector3D<float>();
-            pos.x = new Value<float>(reader.ReadSingle());
-            pos.y = new Value<float>(reader.ReadSingle());
-            pos.z = new Value<float>(reader.ReadSingle());
+            pos = new Vector3D<float> {
+                x = new Value<float>(reader.ReadSingle()),
+                y = new Value<float>(reader.ReadSingle()),
+                z = new Value<float>(reader.ReadSingle())
+            };
 
-            rot = new Vector3D<float>();
-            rot.x = new Value<float>(reader.ReadSingle());
-            rot.y = new Value<float>(reader.ReadSingle());
-            rot.z = new Value<float>(reader.ReadSingle());
+            rot = new Vector3D<float> {
+                x = new Value<float>(reader.ReadSingle()),
+                y = new Value<float>(reader.ReadSingle()),
+                z = new Value<float>(reader.ReadSingle())
+            };
 
             onGround = new Value<bool>(reader.ReadBoolean());
 
-            bodyDamage = new BodyDamage();
-            bodyDamage.Read(reader);
+            bodyDamage = new BodyDamage(reader);
 
-            bool isStatsNotNull = reader.ReadBoolean();
-
-            if (isStatsNotNull) {
-                stats = new EntityStats();
-                stats.Read(reader);
+            if (reader.ReadBoolean()) {
+                stats = new EntityStats(reader);
             }
 
-            deathTime = new Value<int>((int)reader.ReadInt16());
+            deathTime = new Value<short>(reader.ReadInt16());
 
-            
-            bool tileEntityNotNull = reader.ReadBoolean();
-            if (tileEntityNotNull) {
-                type = new Value<int>(reader.ReadInt32());
-                lootContainer = TileEntity.Instantiate((TileEntityType)(type.Get()));
+            if (reader.ReadBoolean()) {
+                int tileEntityType = reader.ReadInt32();
+                lootContainer = TileEntity.Instantiate((TileEntityType)(tileEntityType));
                 lootContainer.Read(reader);
             }
 
-            homePosition = new Vector3D<int>();
-            homePosition.x = new Value<int>(reader.ReadInt32());
-            homePosition.y = new Value<int>(reader.ReadInt32());
-            homePosition.z = new Value<int>(reader.ReadInt32());
+            homePosition = new Vector3D<int> {
+                x = new Value<int>(reader.ReadInt32()),
+                y = new Value<int>(reader.ReadInt32()),
+                z = new Value<int>(reader.ReadInt32())
+            };
+            homeRange = new Value<short>(reader.ReadInt16());
 
-            unknownD = new Value<int>((int)reader.ReadInt16());
             spawnerSource = (EnumSpawnerSource)reader.ReadByte();
 
             if (entityClass.Get() == Utils.GetMonoHash("item")) {
@@ -149,31 +145,32 @@ namespace SevenDaysSaveManipulator.PlayerData {
             }
 
             else if (entityClass.Get() == Utils.GetMonoHash("fallingBlock")) {
-                blockValueRawData = new Value<uint>(reader.ReadUInt32());
+                blockValue = new Value<uint>(reader.ReadUInt32());
+                textureFull = new Value<long>(reader.ReadInt64());
             }
 
             else if (entityClass.Get() == Utils.GetMonoHash("fallingTree")) {
-                blockPosition = new Vector3D<int>();
-                blockPosition.x = new Value<int>(reader.ReadInt32());
-                blockPosition.y = new Value<int>(reader.ReadInt32());
-                blockPosition.z = new Value<int>(reader.ReadInt32());
+                blockPosition = new Vector3D<int> {
+                    x = new Value<int>(reader.ReadInt32()),
+                    y = new Value<int>(reader.ReadInt32()),
+                    z = new Value<int>(reader.ReadInt32())
+                };
 
-                fallTreeDir = new Vector3D<float>();
-                fallTreeDir.x = new Value<float>(reader.ReadSingle());
-                fallTreeDir.y = new Value<float>(reader.ReadSingle());
-                fallTreeDir.z = new Value<float>(reader.ReadSingle());
+                fallTreeDir = new Vector3D<float> {
+                    x = new Value<float>(reader.ReadSingle()),
+                    y = new Value<float>(reader.ReadSingle()),
+                    z = new Value<float>(reader.ReadSingle())
+                };
             }
 
             else if ((entityClass.Get() == Utils.GetMonoHash("playerMale")) || (entityClass.Get() == Utils.GetMonoHash("playerFemale"))) {
 
-                holdingItem = new ItemValue();
-                holdingItem.Read(reader);
-                teamNumber = new Value<int>((int)reader.ReadByte());
+                holdingItem = new ItemValue(reader);
+                teamNumber = new Value<byte>(reader.ReadByte());
                 entityName = new Value<string>(reader.ReadString());
                 skinTexture = new Value<string>(reader.ReadString());
 
-                bool isPlayerProfileNotNull = reader.ReadBoolean();
-                if (isPlayerProfileNotNull) {
+                if (reader.ReadBoolean()) {
                     playerProfile = PlayerProfile.Read(reader);
                 }
                 else {
@@ -182,17 +179,22 @@ namespace SevenDaysSaveManipulator.PlayerData {
             }
 
             //num2
-            int entityDataLength = (int)reader.ReadUInt16();
+            ushort entityDataLength = reader.ReadUInt16();
             if (entityDataLength > 0) {
                 byte[] buffer = reader.ReadBytes(entityDataLength);
                 entityData = new MemoryStream(buffer);
             }
 
-            isTraderEntity = new Value<bool>(reader.ReadBoolean());
+            if (reader.ReadBoolean() {
+                int tileEntityType = reader.ReadInt32();
+                traderData = (TileEntityTrader)TileEntity.Instantiate((TileEntityType)(tileEntityType));
+                traderData.Read(reader);
+            }
+
         }
 
-        public void Write(BinaryWriter writer) {
-            writer.Write(entityCreationDataVersion.Get());
+        internal void Write(BinaryWriter writer) {
+            writer.Write(SaveVersionConstants.ENTITY_CREATION_DATA);
             writer.Write(entityClass.Get());
             writer.Write(id.Get());
             writer.Write(lifetime.Get());
@@ -206,24 +208,24 @@ namespace SevenDaysSaveManipulator.PlayerData {
             writer.Write(onGround.Get());
 
             bodyDamage.Write(writer);
-            writer.Write(stats != null);
 
+            writer.Write(stats != null);
             if (stats != null) {
                 stats.Write(writer);
             }
 
-            writer.Write((short)deathTime.Get());
+            writer.Write(deathTime.Get());
 
             writer.Write(lootContainer != null);
             if (lootContainer != null) {
-                writer.Write(type.Get());
+                writer.Write((int)lootContainer.GetTileEntityType());
                 lootContainer.Write(writer);
             }
 
             writer.Write(homePosition.x.Get());
             writer.Write(homePosition.y.Get());
             writer.Write(homePosition.z.Get());
-            writer.Write((short)unknownD.Get());
+            writer.Write(homeRange.Get());
             writer.Write((byte)spawnerSource);
 
             if (entityClass.Get() == Utils.GetMonoHash("item")) {
@@ -234,7 +236,7 @@ namespace SevenDaysSaveManipulator.PlayerData {
             }
 
             else if (entityClass.Get() == Utils.GetMonoHash("fallingBlock")) {
-                writer.Write(blockValueRawData.Get());
+                writer.Write(blockValue.Get());
             }
 
             else if (entityClass.Get() == Utils.GetMonoHash("fallingTree")) {
@@ -266,7 +268,11 @@ namespace SevenDaysSaveManipulator.PlayerData {
                 writer.Write(entityData.ToArray());
             }
 
-            writer.Write(isTraderEntity.Get());
+            writer.Write(traderData != null);
+            if (traderData != null) {
+                writer.Write((int)traderData.GetTileEntityType());
+                traderData.Write(writer);
+            }
         }
     }
 }

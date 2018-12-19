@@ -53,7 +53,7 @@ namespace SevenDaysSaveManipulator.PlayerData {
             }
 
             float[] array = new float[46];
-            for (int i = 0; i < array.Length; i++) {
+            for (int i = 0; i < array.Length; ++i) {
                 array[i] = reader.ReadSingle();
             }
 
@@ -83,7 +83,7 @@ namespace SevenDaysSaveManipulator.PlayerData {
                 writer.Write(beardName.Get());
             }
 
-            for (int i = 0; i < dnaValues.Length; i++) {
+            for (int i = 0; i < dnaValues.Length; ++i) {
                 writer.Write(dnaValues[i]);
             }
         }

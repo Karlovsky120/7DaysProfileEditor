@@ -73,9 +73,10 @@
     <Compile Include="source\PlayerData\Equipment.cs" />
     <Compile Include="source\PlayerData\ItemStack.cs" />
     <Compile Include="source\PlayerData\ItemValue.cs" />
-    <Compile Include="source\PlayerData\IValueListener.cs" />
+    <Compile Include="source\BoilerPlate\IValueListener.cs" />
     <Compile Include="source\PlayerData\JournalEntry.cs" />
     <Compile Include="source\PlayerData\LiveStats.cs" />
+    <Compile Include="source\BoilerPlate\MismatchedSaveVersionException.cs" />
     <Compile Include="source\PlayerData\MultiBuff.cs" />
     <Compile Include="source\PlayerData\MultiBuffAction.cs" />
     <Compile Include="source\PlayerData\MultiBuffPrefabAttachmentDescriptor.cs" />
@@ -87,6 +88,7 @@
     <Compile Include="source\PlayerData\QuestJournal.cs" />
     <Compile Include="source\PlayerData\Recipe.cs" />
     <Compile Include="source\PlayerData\RecipeQueueItem.cs" />
+    <Compile Include="source\BoilerPlate\SaveVersionConstants.cs" />
     <Compile Include="source\PlayerData\Skill.cs" />
     <Compile Include="source\PlayerData\Skills.cs" />
     <Compile Include="source\PlayerData\Stat.cs" />
@@ -96,8 +98,8 @@
     <Compile Include="source\PlayerData\StatModifierMulValue.cs" />
     <Compile Include="source\PlayerData\StatModifierSetValue.cs" />
     <Compile Include="source\PlayerData\StatModifierValueOT.cs" />
-    <Compile Include="source\PlayerData\Utils.cs" />
-    <Compile Include="source\PlayerData\Value.cs" />
+    <Compile Include="source\BoilerPlate\Utils.cs" />
+    <Compile Include="source\BoilerPlate\Value.cs" />
     <Compile Include="source\PlayerData\Vector3D.cs" />
     <Compile Include="source\PlayerData\Waypoint.cs" />
     <Compile Include="source\PlayerData\WaypointCollection.cs" />
@@ -129,6 +131,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ILMergeOrder.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\7DaysXMLParser\7DaysXMLParser.csproj">
+      <Project>{4806eaf8-92ef-4404-a2e5-b251204acb55}</Project>
+      <Name>7DaysXMLParser</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

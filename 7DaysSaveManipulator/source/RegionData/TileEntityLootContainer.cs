@@ -24,9 +24,10 @@ namespace SevenDaysSaveManipulator.RegionData {
             base.Read(reader);
 
             lootListIndex = new Value<int>((int)reader.ReadUInt16());
-            AD = new Vector3D<int>();
-            AD.x = new Value<int>((int)reader.ReadUInt16());
-            AD.y = new Value<int>((int)reader.ReadUInt16());
+            AD = new Vector3D<int> {
+                x = new Value<int>((int)reader.ReadUInt16()),
+                y = new Value<int>((int)reader.ReadUInt16())
+            };
             bTouched = new Value<bool>(reader.ReadBoolean());
             worldTimeTouched = new Value<ulong>((ulong)reader.ReadUInt32());
             bPlayerBackpack = new Value<bool>(reader.ReadBoolean());
@@ -34,7 +35,7 @@ namespace SevenDaysSaveManipulator.RegionData {
             int itemsLength = Math.Min((int)reader.ReadInt16(), AD.x.Get() * AD.y.Get());
             items = new ItemStack[itemsLength];
 
-            for (int i = 0; i < itemsLength; i++) {
+            for (int i = 0; i < itemsLength; ++i) {
                 items[i] = new ItemStack();
                 items[i].Read(reader);
             }

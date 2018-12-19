@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
 
 namespace SevenDaysSaveManipulator.PlayerData {
 
@@ -8,5 +10,6 @@ namespace SevenDaysSaveManipulator.PlayerData {
         public Value<T> x;
         public Value<T> y;
         public Value<T> z;
+        private static BinaryReader reader;
     }
 }

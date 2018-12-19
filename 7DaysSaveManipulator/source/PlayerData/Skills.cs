@@ -14,7 +14,7 @@ namespace SevenDaysSaveManipulator.PlayerData {
             //num
             int skillNumber = reader.ReadInt32();
             skillDictionary = new Dictionary<int, Skill>();
-            for (int i = 0; i < skillNumber; i++) {
+            for (int i = 0; i < skillNumber; ++i) {
                 Skill skill = new Skill();
                 int key = reader.ReadInt32();
 
@@ -38,7 +38,7 @@ namespace SevenDaysSaveManipulator.PlayerData {
 
             writer.Write(array.Length);
 
-            for (int i = 0; i < array.Length; i++) {
+            for (int i = 0; i < array.Length; ++i) {
                 binaryWriter.Write(array[i]);
                 skillDictionary[array[i]].Write(binaryWriter);
             }

@@ -60,20 +60,21 @@ namespace SevenDaysSaveManipulator.PlayerData {
         public static MultiBuffAction Read(BinaryReader reader) {
             multiBuffActionVersion = new Value<int>(reader.ReadInt32());
 
-            MultiBuffAction multiBuffAction = new MultiBuffAction();
-            multiBuffAction.command = (EnumCommand)reader.ReadByte();
-            multiBuffAction.unknownC = new Value<float>(reader.ReadSingle());
-            multiBuffAction.categoryFlags = (EnumBuffCategoryFlags)reader.ReadInt32();
-            multiBuffAction.unknownV = new Value<int>(reader.ReadInt32());
-            multiBuffAction.unknownO = new Value<string>(reader.ReadString());
-            multiBuffAction.unknownW = new Value<string>(reader.ReadString());
-            multiBuffAction.context = new Value<string>(reader.ReadString());
+            MultiBuffAction multiBuffAction = new MultiBuffAction {
+                command = (EnumCommand)reader.ReadByte(),
+                unknownC = new Value<float>(reader.ReadSingle()),
+                categoryFlags = (EnumBuffCategoryFlags)reader.ReadInt32(),
+                unknownV = new Value<int>(reader.ReadInt32()),
+                unknownO = new Value<string>(reader.ReadString()),
+                unknownW = new Value<string>(reader.ReadString()),
+                context = new Value<string>(reader.ReadString()),
 
-            multiBuffAction.unknownJ = BuffTimer.Read(reader);
-            multiBuffAction.unknownS = BuffTimer.Read(reader);
+                unknownJ = BuffTimer.Read(reader),
+                unknownS = BuffTimer.Read(reader),
 
-            multiBuffAction.unknownF = new Value<bool>(reader.ReadBoolean());
-            multiBuffAction.unknownI = new Value<bool>(reader.ReadBoolean());
+                unknownF = new Value<bool>(reader.ReadBoolean()),
+                unknownI = new Value<bool>(reader.ReadBoolean())
+            };
 
             return multiBuffAction;
         }

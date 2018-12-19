@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SevenDaysSaveManipulator.source.PlayerData;
+using System;
 using System.Collections.Generic;
 using System.IO;
 
@@ -13,58 +14,54 @@ namespace SevenDaysSaveManipulator.PlayerData {
         //Attachments
         public List<ItemValue> attachments = new List<ItemValue>();
 
-        //b = 3
-        public Value<byte> itemValueVersion;
-
         //Meta
-        public Value<int> meta;
+        public Value<ushort> meta;
 
         //Parts
-        public ItemValue[] parts = new ItemValue[0];
+        public List<ItemValue> parts = new List<ItemValue>();
 
         //Quality
-        public Value<int> quality;
+        public Value<ushort> quality;
 
         //SelectedAmmoTypeIndex
         public Value<byte> selectedAmmoTypeIndex;
 
         //type
-        public Value<int> type;
+        public Value<ushort> type;
 
         //UseTimes
-        public Value<int> useTimes;
+        public Value<ushort> useTimes;
 
-        public void Read(BinaryReader reader) {
-            itemValueVersion = new Value<byte>(reader.ReadByte());
-            type = new Value<int>((int)reader.ReadUInt16());
-            useTimes = new Value<int>((int)reader.ReadUInt16());
-            quality = new Value<int>((int)reader.ReadUInt16());
-            meta = new Value<int>((int)reader.ReadInt16());
+        public ItemValue() {}
+
+        internal ItemValue(BinaryReader reader) {
+            Read(reader);
+        }
+
+        internal void Read(BinaryReader reader) {
+            Utils.VerifyVersion<byte>(reader.ReadByte(), SaveVersionConstants.ITEM_VALUE);
+
+            type = new Value<ushort>(reader.ReadUInt16());
+            useTimes = new Value<ushort>(reader.ReadUInt16());
+            quality = new Value<ushort>(reader.ReadUInt16());
+            meta = new Value<ushort>(reader.ReadUInt16());
 
             //b2
-            byte partNumber = reader.ReadByte();
-            parts = new ItemValue[4];
+            byte partCount = reader.ReadByte();
 
-            if (partNumber != 0) {
-                for (int i = 0; i < (int)partNumber; i++) {
-                    if (reader.ReadBoolean()) {
-                        parts[i] = new ItemValue();
-                        parts[i].Read(reader);
-                    }
-                    else {
-                        parts[i] = null;
-                    }
+            for (byte i = 0; i < partCount; ++i) {
+                if (reader.ReadBoolean()) {
+                    parts.Add(new ItemValue(reader));
+                }
+                else {
+                    parts.Add(null);
                 }
             }
 
-            //notSaved
-            bool hasAttachments = reader.ReadBoolean();
-            if (hasAttachments) {
-                //int
-                int attachmentsLength = (int)reader.ReadByte();
+            if (reader.ReadBoolean()) {
+                byte attachmentsLength = reader.ReadByte();
                 for (int j = 0; j < attachmentsLength; j++) {
-                    attachments.Add(new ItemValue());
-                    attachments[j].Read(reader);
+                    attachments.Add(new ItemValue(reader));
                 }
             }
 
@@ -72,36 +69,35 @@ namespace SevenDaysSaveManipulator.PlayerData {
             selectedAmmoTypeIndex = new Value<byte>(reader.ReadByte());
         }
 
-        public void Write(BinaryWriter writer) {
-            writer.Write(itemValueVersion.Get());
-            writer.Write((ushort)type.Get());
-            writer.Write((ushort)useTimes.Get());
-            writer.Write((ushort)quality.Get());
-            writer.Write((ushort)meta.Get());
-            int num = 0;
-            for (int i = 0; i < parts.Length; i++) {
-                if (parts[i] != null) {
-                    num = i + 1;
-                }
-            }
-            writer.Write((byte)num);
+        internal void Write(BinaryWriter writer) {
+            writer.Write(SaveVersionConstants.ITEM_VALUE);
+            writer.Write(type.Get());
+            writer.Write(useTimes.Get());
+            writer.Write(quality.Get());
+            writer.Write(meta.Get());
 
-            for (int j = 0; j < num; j++) {
-                bool hasPart = parts[j] != null;
-                writer.Write(hasPart);
-
-                if (hasPart) {
-                    parts[j].Write(writer);
+            int partCount = 0;
+            foreach(ItemValue part in parts) {
+                if (part != null) {
+                    ++partCount;
                 }
             }
 
-            bool hasAttachments = attachments.Count > 0;
-            writer.Write(hasAttachments);
-            if (hasAttachments) {
+            writer.Write((byte)partCount);
+
+            foreach (ItemValue part in parts) {
+                writer.Write(part != null);
+                if (part != null) {
+                    part.Write(writer);
+                }
+            }
+
+            writer.Write(attachments.Count > 0);
+            if (attachments.Count > 0) {
                 writer.Write((byte)attachments.Count);
 
-                for (int k = 0; k < attachments.Count; k++) {
-                    attachments[k].Write(writer);
+                foreach(ItemValue attachment in attachments) {
+                    attachment.Write(writer);
                 }
             }
 

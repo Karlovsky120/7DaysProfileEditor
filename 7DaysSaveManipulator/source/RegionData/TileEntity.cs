@@ -23,10 +23,11 @@ namespace SevenDaysSaveManipulator.RegionData {
         public virtual void Read(BinaryReader reader) {
 
             tileEntityVersion = new Value<int>((int)reader.ReadUInt16());
-            localChunkPosition = new Vector3D<int>();
-            localChunkPosition.x = new Value<int>(reader.ReadInt32());
-            localChunkPosition.y = new Value<int>(reader.ReadInt32());
-            localChunkPosition.z = new Value<int>(reader.ReadInt32());
+            localChunkPosition = new Vector3D<int> {
+                x = new Value<int>(reader.ReadInt32()),
+                y = new Value<int>(reader.ReadInt32()),
+                z = new Value<int>(reader.ReadInt32())
+            };
 
             entityId = new Value<int>(reader.ReadInt32());
 

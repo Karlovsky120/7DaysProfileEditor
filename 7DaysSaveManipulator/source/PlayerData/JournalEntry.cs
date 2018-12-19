@@ -6,9 +6,6 @@ namespace SevenDaysSaveManipulator.PlayerData {
     [Serializable]
     public class JournalEntry {
 
-        //CurrentFileVersion
-        public Value<byte> currentFileVersion;
-
         //EntryType
         public Value<JournalEntryTypes> entryType;
 

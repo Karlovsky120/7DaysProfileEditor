@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SevenDaysSaveManipulator.source.PlayerData;
+using System;
 using System.IO;
 
 namespace SevenDaysSaveManipulator.PlayerData {
@@ -9,16 +10,19 @@ namespace SevenDaysSaveManipulator.PlayerData {
         //CurrentValue
         public Value<byte> currentValue;
 
-        //CurrentVersion
-        public Value<byte> currentVersion;
+        public BaseObjective() {}
 
-        public virtual void Read(BinaryReader reader) {
-            currentVersion = new Value<byte>(reader.ReadByte());
+        internal BaseObjective(BinaryReader reader) {
+            Read(reader);
+        }
+
+        internal virtual void Read(BinaryReader reader) {
+            Utils.VerifyVersion<byte>(reader.ReadByte(), SaveVersionConstants.BASE_OBJECTIVE);
             currentValue = new Value<byte>(reader.ReadByte());
         }
 
-        public void Write(BinaryWriter writer) {
-            writer.Write(currentVersion.Get());
+        internal void Write(BinaryWriter writer) {
+            writer.Write(SaveVersionConstants.BASE_OBJECTIVE);
             writer.Write(currentValue.Get());
         }
     }

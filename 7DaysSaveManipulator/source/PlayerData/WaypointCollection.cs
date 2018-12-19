@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SevenDaysSaveManipulator.source.PlayerData;
+using System;
 using System.Collections.Generic;
 using System.IO;
 
@@ -7,33 +8,30 @@ namespace SevenDaysSaveManipulator.PlayerData {
     [Serializable]
     public class WaypointCollection {
 
-        //notSaved = 1
-        public Value<byte> waypointCollectionVersion;
-
         //List
-        public List<Waypoint> waypointList;
+        public List<Waypoint> waypoints;
 
-        public void Read(BinaryReader reader) {
-            waypointCollectionVersion = new Value<byte>(reader.ReadByte());
+        public WaypointCollection() {}
 
-            if (waypointCollectionVersion.Get() > 2)
-                throw new Exception("WaypointCollection Version has changed! Unknown version: " + waypointCollectionVersion);
+        internal WaypointCollection(BinaryReader reader) {
+            Read(reader);
+        }
 
-            //num
-            int listCount = (int)reader.ReadInt16();
-            waypointList = new List<Waypoint>();
-            for (int i = 0; i < listCount; i++) {
-                Waypoint waypoint = new Waypoint();
-                waypoint.Read(reader, waypointCollectionVersion);
-                waypointList.Add(waypoint);
+        internal void Read(BinaryReader reader) {
+            Utils.VerifyVersion(reader.ReadByte(), SaveVersionConstants.WAYPOINT_COLLECTION);
+
+            waypoints = new List<Waypoint>();
+            ushort waypointListLength = reader.ReadUInt16();
+            for (short i = 0; i < waypointListLength; ++i) {
+                waypoints.Add(new Waypoint(reader));
             }
         }
 
-        public void Write(BinaryWriter writer) {
-            writer.Write(waypointCollectionVersion.Get());
-            writer.Write((ushort)waypointList.Count);
-            for (int i = 0; i < waypointList.Count; i++) {
-                waypointList[i].Write(writer, waypointCollectionVersion);
+        internal void Write(BinaryWriter writer) {
+            writer.Write(SaveVersionConstants.WAYPOINT_COLLECTION);
+            writer.Write((ushort)waypoints.Count);
+            foreach(Waypoint waypoint in waypoints) {
+                waypoint.Write(writer);
             }
         }
     }

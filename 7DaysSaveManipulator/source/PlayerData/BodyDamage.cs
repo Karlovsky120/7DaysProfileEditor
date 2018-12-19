@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SevenDaysSaveManipulator.source.PlayerData;
+using System;
 using System.IO;
 
 namespace SevenDaysSaveManipulator.PlayerData {
@@ -6,10 +7,7 @@ namespace SevenDaysSaveManipulator.PlayerData {
     [Serializable]
     public class BodyDamage {
 
-        //num = 2
-        public Value<int> bodyDamageVersion;
-
-        public Value<int> Chest;
+        public Value<short> Chest;
         public Value<bool> CrippledLeftLeg;
         public Value<bool> CrippledRightLeg;
         public Value<bool> DismemberedHead;
@@ -21,35 +19,41 @@ namespace SevenDaysSaveManipulator.PlayerData {
         public Value<bool> DismemberedRightLowerLeg;
         public Value<bool> DismemberedRightUpperArm;
         public Value<bool> DismemberedRightUpperLeg;
-        public Value<int> Head;
-        public Value<int> LeftLowerArm;
-        public Value<int> LeftLowerLeg;
-        public Value<int> LeftUpperArm;
-        public Value<int> LeftUpperLeg;
-        public Value<int> RightLowerArm;
-        public Value<int> RightLowerLeg;
-        public Value<int> RightUpperArm;
-        public Value<int> RightUpperLeg;
+        public Value<short> Head;
+        public Value<short> LeftLowerArm;
+        public Value<short> LeftLowerLeg;
+        public Value<short> LeftUpperArm;
+        public Value<short> LeftUpperLeg;
+        public Value<short> RightLowerArm;
+        public Value<short> RightLowerLeg;
+        public Value<short> RightUpperArm;
+        public Value<short> RightUpperLeg;
 
-        public void Read(BinaryReader reader) {
-            bodyDamageVersion = new Value<int>(reader.ReadInt32());
+        public BodyDamage() {}
 
-            LeftUpperLeg = new Value<int>((int)reader.ReadInt16());
-            RightUpperLeg = new Value<int>((int)reader.ReadInt16());
-            LeftUpperArm = new Value<int>((int)reader.ReadInt16());
-            RightUpperArm = new Value<int>((int)reader.ReadInt16());
-            Chest = new Value<int>((int)reader.ReadInt16());
-            Head = new Value<int>((int)reader.ReadInt16());
+        internal BodyDamage(BinaryReader reader) {
+            Read(reader);
+        }
+
+        internal void Read(BinaryReader reader) {
+            Utils.VerifyVersion(reader.ReadInt32(), SaveVersionConstants.BODY_DAMAGE);
+
+            LeftUpperLeg = new Value<short>(reader.ReadInt16());
+            RightUpperLeg = new Value<short>(reader.ReadInt16());
+            LeftUpperArm = new Value<short>(reader.ReadInt16());
+            RightUpperArm = new Value<short>(reader.ReadInt16());
+            Chest = new Value<short>(reader.ReadInt16());
+            Head = new Value<short>(reader.ReadInt16());
             DismemberedLeftUpperArm = new Value<bool>(reader.ReadBoolean());
             DismemberedRightUpperArm = new Value<bool>(reader.ReadBoolean());
             DismemberedHead = new Value<bool>(reader.ReadBoolean());
             DismemberedRightUpperLeg = new Value<bool>(reader.ReadBoolean());
             CrippledRightLeg = new Value<bool>(reader.ReadBoolean());
 
-            LeftLowerLeg = new Value<int>((int)reader.ReadInt16());
-            RightLowerLeg = new Value<int>((int)reader.ReadInt16());
-            LeftLowerArm = new Value<int>((int)reader.ReadInt16());
-            RightLowerArm = new Value<int>((int)reader.ReadInt16());
+            LeftLowerLeg = new Value<short>(reader.ReadInt16());
+            RightLowerLeg = new Value<short>(reader.ReadInt16());
+            LeftLowerArm = new Value<short>(reader.ReadInt16());
+            RightLowerArm = new Value<short>(reader.ReadInt16());
             DismemberedLeftLowerArm = new Value<bool>(reader.ReadBoolean());
             DismemberedRightLowerArm = new Value<bool>(reader.ReadBoolean());
             DismemberedLeftLowerLeg = new Value<bool>(reader.ReadBoolean());
@@ -59,25 +63,25 @@ namespace SevenDaysSaveManipulator.PlayerData {
             CrippledLeftLeg = new Value<bool>(reader.ReadBoolean());
         }
 
-        public void Write(BinaryWriter writer) {
-            writer.Write(bodyDamageVersion.Get());
-            writer.Write((short)LeftUpperLeg.Get());
-            writer.Write((short)RightUpperLeg.Get());
-            writer.Write((short)LeftUpperArm.Get());
-            writer.Write((short)RightUpperArm.Get());
+        internal void Write(BinaryWriter writer) {
+            writer.Write(SaveVersionConstants.BODY_DAMAGE);
+            writer.Write(LeftUpperLeg.Get());
+            writer.Write(RightUpperLeg.Get());
+            writer.Write(LeftUpperArm.Get());
+            writer.Write(RightUpperArm.Get());
 
-            writer.Write((short)Chest.Get());
-            writer.Write((short)Head.Get());
+            writer.Write(Chest.Get());
+            writer.Write(Head.Get());
             writer.Write(DismemberedLeftUpperArm.Get());
             writer.Write(DismemberedRightUpperArm.Get());
             writer.Write(DismemberedHead.Get());
             writer.Write(DismemberedRightUpperLeg.Get());
 
             writer.Write(CrippledRightLeg.Get());
-            writer.Write((short)LeftLowerLeg.Get());
-            writer.Write((short)RightLowerLeg.Get());
-            writer.Write((short)LeftLowerArm.Get());
-            writer.Write((short)RightLowerArm.Get());
+            writer.Write(LeftLowerLeg.Get());
+            writer.Write(RightLowerLeg.Get());
+            writer.Write(LeftLowerArm.Get());
+            writer.Write(RightLowerArm.Get());
             writer.Write(DismemberedLeftLowerArm.Get());
             writer.Write(DismemberedRightLowerArm.Get());
             writer.Write(DismemberedLeftLowerLeg.Get());

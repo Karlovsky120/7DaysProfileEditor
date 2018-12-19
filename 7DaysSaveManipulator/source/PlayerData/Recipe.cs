@@ -67,7 +67,7 @@ namespace SevenDaysSaveManipulator.PlayerData {
             int ingredientCount = reader.ReadInt32();
             ingredients = new List<ItemStack>();
             nameStackSizeList = new List<Tuple<string, int>>();
-            for (int i = 0; i < ingredientCount; i++) {
+            for (int i = 0; i < ingredientCount; ++i) {
                 string name = reader.ReadString();
                 int stackSize = reader.ReadInt32();
 

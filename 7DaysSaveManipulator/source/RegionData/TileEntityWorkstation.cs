@@ -110,10 +110,11 @@ namespace SevenDaysSaveManipulator.RegionData {
 
             for (int i = 0; i < length; ++i) {
                 if (recipeQueueItem[i] == null) {
-                    recipeQueueItem[i] = new RecipeQueueItem();
-                    recipeQueueItem[i].multiplier = new Value<int>(0);
-                    recipeQueueItem[i].recipe = null;
-                    recipeQueueItem[i].isCrafting = new Value<bool>(false);
+                    recipeQueueItem[i] = new RecipeQueueItem {
+                        multiplier = new Value<int>(0),
+                        recipe = null,
+                        isCrafting = new Value<bool>(false)
+                    };
                 }
 
                 recipeQueueItem[i].Write(writer);

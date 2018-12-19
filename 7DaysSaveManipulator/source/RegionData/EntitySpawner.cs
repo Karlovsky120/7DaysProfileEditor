@@ -33,15 +33,17 @@ namespace SevenDaysSaveManipulator.RegionData {
         public void Read(BinaryReader reader) {
 
             version = reader.ReadByte();
-            position = new Vector3D<int>();
-            position.x = new Value<int>(reader.ReadInt32());
-            position.y = new Value<int>(reader.ReadInt32());
-            position.z = new Value<int>(reader.ReadInt32());
+            position = new Vector3D<int> {
+                x = new Value<int>(reader.ReadInt32()),
+                y = new Value<int>(reader.ReadInt32()),
+                z = new Value<int>(reader.ReadInt32())
+            };
 
-            size = new Vector3D<int>();
-            size.x = new Value<int>((int)reader.ReadUInt16());
-            size.y = new Value<int>((int)reader.ReadUInt16());
-            size.z = new Value<int>((int)reader.ReadUInt16());
+            size = new Vector3D<int> {
+                x = new Value<int>((int)reader.ReadUInt16()),
+                y = new Value<int>((int)reader.ReadUInt16()),
+                z = new Value<int>((int)reader.ReadUInt16())
+            };
 
             triggerDiameter = (int)reader.ReadUInt16();
             entitySpawnerClassName = reader.ReadString();

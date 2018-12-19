@@ -34,7 +34,7 @@ namespace SevenDaysSaveManipulator.PlayerData {
             //num3
             int multiBuffActionListCount = reader.ReadInt32();
             multiBuffActionList = new List<MultiBuffAction>();
-            for (int i = 0; i < multiBuffActionListCount; i++) {
+            for (int i = 0; i < multiBuffActionListCount; ++i) {
                 MultiBuffAction item = MultiBuffAction.Read(reader);
                 multiBuffActionList.Add(item);
             }
