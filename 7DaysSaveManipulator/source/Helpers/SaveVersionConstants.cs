@@ -17,7 +17,6 @@
         public const int    STAT = 5;
         public const byte   QUEST_JOURNAL = 1;
         public const byte   QUEST = 4;
-        public const byte   QUEST_SECOND = 255;
         public const ushort TILE_ENTITY = 8;
         public const int    TILE_ENTITY_POWERED = 1;
         public const int    TILE_ENTITY_SECURE = 1;
