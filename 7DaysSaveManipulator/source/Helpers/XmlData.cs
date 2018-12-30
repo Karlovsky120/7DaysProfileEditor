@@ -80,7 +80,7 @@ namespace SevenDaysSaveManipulator {
 
         internal int GetCurrentQuestVersion(string questID) {
             if (!questVersions.ContainsKey(questID)) {
-                string currentQuestVersion = GetAttributeValue(quests, "quests/quest[@id='", questID, "property[@name='currentVersion']/@value");
+                string currentQuestVersion = GetAttributeValue(quests, "quests/quest[translate(@id,'ABCDEFGHIJKLMNOPQRSTUVWXYZ','abcdefghijklmnopqrstuvwxyz')='", questID, "property[@name='currentVersion']/@value");
                 questVersions[questID] = currentQuestVersion == "" ? 0 : int.Parse(currentQuestVersion);
             }
 
