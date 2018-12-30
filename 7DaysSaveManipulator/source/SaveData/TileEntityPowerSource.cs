@@ -1,0 +1,22 @@
+﻿using System;
+
+namespace SevenDaysSaveManipulator.SaveData {
+
+    [Serializable]
+    class TileEntityPowerSource : TileEntityPowered {
+
+        public TileEntityPowerSource() {}
+
+        internal TileEntityPowerSource(TypedBinaryReader reader) {
+            Read(reader);
+        }
+
+        internal override void Read(TypedBinaryReader reader, XmlData xmlData = null) {
+            base.Read(reader);
+        }
+
+        internal override void Write(TypedBinaryWriter writer) {
+            base.Write(writer);
+        }
+    }
+}

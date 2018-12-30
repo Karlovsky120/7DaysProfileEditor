@@ -10,10 +10,11 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>SevenDaysSaveManipulator</RootNamespace>
     <AssemblyName>7DaysSaveManipulator</AssemblyName>
-    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
     <DebugSymbols>true</DebugSymbols>
@@ -50,78 +51,58 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="source\PlayerData\BaseObjective.cs" />
-    <Compile Include="source\PlayerData\BodyDamage.cs" />
-    <Compile Include="source\PlayerData\Buff.cs" />
-    <Compile Include="source\PlayerData\BuffDescriptor.cs" />
-    <Compile Include="source\PlayerData\BuffModifier.cs" />
-    <Compile Include="source\PlayerData\BuffModifierSetTickRate.cs" />
-    <Compile Include="source\PlayerData\BuffTimer.cs" />
-    <Compile Include="source\PlayerData\BuffTimerDuration.cs" />
-    <Compile Include="source\PlayerData\BuffTimerNull.cs" />
-    <Compile Include="source\PlayerData\BuffTimerScheduled.cs" />
-    <Compile Include="source\PlayerData\Colour.cs" />
-    <Compile Include="source\PlayerData\CraftingData.cs" />
-    <Compile Include="source\PlayerData\EntityCreationData.cs" />
-    <Compile Include="source\PlayerData\EntityStats.cs" />
-    <Compile Include="source\PlayerData\EnumBuffCategoryFlags.cs" />
-    <Compile Include="source\PlayerData\EnumBuffClassId.cs" />
-    <Compile Include="source\PlayerData\EnumBuffModifierClassId.cs" />
-    <Compile Include="source\PlayerData\EnumBuffTimerClassId.cs" />
-    <Compile Include="source\PlayerData\EnumSpawnerSource.cs" />
-    <Compile Include="source\PlayerData\EnumStatModifierClassId.cs" />
-    <Compile Include="source\PlayerData\Equipment.cs" />
-    <Compile Include="source\PlayerData\ItemStack.cs" />
-    <Compile Include="source\PlayerData\ItemValue.cs" />
-    <Compile Include="source\PlayerData\IValueListener.cs" />
-    <Compile Include="source\PlayerData\JournalEntry.cs" />
-    <Compile Include="source\PlayerData\LiveStats.cs" />
-    <Compile Include="source\PlayerData\MultiBuff.cs" />
-    <Compile Include="source\PlayerData\MultiBuffAction.cs" />
-    <Compile Include="source\PlayerData\MultiBuffPrefabAttachmentDescriptor.cs" />
-    <Compile Include="source\PlayerData\MultiBuffVariable.cs" />
-    <Compile Include="source\PlayerData\PlayerDataFile.cs" />
-    <Compile Include="source\PlayerData\PlayerJournal.cs" />
-    <Compile Include="source\PlayerData\PlayerProfile.cs" />
-    <Compile Include="source\PlayerData\Quest.cs" />
-    <Compile Include="source\PlayerData\QuestJournal.cs" />
-    <Compile Include="source\PlayerData\Recipe.cs" />
-    <Compile Include="source\PlayerData\RecipeQueueItem.cs" />
-    <Compile Include="source\PlayerData\Skill.cs" />
-    <Compile Include="source\PlayerData\Skills.cs" />
-    <Compile Include="source\PlayerData\Stat.cs" />
-    <Compile Include="source\PlayerData\StatModifier.cs" />
-    <Compile Include="source\PlayerData\StatModifierMax.cs" />
-    <Compile Include="source\PlayerData\StatModifierModifyValue.cs" />
-    <Compile Include="source\PlayerData\StatModifierMulValue.cs" />
-    <Compile Include="source\PlayerData\StatModifierSetValue.cs" />
-    <Compile Include="source\PlayerData\StatModifierValueOT.cs" />
-    <Compile Include="source\PlayerData\Utils.cs" />
-    <Compile Include="source\PlayerData\Value.cs" />
-    <Compile Include="source\PlayerData\Vector3D.cs" />
-    <Compile Include="source\PlayerData\Waypoint.cs" />
-    <Compile Include="source\PlayerData\WaypointCollection.cs" />
-    <Compile Include="source\RegionData\CBCLayer.cs" />
-    <Compile Include="source\RegionData\Chunk.cs" />
-    <Compile Include="source\RegionData\ChunkBlockChannel.cs" />
-    <Compile Include="source\RegionData\ChunkBlockLayer.cs" />
-    <Compile Include="source\RegionData\ChunkCustomData.cs" />
-    <Compile Include="source\RegionData\EntitySpawner.cs" />
-    <Compile Include="source\RegionData\Region.cs" />
-    <Compile Include="source\RegionData\TileEntity.cs" />
-    <Compile Include="source\RegionData\TileEntityCampfire.cs" />
-    <Compile Include="source\RegionData\TileEntityForge.cs" />
-    <Compile Include="source\RegionData\TileEntityLootContainer.cs" />
-    <Compile Include="source\RegionData\TileEntitySecure.cs" />
-    <Compile Include="source\RegionData\TileEntitySecureDoor.cs" />
-    <Compile Include="source\RegionData\TileEntitySecureLootContainer.cs" />
-    <Compile Include="source\RegionData\TileEntitySign.cs" />
-    <Compile Include="source\RegionData\TileEntityTrader.cs" />
-    <Compile Include="source\RegionData\TileEntityType.cs" />
-    <Compile Include="source\RegionData\TileEntityVendingMachine.cs" />
-    <Compile Include="source\RegionData\TileEntityWorkstation.cs" />
-    <Compile Include="source\RegionData\TraderData.cs" />
-    <Compile Include="source\RegionData\Utils.cs" />
+    <Compile Include="source\Helpers\TypedBinaryReader.cs" />
+    <Compile Include="source\Helpers\TypedBinaryWriter.cs" />
+    <Compile Include="source\Helpers\XmlData.cs" />
+    <Compile Include="source\SaveData\BaseObjective.cs" />
+    <Compile Include="source\SaveData\BodyDamage.cs" />
+    <Compile Include="source\SaveData\JournalEntryOther.cs" />
+    <Compile Include="source\SaveData\JournalEntryTip.cs" />
+    <Compile Include="source\SaveData\CraftingData.cs" />
+    <Compile Include="source\SaveData\EntityCreationData.cs" />
+    <Compile Include="source\SaveData\EntityStats.cs" />
+    <Compile Include="source\SaveData\Equipment.cs" />
+    <Compile Include="source\SaveData\ItemStack.cs" />
+    <Compile Include="source\Helpers\NameIdMapping.cs" />
+    <Compile Include="source\SaveData\ItemValue.cs" />
+    <Compile Include="source\Helpers\IValueListener.cs" />
+    <Compile Include="source\SaveData\JournalEntry.cs" />
+    <Compile Include="source\Helpers\MismatchedSaveVersionException.cs" />
+    <Compile Include="source\SaveData\PlayerDataFile.cs" />
+    <Compile Include="source\SaveData\PlayerJournal.cs" />
+    <Compile Include="source\SaveData\PlayerProfile.cs" />
+    <Compile Include="source\SaveData\Quest.cs" />
+    <Compile Include="source\SaveData\QuestJournal.cs" />
+    <Compile Include="source\SaveData\RecipeQueueItem.cs" />
+    <Compile Include="source\Helpers\SaveVersionConstants.cs" />
+    <Compile Include="source\SaveData\Stat.cs" />
+    <Compile Include="source\Helpers\Utils.cs" />
+    <Compile Include="source\SaveData\Value.cs" />
+    <Compile Include="source\SaveData\Vector2D.cs" />
+    <Compile Include="source\SaveData\Vector3D.cs" />
+    <Compile Include="source\SaveData\Vector4D.cs" />
+    <Compile Include="source\SaveData\Waypoint.cs" />
+    <Compile Include="source\SaveData\WaypointCollection.cs" />
+    <Compile Include="source\SaveData\EntitySpawner.cs" />
+    <Compile Include="source\SaveData\TileEntity.cs" />
+    <Compile Include="source\SaveData\TileEntityForge.cs" />
+    <Compile Include="source\SaveData\TileEntityGoreBlock.cs" />
+    <Compile Include="source\SaveData\TileEntityLight.cs" />
+    <Compile Include="source\SaveData\TileEntityLootContainer.cs" />
+    <Compile Include="source\SaveData\TileEntityPowered.cs" />
+    <Compile Include="source\SaveData\TileEntityPoweredBlock.cs" />
+    <Compile Include="source\SaveData\TileEntityPoweredRangedTrap.cs" />
+    <Compile Include="source\SaveData\TileEntityPoweredTrigger.cs" />
+    <Compile Include="source\SaveData\TileEntityPowerSource.cs" />
+    <Compile Include="source\SaveData\TileEntitySecure.cs" />
+    <Compile Include="source\SaveData\TileEntitySecureDoor.cs" />
+    <Compile Include="source\SaveData\TileEntitySecureLootContainer.cs" />
+    <Compile Include="source\SaveData\TileEntitySign.cs" />
+    <Compile Include="source\SaveData\TileEntitySleeper.cs" />
+    <Compile Include="source\SaveData\TileEntityTrader.cs" />
+    <Compile Include="source\SaveData\TileEntityVendingMachine.cs" />
+    <Compile Include="source\SaveData\TileEntityWorkstation.cs" />
+    <Compile Include="source\SaveData\TraderData.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="ILMerge.props" />
@@ -129,6 +110,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="ILMergeOrder.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="source\unused\" />
+    <Folder Include="source\WorldSaveSpecific %28unused%29\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

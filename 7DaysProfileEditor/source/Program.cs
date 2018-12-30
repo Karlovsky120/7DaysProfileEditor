@@ -25,7 +25,7 @@ namespace SevenDaysProfileEditor {
                 //We get inventory icons
                 IconData.PopulateIconDictionaries();
             }
-            catch (Exception e) {
+            catch (Exception) {
                 // ErrorHandler.HandleError("Error while processing icons. Failed to load asset files." + e.Message, e, true);
             }
 
@@ -68,7 +68,7 @@ namespace SevenDaysProfileEditor {
             string gameRoot = Config.GetSetting("gameRoot");
 
             // If they gave a gameroot, launch app.
-            if (gameRoot != null) {
+            if (gameRoot != null && File.Exists(gameRoot)) {
                 Start(window);
                 return;
             }

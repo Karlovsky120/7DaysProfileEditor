@@ -87,7 +87,7 @@ namespace SevenDaysProfileEditor.Inventory {
 
             if (!itemBinder.itemData.name.Equals("air")) {
                 if (itemBinder.itemData.stackNumber > 1) {
-                    LabeledControl countBox = new LabeledControl("Count", new NumericTextBox<int>(itemBinder.itemStack.count, 1, itemBinder.itemData.stackNumber, textBoxWidth), labeledControlWidth);
+                    LabeledControl countBox = new LabeledControl("Count", new NumericTextBox<ushort>(itemBinder.itemStack.count, 1, itemBinder.itemData.stackNumber, textBoxWidth), labeledControlWidth);
                     basicInfo.Controls.Add(countBox);
                 }
 
