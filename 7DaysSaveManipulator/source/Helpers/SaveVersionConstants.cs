@@ -1,7 +1,7 @@
 ﻿namespace SevenDaysSaveManipulator {
 
     static class SaveVersionConstants {
-        public const byte   BASE_OBJECTIVE = 0;
+        public const byte   BASE_OBJECTIVE = 1;
         public const int    BODY_DAMAGE = 2;
         public const byte   ENTITY_CREATION_DATA = 26;
         public const byte   ENTITY_SPAWNER = 3;
@@ -20,7 +20,7 @@
         public const ushort TILE_ENTITY = 8;
         public const int    TILE_ENTITY_POWERED = 1;
         public const int    TILE_ENTITY_SECURE = 1;
-        public const int    TILE_ENTITY_SECURE_LOT_CONTAINER = 1;
+        public const int    TILE_ENTITY_SECURE_LOOT_CONTAINER = 1;
         public const int    TILE_ENTITY_SIGN = 1;
         public const int    TILE_ENTITY_TRADER = 1;
         public const int    TILE_ENTITY_VENDING_MACHINE = 2;

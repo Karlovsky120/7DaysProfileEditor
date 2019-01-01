@@ -16,7 +16,7 @@ namespace SevenDaysSaveManipulator.SaveData {
         }
 
         internal void Read(TypedBinaryReader reader) {
-            Utils.VerifyVersion(reader.ReadByte(), SaveVersionConstants.PLAYER_JOURNAL);
+            Utils.VerifyVersion(reader.ReadByte(), SaveVersionConstants.PLAYER_JOURNAL, "PlayerJournal");
 
             short journalEntryCount = reader.ReadInt16();
             journalEntries = new List<JournalEntry>(journalEntryCount);

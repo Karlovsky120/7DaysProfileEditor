@@ -6,6 +6,7 @@ namespace SevenDaysProfileEditor.GUI {
     /// <summary>
     /// Class used to display a control with a name tag in front of it.
     /// </summary>
+    [System.ComponentModel.DesignerCategory("")]
     internal class LabeledControl : TableLayoutPanel {
 
         /// <summary>

@@ -75,7 +75,7 @@ namespace SevenDaysSaveManipulator.SaveData {
         }
 
         internal void Read(TypedBinaryReader reader) {
-            Utils.VerifyVersion(reader.ReadInt32(), SaveVersionConstants.BODY_DAMAGE);
+            Utils.VerifyVersion(reader.ReadInt32(), SaveVersionConstants.BODY_DAMAGE, "BodyDamage");
 
             leftUpperLeg = new Value<short>(reader);
             rightUpperLeg = new Value<short>(reader);

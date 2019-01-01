@@ -92,12 +92,12 @@ namespace SevenDaysSaveManipulator.SaveData {
 
         public EntityCreationData() {}
 
-        internal EntityCreationData(TypedBinaryReader reader, XmlData xmlData) {
+        internal EntityCreationData(TypedBinaryReader reader, AdditionalFileData xmlData) {
             Read(reader, xmlData);
         }
 
-        internal void Read(TypedBinaryReader reader, XmlData xmlData) {
-            Utils.VerifyVersion(reader.ReadByte(), SaveVersionConstants.ENTITY_CREATION_DATA);
+        internal void Read(TypedBinaryReader reader, AdditionalFileData xmlData) {
+            Utils.VerifyVersion(reader.ReadByte(), SaveVersionConstants.ENTITY_CREATION_DATA, "EntityCreationData");
 
             entityClass = new Value<int>(reader);
 

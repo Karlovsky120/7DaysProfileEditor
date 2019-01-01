@@ -35,11 +35,11 @@ namespace SevenDaysSaveManipulator.SaveData {
 
         public TileEntityForge() {}
 
-        internal TileEntityForge(TypedBinaryReader reader, XmlData xmlData) {
+        internal TileEntityForge(TypedBinaryReader reader, AdditionalFileData xmlData) {
             Read(reader, xmlData);
         }
 
-        internal override void Read(TypedBinaryReader reader, XmlData xmlData) {
+        internal override void Read(TypedBinaryReader reader, AdditionalFileData xmlData) {
             base.Read(reader);
 
             lastTickTime = new Value<ulong>(reader);

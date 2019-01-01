@@ -27,10 +27,10 @@ namespace SevenDaysSaveManipulator.SaveData {
             Read(reader);
         }
 
-        internal override void Read(TypedBinaryReader reader, XmlData xmlData = null) {
+        internal override void Read(TypedBinaryReader reader, AdditionalFileData xmlData = null) {
             base.Read(reader);
 
-            Utils.VerifyVersion(reader.ReadInt32(), SaveVersionConstants.TILE_ENTITY_SIGN);
+            Utils.VerifyVersion(reader.ReadInt32(), SaveVersionConstants.TILE_ENTITY_SIGN, "TileEntitySign");
 
             isLocked = new Value<bool>(reader);
             ownerID = new Value<string>(reader);

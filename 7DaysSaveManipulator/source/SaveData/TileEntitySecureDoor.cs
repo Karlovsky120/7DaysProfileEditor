@@ -7,11 +7,11 @@ namespace SevenDaysSaveManipulator.SaveData {
 
         public TileEntitySecureDoor() {}
 
-        internal TileEntitySecureDoor(TypedBinaryReader reader, XmlData xmlData) {
+        internal TileEntitySecureDoor(TypedBinaryReader reader, AdditionalFileData xmlData) {
             Read(reader, xmlData);
         }
 
-        internal override void Read(TypedBinaryReader reader, XmlData xmlData) {
+        internal override void Read(TypedBinaryReader reader, AdditionalFileData xmlData) {
             base.Read(reader, xmlData);
         }
 

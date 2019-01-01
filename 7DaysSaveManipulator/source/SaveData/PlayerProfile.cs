@@ -46,7 +46,7 @@ namespace SevenDaysSaveManipulator.SaveData {
         }
 
         internal void Read(TypedBinaryReader reader) {
-            Utils.VerifyVersion(reader.ReadInt32(), SaveVersionConstants.PLAYER_PROFILE);
+            Utils.VerifyVersion(reader.ReadInt32(), SaveVersionConstants.PLAYER_PROFILE, "PlayerProfile");
 
             archetype = new Value<string>(reader);
             isMale = new Value<bool>(reader);

@@ -23,14 +23,14 @@ namespace SevenDaysSaveManipulator.SaveData {
 
         public TileEntitySecureLootContainer() {}
 
-        internal TileEntitySecureLootContainer(TypedBinaryReader reader, XmlData xmlData) {
+        internal TileEntitySecureLootContainer(TypedBinaryReader reader, AdditionalFileData xmlData) {
             Read(reader, xmlData);
         }
 
-        internal override void Read(TypedBinaryReader reader, XmlData xmlData) {
+        internal override void Read(TypedBinaryReader reader, AdditionalFileData xmlData) {
             base.Read(reader, xmlData);
 
-            Utils.VerifyVersion(reader.ReadInt32(), SaveVersionConstants.TILE_ENTITY_SECURE_LOT_CONTAINER);
+            Utils.VerifyVersion(reader.ReadInt32(), SaveVersionConstants.TILE_ENTITY_SECURE_LOOT_CONTAINER, "TileEntitySecureLootContainer");
 
             bPlayerPlaced = new Value<bool>(reader);
             isLocked = new Value<bool>(reader);
@@ -47,7 +47,7 @@ namespace SevenDaysSaveManipulator.SaveData {
         internal override void Write(TypedBinaryWriter writer) {
             base.Write(writer);
 
-            writer.Write(SaveVersionConstants.TILE_ENTITY_SECURE_LOT_CONTAINER);
+            writer.Write(SaveVersionConstants.TILE_ENTITY_SECURE_LOOT_CONTAINER);
 
             bPlayerPlaced.Write(writer);
             isLocked.Write(writer);

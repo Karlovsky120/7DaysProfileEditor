@@ -5,6 +5,7 @@ namespace SevenDaysProfileEditor.GUI {
     /// <summary>
     /// Panel used for vertical scrolling
     /// </summary>
+    [System.ComponentModel.DesignerCategory("")]
     internal class ScrollPanel : TableLayoutPanel {
 
         /// <summary>

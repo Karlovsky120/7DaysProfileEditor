@@ -1,6 +1,4 @@
-﻿using SevenDaysProfileEditor.Inventory;
-using SevenDaysProfileEditor.Skills;
-using SevenDaysProfileEditor.StatsAndGeneral;
+﻿using System;
 using System.Collections.Generic;
 using System.Xml;
 
@@ -11,10 +9,29 @@ namespace SevenDaysProfileEditor.Data {
     /// </summary>
     internal class XmlData {
 
+        public static readonly XmlDocument blocks = new XmlDocument();
+        public static readonly XmlDocument items = new XmlDocument();
+        public static readonly XmlDocument itemModifiers = new XmlDocument();
+        public static readonly XmlDocument quests = new XmlDocument();
+        public static readonly XmlDocument traders = new XmlDocument();
+
+        internal static bool Initialize(string xmlPath) {
+            try {
+                blocks.Load(xmlPath + "blocks.xml");
+                items.Load(xmlPath + "items.xml");
+                itemModifiers.Load(xmlPath + "item_modifiers.xml");
+                quests.Load(xmlPath + "quests.xml");
+                traders.Load(xmlPath + "traders.xml");
+                return true;
+            } catch (Exception) {
+                return false;
+            }
+        }
+
         /// <summary>
         /// Removes all the dev items from the main list and adds it to designated one. Also creates a separate list holding only item names.
         /// </summary>
-        public static void ArrangeItemList() {
+        /*public static void ArrangeItemList() {
             List<ItemData> itemList = ItemData.itemList;
             List<ItemData> devItems = ItemData.devItems;
 
@@ -35,12 +52,12 @@ namespace SevenDaysProfileEditor.Data {
             }
 
             Util.Quicksort(ItemData.nameList);
-        }
+        }*/
 
         /// <summary>
         /// Deals with the blocks.xml.
         /// </summary>
-        public static void GetBlocks() {
+        /*public static void GetBlocks() {
             List<ItemData> itemList = ItemData.itemList;
             XmlDocument document = new XmlDocument();
             document.Load(Config.GetSetting("gameRoot") + "\\Data\\Config\\blocks.xml");
@@ -75,12 +92,12 @@ namespace SevenDaysProfileEditor.Data {
                     itemList.Add(itemData);
                 }
             }
-        }
+        }*/
 
         /// <summary>
         /// Deals with items.xml.
         /// </summary>
-        public static void GetItems() {
+        /*public static void GetItems() {
             List<ItemData> itemList = ItemData.itemList;
             XmlDocument document = new XmlDocument();
             document.Load(Config.GetSetting("gameRoot") + "\\Data\\Config\\items.xml");
@@ -197,12 +214,12 @@ namespace SevenDaysProfileEditor.Data {
                     itemList.Add(itemData);
                 }
             }
-        }
+        }*/
 
         /// <summary>
         /// Deals with progression.xml.
         /// </summary>
-        public static void GetSkills() {
+        /*public static void GetSkills() {
             List<SkillData> skillList = SkillData.skillList;
             XmlDocument document = new XmlDocument();
             document.Load(Config.GetSetting("gameRoot") + "\\Data\\Config\\progression.xml");
@@ -323,7 +340,7 @@ namespace SevenDaysProfileEditor.Data {
 
                 skillList.Add(skillData);
             }
-        }
+        }*/
 
         /// <summary>
         /// Gets first attribute of specified name of a node.
@@ -331,7 +348,7 @@ namespace SevenDaysProfileEditor.Data {
         /// <param name="node">Node to look for attribute in</param>
         /// <param name="attributeName">Name of the attribute</param>
         /// <returns>Attribute if found, else null</returns>
-        [System.Obsolete("GetAttribute is deprecated, please use node.Attribute['name'] instead.")]
+        /*[System.Obsolete("GetAttribute is deprecated, please use node.Attribute['name'] instead.")]
         private static XmlAttribute GetAttribute(XmlNode node, string attributeName) {
             return node.Attributes[attributeName];
             /*
@@ -342,8 +359,8 @@ namespace SevenDaysProfileEditor.Data {
             }
 
             return null;
-            */
-        }
+            
+        }*/
 
         /// <summary>
         /// Gets first child with leading attribute as speficied.
@@ -351,7 +368,7 @@ namespace SevenDaysProfileEditor.Data {
         /// <param name="node">Parent node</param>
         /// <param name="propertyName">Name of the leading attribute</param>
         /// <returns>Node if found, else null</returns>
-        private static XmlNode GetChildNodeByName(XmlNode node, string propertyName) {
+        /*private static XmlNode GetChildNodeByName(XmlNode node, string propertyName) {
             //TODO: Remove function.
             //Faster way by using XPath, but need to figure out exact syntax.
             //something like...
@@ -364,6 +381,6 @@ namespace SevenDaysProfileEditor.Data {
             }
 
             return null;
-        }
+        }*/
     }
 }

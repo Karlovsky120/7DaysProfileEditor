@@ -11,12 +11,12 @@ namespace SevenDaysSaveManipulator.SaveData {
 
         public QuestJournal() {}
 
-        internal QuestJournal(TypedBinaryReader reader, XmlData xmlData) {
+        internal QuestJournal(TypedBinaryReader reader, AdditionalFileData xmlData) {
             Read(reader, xmlData);
         }
 
-        internal void Read(TypedBinaryReader reader, XmlData xmlData) {
-            Utils.VerifyVersion(reader.ReadByte(), SaveVersionConstants.QUEST_JOURNAL);
+        internal void Read(TypedBinaryReader reader, AdditionalFileData xmlData) {
+            Utils.VerifyVersion(reader.ReadByte(), SaveVersionConstants.QUEST_JOURNAL, "QuestJournal");
 
             short questNumber = reader.ReadInt16();
             for (int i = 0; i < questNumber; ++i) {

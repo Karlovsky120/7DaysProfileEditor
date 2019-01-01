@@ -51,9 +51,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="source\Helpers\KnownBugException.cs" />
     <Compile Include="source\Helpers\TypedBinaryReader.cs" />
     <Compile Include="source\Helpers\TypedBinaryWriter.cs" />
-    <Compile Include="source\Helpers\XmlData.cs" />
+    <Compile Include="source\Helpers\AdditionalFileData.cs" />
     <Compile Include="source\SaveData\BaseObjective.cs" />
     <Compile Include="source\SaveData\BodyDamage.cs" />
     <Compile Include="source\SaveData\JournalEntryOther.cs" />
@@ -63,7 +64,6 @@
     <Compile Include="source\SaveData\EntityStats.cs" />
     <Compile Include="source\SaveData\Equipment.cs" />
     <Compile Include="source\SaveData\ItemStack.cs" />
-    <Compile Include="source\Helpers\NameIdMapping.cs" />
     <Compile Include="source\SaveData\ItemValue.cs" />
     <Compile Include="source\Helpers\IValueListener.cs" />
     <Compile Include="source\SaveData\JournalEntry.cs" />

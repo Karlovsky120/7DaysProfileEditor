@@ -5,8 +5,11 @@ namespace SevenDaysSaveManipulator.SaveData {
     [Serializable]
     public class BaseObjective {
 
-        //CurrentValue
+        //currentValue
         public Value<byte> currentValue;
+
+        //CurrentVersion
+        public Value<byte> currentVersion;
 
         public BaseObjective() {}
 
@@ -15,12 +18,12 @@ namespace SevenDaysSaveManipulator.SaveData {
         }
 
         internal virtual void Read(TypedBinaryReader reader) {
-            Utils.VerifyVersion(reader.ReadByte(), SaveVersionConstants.BASE_OBJECTIVE);
+            currentVersion = new Value<byte>(reader);
             currentValue = new Value<byte>(reader);
         }
 
         internal void Write(TypedBinaryWriter writer) {
-            writer.Write(SaveVersionConstants.BASE_OBJECTIVE);
+            currentVersion.Write(writer);
             currentValue.Write(writer);
         }
     }

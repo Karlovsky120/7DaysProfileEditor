@@ -8,11 +8,12 @@ using System.Windows.Forms;
 namespace SevenDaysProfileEditor {
 
     internal static class Program {
+
         /// <summary>
         /// Initializes the static data of the program
         /// </summary>
         private static bool Initialize() {
-            try {
+            /*try {
                 AssetInfo.GenerateAssetInfoList();
                 IconData.itemIconDictionary = new Dictionary<string, byte[]>();
                 IconData.uiIconDictionary = new Dictionary<string, UIIconData>();
@@ -39,8 +40,8 @@ namespace SevenDaysProfileEditor {
             catch (Exception e) {
                 ErrorHandler.HandleError(string.Format("Failed to load XML files!\n\n{0}\n\nProgram will now terminate!", e.Message), e, true);
                 return false;
-            }
-
+            }*/
+            
             return true;
         }
 
@@ -55,52 +56,58 @@ namespace SevenDaysProfileEditor {
             }
         }
 
+        private static bool LocateRootDirectory() {
+            string gameRootDir = Config.GetSetting("gameRootDir");
+            if (gameRootDir == null || !Directory.Exists(gameRootDir)) {
+
+                string defaultGameRootDir = @"C:\Program Files\Steam\steamapps\common\7 Days To Die";
+                if (File.Exists(defaultGameRootDir)) {
+                    gameRootDir = defaultGameRootDir;
+                } else {
+                    MessageBox.Show("In order to work, the program need to access your root game directory. Please press Ok and locate 7DaysToDie.exe in the game's root folder.", "Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    OpenFileDialog gameRootDialog = new OpenFileDialog() {
+                        Title = "Tool needs to find the 7DaysToDie.exe!",
+                        Filter = "7DaysToDie.exe|7DaysToDie.exe",
+                        CheckFileExists = true
+                    };
+
+                    gameRootDialog.FileOk += (sender, e) => {
+                        gameRootDir = gameRootDialog.FileName.Substring(0, gameRootDialog.FileName.LastIndexOf('\\'));
+                    };
+
+                    if (gameRootDialog.ShowDialog() != DialogResult.OK) {
+                        return false;
+                    }
+                }
+
+                Config.SetSetting("gameRootDir", gameRootDir);
+            }
+
+            return true;
+        }
+
         [STAThread]
         private static void Main() {
             Log.startLog();
-            
+            Config.Load();
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            MainWindow window = new MainWindow();
-            Config.Load();
-
-            string gameRoot = Config.GetSetting("gameRoot");
-
-            // If they gave a gameroot, launch app.
-            if (gameRoot != null && File.Exists(gameRoot)) {
-                Start(window);
-                return;
-            }
-
-            //use default location?
-            string defaultlocation = @"C:\Program Files (x86)\Steam\steamapps\common\7 Days To Die\7DaysToDie.exe";
-            if (File.Exists(defaultlocation)) {
-                gameRoot = defaultlocation.Substring(0, defaultlocation.LastIndexOf('\\'));
-                Config.SetSetting("gameRoot", gameRoot);
-                Start(window);
-                return;
-            }
-
-            //Ask user were is game
-            OpenFileDialog gameRootDialog = new OpenFileDialog() {
-                Title = "Tool needs to find the 7DaysToDie.exe!",
-                Filter = "7DaysToDie.exe|7DaysToDie.exe",
-                CheckFileExists = true
-            };
-
-            gameRootDialog.FileOk += (sender1, e1) => {
-                gameRoot = gameRootDialog.FileName.Substring(0, gameRootDialog.FileName.LastIndexOf('\\'));
-                Config.SetSetting("gameRoot", gameRoot);
-            };
-
-            if (gameRootDialog.ShowDialog() != DialogResult.OK) {
+            if (LocateRootDirectory()) {
+                string xmlPath = Config.GetSetting("gameRootDir") + @"\Data\Config\";
+                if (XmlData.Initialize(xmlPath)) {
+                    MainWindow window = new MainWindow();
+                    window.Show();
+                    Application.Run(window);
+                } else {
+                    MessageBox.Show("Failed to load XML configurations, the program will now exit. Check your " + xmlPath + " folder.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    Application.Exit();
+                }
+            } else {
+                MessageBox.Show("Failed to locate game root directory, the program will now exit. If this error persists, delete 7DaysProfileEditor.config file.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Application.Exit();
-                return;
             }
-
-            Start(window);
         }
-
     }
 }

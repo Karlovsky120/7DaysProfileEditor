@@ -6,6 +6,7 @@ namespace SevenDaysProfileEditor.GUI {
     /// <summary>
     /// Deals with the AboutWindow.
     /// </summary>
+    [System.ComponentModel.DesignerCategory("")]
     internal class AboutWindow : Form {
 
         /// <summary>
@@ -14,6 +15,7 @@ namespace SevenDaysProfileEditor.GUI {
         public AboutWindow() {
             Text = "About";
             AutoSize = true;
+            StartPosition = FormStartPosition.CenterScreen;
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
             MinimizeBox = false;
@@ -25,7 +27,8 @@ namespace SevenDaysProfileEditor.GUI {
             Label createdBy = new Label() {
                 Font = new Font("Arial", 18, FontStyle.Bold),
                 Text = "Created by Karlovsky120 with help of 7 Days To Die Forum members.\n\n" +
-                       "Special thanks to:\n\n" + "Gazz, who has demystified parts of save file to me. Without him I might have never figured it out.\n" +
+                       "Special thanks to:\n\n" +
+                       "Gazz, who has demystified parts of save file to me. Without him I might have never figured it out.\n" +
                        "DerPopo, without whom no icons of any type would be present. Thank you.",
                 Margin = new Padding(5),
                 AutoSize = true

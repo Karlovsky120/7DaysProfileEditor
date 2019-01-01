@@ -67,75 +67,79 @@ namespace SevenDaysSaveManipulator.SaveData {
         //Rewards
         public List<byte> rewardIndexes;
 
-        private XmlData xmlData;
+        private AdditionalFileData xmlData;
 
         public Quest() {}
 
-        internal Quest(TypedBinaryReader reader, XmlData xmlData) {
+        internal Quest(TypedBinaryReader reader, AdditionalFileData xmlData) {
             this.xmlData = xmlData;
             Read(reader);
         }
 
         internal void Read(TypedBinaryReader reader) {
-            id = new Value<string>(reader);
-            Utils.VerifyVersion(reader.ReadByte(), xmlData.GetCurrentQuestVersion(id.Get()));
-            Utils.VerifyVersion(reader.ReadByte(), SaveVersionConstants.QUEST);
+            try {
+                id = new Value<string>(reader);
+                Utils.VerifyVersion(reader.ReadByte(), xmlData.GetCurrentQuestVersion(id.Get()), "Quest " + id.Get());
+                Utils.VerifyVersion(reader.ReadByte(), SaveVersionConstants.QUEST, "Quest");
 
-            currentState = new Value<QuestState>((QuestState)reader.ReadByte());
-            sharedOwnerId = new Value<int>(reader);
-            questGiverId = new Value<int>(reader);
+                currentState = new Value<QuestState>((QuestState)reader.ReadByte());
+                sharedOwnerId = new Value<int>(reader);
+                questGiverId = new Value<int>(reader);
 
-            if (currentState.Get() == QuestState.InProgress) {
-                tracked = new Value<bool>(reader);
-                currentPhase = new Value<byte>(reader);
-                questCode = new Value<int>(reader);
-            }
-
-            int objectiveCount = xmlData.GetObjectiveCount(id.Get());
-            objectives = new List<BaseObjective>(objectiveCount);
-            for (int i = 0; i < objectiveCount; ++i) {
-                objectives.Add(new BaseObjective(reader));
-            }
-
-            byte dataVariableCount = reader.ReadByte();
-            dataVariables = new Dictionary<string, string>();
-            for (byte i = 0; i < dataVariableCount; ++i) {
-                string key = reader.ReadString();
-                string value = reader.ReadString();
-
-                if (!dataVariables.ContainsKey(key)) {
-                    dataVariables.Add(key, value);
-                } else {
-                    dataVariables[key] = value;
+                if (currentState.Get() == QuestState.InProgress) {
+                    tracked = new Value<bool>(reader);
+                    currentPhase = new Value<byte>(reader);
+                    questCode = new Value<int>(reader);
                 }
-            }
 
-            if (currentState.Get() == QuestState.InProgress) {
-                byte positionDataLength = reader.ReadByte();
-                positionData = new Dictionary<PositionDataTypes, Vector3D<float>>();
-                for (int i = 0; i < positionDataLength; ++i) {
+                int objectiveCount = xmlData.GetObjectiveCount(id.Get());
+                objectives = new List<BaseObjective>(objectiveCount);
+                for (int i = 0; i < objectiveCount; ++i) {
+                    objectives.Add(new BaseObjective(reader));
+                }
 
-                    PositionDataTypes key = (PositionDataTypes)reader.ReadByte();
-                    Vector3D<float> value = new Vector3D<float>(reader);
+                byte dataVariableCount = reader.ReadByte();
+                dataVariables = new Dictionary<string, string>();
+                for (byte i = 0; i < dataVariableCount; ++i) {
+                    string key = reader.ReadString();
+                    string value = reader.ReadString();
 
-                    if (!positionData.ContainsKey(key)) {
-                        positionData.Add(key, value);
+                    if (!dataVariables.ContainsKey(key)) {
+                        dataVariables.Add(key, value);
                     } else {
-                        positionData[key] = value;
+                        dataVariables[key] = value;
                     }
                 }
 
-                rallyMarkerActivated = new Value<bool>(reader);
-            } else {
-                finishTime = new Value<ulong>(reader);
-            }
+                if (currentState.Get() == QuestState.InProgress) {
+                    byte positionDataLength = reader.ReadByte();
+                    positionData = new Dictionary<PositionDataTypes, Vector3D<float>>();
+                    for (int i = 0; i < positionDataLength; ++i) {
 
-            if (currentState.Get() == QuestState.InProgress || currentState.Get() == QuestState.ReadyForTurnIn) {
-                int rewardsCount = xmlData.GetRewardCount(id.Get());
-                rewardIndexes = new List<byte>(rewardsCount);
-                for (int i = 0; i < rewardsCount; ++i) {
-                    rewardIndexes.Add(reader.ReadByte());
+                        PositionDataTypes key = (PositionDataTypes)reader.ReadByte();
+                        Vector3D<float> value = new Vector3D<float>(reader);
+
+                        if (!positionData.ContainsKey(key)) {
+                            positionData.Add(key, value);
+                        } else {
+                            positionData[key] = value;
+                        }
+                    }
+
+                    rallyMarkerActivated = new Value<bool>(reader);
+                } else {
+                    finishTime = new Value<ulong>(reader);
                 }
+
+                if (currentState.Get() == QuestState.InProgress || currentState.Get() == QuestState.ReadyForTurnIn) {
+                    int rewardsCount = xmlData.GetRewardCount(id.Get());
+                    rewardIndexes = new List<byte>(rewardsCount);
+                    for (int i = 0; i < rewardsCount; ++i) {
+                        rewardIndexes.Add(reader.ReadByte());
+                    }
+                }
+            } catch (Exception e) {
+                throw new KnownBugException("Failed to load a save, most likely to know quest objective bug I don't know how to fix. Try completing quests in-game and loading it again. Sorry.", e);
             }
         }
 

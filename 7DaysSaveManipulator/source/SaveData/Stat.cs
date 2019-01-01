@@ -30,7 +30,7 @@ namespace SevenDaysSaveManipulator.SaveData {
         }
 
         internal void Read(TypedBinaryReader reader) {
-            Utils.VerifyVersion(reader.ReadInt32(), SaveVersionConstants.STAT);
+            Utils.VerifyVersion(reader.ReadInt32(), SaveVersionConstants.STAT, "Stat");
 
             value = new Value<float>(reader);
             maxModifier = new Value<float>(reader);

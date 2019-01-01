@@ -10,11 +10,11 @@ namespace SevenDaysSaveManipulator.SaveData {
 
         public TileEntityGoreBlock() {}
 
-        internal TileEntityGoreBlock(TypedBinaryReader reader, XmlData xmlData) {
+        internal TileEntityGoreBlock(TypedBinaryReader reader, AdditionalFileData xmlData) {
             Read(reader, xmlData);
         }
 
-        internal override void Read(TypedBinaryReader reader, XmlData xmlData) {
+        internal override void Read(TypedBinaryReader reader, AdditionalFileData xmlData) {
             base.Read(reader, xmlData);
             tickTimeToRemove = new Value<ulong>(reader);
         }

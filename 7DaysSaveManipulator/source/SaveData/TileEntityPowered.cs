@@ -45,10 +45,10 @@ namespace SevenDaysSaveManipulator.SaveData {
             Read(reader);
         }
 
-        internal override void Read(TypedBinaryReader reader, XmlData xmlData = null) {
+        internal override void Read(TypedBinaryReader reader, AdditionalFileData xmlData = null) {
             base.Read(reader);
 
-            Utils.VerifyVersion(reader.ReadInt32(), SaveVersionConstants.TILE_ENTITY_POWERED);
+            Utils.VerifyVersion(reader.ReadInt32(), SaveVersionConstants.TILE_ENTITY_POWERED, "TileEntityPowered");
             isPlayerPlaced = new Value<bool>(reader);
             powerItemType = new Value<PoweredItemType>((PoweredItemType)reader.ReadByte());
 

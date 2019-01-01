@@ -1,5 +1,5 @@
 ﻿using SevenDaysProfileEditor.Data;
-using SevenDaysSaveManipulator.PlayerData;
+using SevenDaysSaveManipulator.SaveData;
 using System.Drawing;
 using System.Windows.Forms;
 

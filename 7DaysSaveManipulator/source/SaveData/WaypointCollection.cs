@@ -16,7 +16,7 @@ namespace SevenDaysSaveManipulator.SaveData {
         }
 
         internal void Read(TypedBinaryReader reader) {
-            Utils.VerifyVersion(reader.ReadByte(), SaveVersionConstants.WAYPOINT_COLLECTION);
+            Utils.VerifyVersion(reader.ReadByte(), SaveVersionConstants.WAYPOINT_COLLECTION, "WaypointCollection");
 
             ushort waypointListLength = reader.ReadUInt16();
             waypoints = new List<Waypoint>(waypointListLength);

@@ -5,31 +5,29 @@ namespace SevenDaysProfileEditor.GUI {
     /// <summary>
     /// Bottom status bar of the main window.
     /// </summary>
-    internal class BottomStatusBar : StatusBar {
-        public StatusBarPanel statusPanel;
+    [System.ComponentModel.DesignerCategory("")]
+    internal class BottomStatusBar : StatusStrip {
+        private ToolStripStatusLabel label;
 
         /// <summary>
         /// Default constructor.
         /// </summary>
-        public BottomStatusBar() {
+        internal BottomStatusBar() {
             SizingGrip = false;
 
-            statusPanel = new StatusBarPanel();
+            label = new ToolStripStatusLabel {
+                BorderStyle = Border3DStyle.Sunken,
+                Text = "Ready!",
+                ToolTipText = "Status bar",
+            };
 
-            statusPanel.BorderStyle = StatusBarPanelBorderStyle.Sunken;
-            statusPanel.Text = "Ready!";
-            statusPanel.ToolTipText = "Last Activity";
-            statusPanel.AutoSize = StatusBarPanelAutoSize.Spring;
-
-            Panels.Add(statusPanel);
-
-            ShowPanels = true;
+            Items.Add(label);
         }
 
         /// <summary>
         /// Resets the status bar to say "Ready!".
         /// </summary>
-        public void Reset() {
+        internal void Reset() {
             SetText("Ready!");
         }
 
@@ -37,8 +35,8 @@ namespace SevenDaysProfileEditor.GUI {
         /// Sets the text of the status bar.
         /// </summary>
         /// <param name="text">Text to be set</param>
-        public void SetText(string text) {
-            statusPanel.Text = text;
+        internal void SetText(string text) {
+            label.Text = text;
         }
     }
 }

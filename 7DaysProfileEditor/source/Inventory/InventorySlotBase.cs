@@ -1,7 +1,7 @@
 ﻿using SevenDaysProfileEditor.Data;
 using SevenDaysProfileEditor.GUI;
 using SevenDaysSaveManipulator;
-using SevenDaysSaveManipulator.PlayerData;
+using SevenDaysSaveManipulator.SaveData;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
@@ -11,6 +11,7 @@ namespace SevenDaysProfileEditor.Inventory {
     /// <summary>
     /// Base class for inventory slots
     /// </summary>
+    [System.ComponentModel.DesignerCategory("")]
     internal abstract class InventorySlotBase : TableLayoutPanel, IValueListener<int> {
         public TableLayoutPanel basicInfo;
         public InvertedIntegerTextBox degradationBox;

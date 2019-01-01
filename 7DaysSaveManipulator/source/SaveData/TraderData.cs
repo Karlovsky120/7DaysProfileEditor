@@ -26,15 +26,15 @@ namespace SevenDaysSaveManipulator.SaveData {
 
         public TraderData() {}
 
-        internal TraderData(TypedBinaryReader reader, XmlData xmlData) {
+        internal TraderData(TypedBinaryReader reader, AdditionalFileData xmlData) {
             Read(reader, xmlData);
         }
 
-        internal void Read(TypedBinaryReader reader, XmlData xmlData) {
+        internal void Read(TypedBinaryReader reader, AdditionalFileData xmlData) {
             traderID = new Value<int>(reader);
             lastInventoryUpdate = new Value<ulong>(reader);
 
-            Utils.VerifyVersion(reader.ReadByte(), SaveVersionConstants.TRADER_DATA);
+            Utils.VerifyVersion(reader.ReadByte(), SaveVersionConstants.TRADER_DATA, "TraderData");
 
             ushort itemStackLength = reader.ReadUInt16();
             primaryInventory = new List<ItemStack>(itemStackLength);

@@ -1,6 +1,6 @@
 ﻿using SevenDaysProfileEditor.Data;
 using SevenDaysProfileEditor.GUI;
-using SevenDaysSaveManipulator.PlayerData;
+using SevenDaysSaveManipulator.SaveData;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -9,6 +9,7 @@ namespace SevenDaysProfileEditor.Inventory {
     /// <summary>
     /// Shows an item.
     /// </summary>
+    [System.ComponentModel.DesignerCategory("")]
     internal class InventorySlotItem : InventorySlotBase {
         private TableLayoutPanel attachments;
         private TableLayoutPanel parts;

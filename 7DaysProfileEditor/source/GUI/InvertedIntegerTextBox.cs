@@ -1,10 +1,11 @@
-﻿using SevenDaysSaveManipulator.PlayerData;
+﻿using SevenDaysSaveManipulator.SaveData;
 
 namespace SevenDaysProfileEditor.GUI {
 
     /// <summary>
     /// Show the the input as "max-input".
     /// </summary>
+    [System.ComponentModel.DesignerCategory("")]
     internal class InvertedIntegerTextBox : NumericTextBox<int> {
 
         /// <summary>
@@ -23,12 +24,8 @@ namespace SevenDaysProfileEditor.GUI {
         /// Invoked when tracked value is updated. It updates the display appropriately.
         /// </summary>
         public override void UpdateTextBox() {
-            int newValue;
-
-            if (int.TryParse(Text, out newValue)) {
-                if (newValue < min || newValue > max) {
-                    newValue = Clamp(newValue);
-                }
+            if (int.TryParse(Text, out int newValue)) {
+                newValue = Clamp(newValue);
 
                 value.Set(max - newValue);
                 Text = newValue.ToString();

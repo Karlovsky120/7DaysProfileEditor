@@ -1,5 +1,5 @@
 ﻿using SevenDaysProfileEditor.GUI;
-using SevenDaysSaveManipulator.PlayerData;
+using SevenDaysSaveManipulator.SaveData;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -8,6 +8,7 @@ namespace SevenDaysProfileEditor.StatsAndGeneral {
     /// <summary>
     /// Displays player score.
     /// </summary>
+    [System.ComponentModel.DesignerCategory("")]
     internal class ScorePanel : TableLayoutPanel//, IValueListener<int>
     {
         private PlayerDataFile playerDataFile;
@@ -19,6 +20,8 @@ namespace SevenDaysProfileEditor.StatsAndGeneral {
         /// <param name="playerDataFile">PlayerDataFile to use</param>
         public ScorePanel(PlayerDataFile playerDataFile) {
             this.playerDataFile = playerDataFile;
+
+            AutoSize = true;
 
             scoreBox = new NumericTextBox<int>(playerDataFile.score, 0/*GetMinScore()*/, int.MaxValue, 60);
             LabeledControl labeledScoreBox = new LabeledControl("Score", scoreBox, 190);
@@ -32,22 +35,6 @@ namespace SevenDaysProfileEditor.StatsAndGeneral {
 
             LabeledControl labeledDeathsBox = new LabeledControl("Deaths", new NumericTextBox<int>(playerDataFile.deaths, 0, int.MaxValue, 60), 190);
             Controls.Add(labeledDeathsBox);
-
-            Size = new Size(196, 140);
-
-            /*playerDataFile.playerKills.AddListener(this);
-            playerDataFile.zombieKills.AddListener(this);
-            playerDataFile.deaths.AddListener(this);*/
         }
-
-        /*public void ValueUpdated(Value<int> source)
-        {
-            scoreBox.UpdateMin(GetMinScore());
-        }
-
-        private int GetMinScore()
-        {
-            return playerDataFile.playerKills.Get() + playerDataFile.zombieKills.Get() - (5 * playerDataFile.deaths.Get());
-        }*/
     }
 }

@@ -1,5 +1,5 @@
 ﻿using SevenDaysSaveManipulator;
-using SevenDaysSaveManipulator.PlayerData;
+using SevenDaysSaveManipulator.SaveData;
 using System;
 using System.Reflection;
 using System.Windows.Forms;
@@ -10,6 +10,7 @@ namespace SevenDaysProfileEditor.GUI {
     /// Shows numerical data in a textBox.
     /// </summary>
     /// <typeparam name="T">A numerical type</typeparam>
+    [System.ComponentModel.DesignerCategory("")]
     internal class NumericTextBox<T> : TextBox, IValueListener<T> where T : IComparable<T> {
         protected bool inputLock = false;
         protected T max;
@@ -21,7 +22,7 @@ namespace SevenDaysProfileEditor.GUI {
         /// </summary>
         /// <param name="value">Value to track</param>
         /// <param name="min">Minimum allowed value</param>
-        /// <param name="max">Maximum allowed valueUpdated</param>
+        /// <param name="max">Maximum allowed value</param>
         /// <param name="width">Width of the textBox</param>
         public NumericTextBox(Value<T> value, T min, T max, int width) {
             this.value = value;
@@ -55,15 +56,15 @@ namespace SevenDaysProfileEditor.GUI {
         }
 
         /// <summary>
-        /// Called on every lost focus event. Checks if new input is correct or reverts to the previous one.
+        /// Called on every lost focus event. Checks if new input is correct, if not, it reverts to the previous one.
         /// </summary>
         public virtual void UpdateTextBox() {
             if (!inputLock) {
                 Type type = typeof(T);
                 MethodInfo tryParse = type.GetMethod("TryParse", new[] { typeof(string), type.MakeByRefType() });
 
-                var args = new object[] { Text, null };
-                var result = (bool)tryParse.Invoke(null, args);
+                object[] args = new object[] { Text, null };
+                bool result = (bool)tryParse.Invoke(null, args);
 
                 if (result) {
                     value.Set(Clamp((T)args[1]));
@@ -77,7 +78,7 @@ namespace SevenDaysProfileEditor.GUI {
         }
 
         /// <summary>
-        /// Updates the dispaly on value change.
+        /// Updates the display on value change.
         /// </summary>
         /// <param name="source"></param>
         public void ValueUpdated(Value<T> source) {

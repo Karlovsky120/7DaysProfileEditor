@@ -58,8 +58,8 @@ namespace SevenDaysSaveManipulator.SaveData {
             Read(reader);
         }
 
-        internal virtual void Read(TypedBinaryReader reader, XmlData xmlData = null) {
-            Utils.VerifyVersion(reader.ReadUInt16(), SaveVersionConstants.TILE_ENTITY);
+        internal virtual void Read(TypedBinaryReader reader, AdditionalFileData xmlData = null) {
+            Utils.VerifyVersion(reader.ReadUInt16(), SaveVersionConstants.TILE_ENTITY, "TileEntity");
             localChunkPosition = new Vector3D<int>(reader);
 
             entityId = new Value<int>(reader);
@@ -74,7 +74,7 @@ namespace SevenDaysSaveManipulator.SaveData {
             lastHeapMapTime.Write(writer);
         }
 
-        internal static TileEntity Instantiate(TileEntityType type, TypedBinaryReader reader, XmlData xmlData) {
+        internal static TileEntity Instantiate(TileEntityType type, TypedBinaryReader reader, AdditionalFileData xmlData) {
             return (TileEntity)bindings[type].GetTypeInfo().GetConstructors(BindingFlags.NonPublic | BindingFlags.Instance)[0].Invoke(new object[] { reader, xmlData });
         }
 

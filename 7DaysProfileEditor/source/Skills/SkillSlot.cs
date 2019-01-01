@@ -1,7 +1,7 @@
 ﻿using SevenDaysProfileEditor.GUI;
 using SevenDaysProfileEditor.StatsAndGeneral;
 using SevenDaysSaveManipulator;
-using SevenDaysSaveManipulator.PlayerData;
+using SevenDaysSaveManipulator.SaveData;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
@@ -11,6 +11,7 @@ namespace SevenDaysProfileEditor.Skills {
     /// <summary>
     /// Displays skill
     /// </summary>
+    [System.ComponentModel.DesignerCategory("")]
     internal class SkillSlot : TableLayoutPanel, IValueListener<int> {
         public TextBox expToNextLevelBox;
         public NumericTextBox<int> levelBox;

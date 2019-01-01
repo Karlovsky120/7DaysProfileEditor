@@ -31,11 +31,11 @@ namespace SevenDaysSaveManipulator.SaveData {
 
         public RecipeQueueItem() {}
 
-        internal RecipeQueueItem(TypedBinaryReader reader, XmlData xmlData) {
+        internal RecipeQueueItem(TypedBinaryReader reader, AdditionalFileData xmlData) {
             Read(reader, xmlData);
         }
 
-        internal void Read(TypedBinaryReader reader, XmlData xmlData) {
+        internal void Read(TypedBinaryReader reader, AdditionalFileData xmlData) {
             recipeHashCode = new Value<int>(reader);
             multiplier = new Value<short>(reader);
             isCrafting = new Value<bool>(reader);

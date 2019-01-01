@@ -52,7 +52,7 @@ namespace SevenDaysSaveManipulator.SaveData {
         }
 
         internal void Read(TypedBinaryReader reader) {
-            Utils.VerifyVersion(reader.ReadByte(), SaveVersionConstants.ENTITY_SPAWNER);
+            Utils.VerifyVersion(reader.ReadByte(), SaveVersionConstants.ENTITY_SPAWNER, "EntitySpawner");
             
             position = new Vector3D<int>(reader);
             size = new Vector3D<short>(reader);
@@ -65,7 +65,7 @@ namespace SevenDaysSaveManipulator.SaveData {
             timeDelayBetweenSpawns = new Value<float>(reader);
 
             ushort entityIdSpawnedCount = reader.ReadUInt16();
-            Utils.VerifyVersion(reader.ReadByte(), SaveVersionConstants.ENTITY_SPAWNER_SECOND);
+            Utils.VerifyVersion(reader.ReadByte(), SaveVersionConstants.ENTITY_SPAWNER_SECOND, "EntitySpawnerSecond");
             entityIdSpawned = new List<int>(entityIdSpawnedCount);
             for(int i = 0; i < entityIdSpawnedCount; ++i) {
                 entityIdSpawned.Add(reader.ReadInt32());

@@ -11,11 +11,11 @@ namespace SevenDaysSaveManipulator.SaveData {
 
         public CraftingData() {}
 
-        internal CraftingData(TypedBinaryReader reader, XmlData xmlData) {
+        internal CraftingData(TypedBinaryReader reader, AdditionalFileData xmlData) {
             Read(reader, xmlData);
         }
 
-        internal void Read(TypedBinaryReader reader, XmlData xmlData) {
+        internal void Read(TypedBinaryReader reader, AdditionalFileData xmlData) {
             byte recipeQueueItemsLength = reader.ReadByte();
             recipeQueueItems = new List<RecipeQueueItem>(recipeQueueItemsLength);
             for (byte i = 0; i < recipeQueueItemsLength; ++i) {

@@ -1,7 +1,7 @@
 ﻿using SevenDaysProfileEditor.GUI;
 using SevenDaysProfileEditor.StatsAndGeneral;
 using SevenDaysSaveManipulator;
-using SevenDaysSaveManipulator.PlayerData;
+using SevenDaysSaveManipulator.SaveData;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
@@ -11,6 +11,7 @@ namespace SevenDaysProfileEditor.Skills {
     /// <summary>
     /// Tab for dealing with skills.
     /// </summary>
+    [System.ComponentModel.DesignerCategory("")]
     internal class SkillsTab : TabPage, IValueListener<int>{
         private bool locked;
         private TableLayoutPanel panel;

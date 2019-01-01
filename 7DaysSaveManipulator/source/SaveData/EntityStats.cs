@@ -31,7 +31,7 @@ namespace SevenDaysSaveManipulator.SaveData {
         }
 
         internal void Read(TypedBinaryReader reader) {
-            Utils.VerifyVersion<int>(reader.ReadInt32(), SaveVersionConstants.ENTITY_STATS);
+            Utils.VerifyVersion<int>(reader.ReadInt32(), SaveVersionConstants.ENTITY_STATS, "EntityStats");
 
             int immunityLength = reader.ReadInt32();
             immunity = new List<int>(immunityLength);

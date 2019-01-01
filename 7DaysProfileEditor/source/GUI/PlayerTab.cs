@@ -1,9 +1,5 @@
-﻿using SevenDaysProfileEditor.Inventory;
-using SevenDaysProfileEditor.Skills;
-using SevenDaysProfileEditor.StatsAndGeneral;
-using SevenDaysSaveManipulator.PlayerData;
-using System;
-using System.Collections.Generic;
+﻿using SevenDaysProfileEditor.StatsAndGeneral;
+using SevenDaysSaveManipulator.SaveData;
 using System.Windows.Forms;
 
 namespace SevenDaysProfileEditor.GUI {
@@ -11,11 +7,12 @@ namespace SevenDaysProfileEditor.GUI {
     /// <summary>
     /// Holds and shows info about a ttp.
     /// </summary>
+    [System.ComponentModel.DesignerCategory("")]
     internal class PlayerTab : TabPage {
         public string fileName;
         public string path;
         public PlayerDataFile playerDataFile;
-        public List<RecipeBinder> recipes = new List<RecipeBinder>();
+        //public List<RecipeBinder> recipes = new List<RecipeBinder>();
 
         public TabControl ttpFileTabControl;
 
@@ -32,18 +29,19 @@ namespace SevenDaysProfileEditor.GUI {
             this.playerDataFile = playerDataFile;
             Text = playerDataFile.ecd.entityName.Get() + "          ";
 
-            ttpFileTabControl = new TabControl();
-            ttpFileTabControl.Dock = DockStyle.Fill;
+            ttpFileTabControl = new TabControl {
+                Dock = DockStyle.Fill
+            };
 
-            foreach (RecipeData recipeData in RecipeData.recipeList) {
+            /*foreach (RecipeData recipeData in RecipeData.recipeList) {
                 RecipeBinder recipeBinder = new RecipeBinder(recipeData, playerDataFile.unlockedRecipeList);
 
                 recipes.Add(recipeBinder);
-            }
+            }*/
 
-            ttpFileTabControl.Controls.Add(new StatsAndGeneralTab(playerDataFile, recipes));
-            ttpFileTabControl.Controls.Add(new InventoryTab(playerDataFile));
-            ttpFileTabControl.Controls.Add(new SkillsTab(playerDataFile, recipes));
+            ttpFileTabControl.Controls.Add(new StatsAndGeneralTab(playerDataFile/*, recipes*/));
+            /*ttpFileTabControl.Controls.Add(new InventoryTab(playerDataFile));
+            ttpFileTabControl.Controls.Add(new SkillsTab(playerDataFile, recipes));*/
 
             Controls.Add(ttpFileTabControl);
         }

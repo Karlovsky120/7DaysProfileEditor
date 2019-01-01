@@ -33,17 +33,17 @@ namespace SevenDaysSaveManipulator.SaveData {
         //UseTimes
         public Value<ushort> useTimes;
 
-        private XmlData xmlData;
+        private AdditionalFileData xmlData;
 
         public ItemValue() {}
 
-        internal ItemValue(TypedBinaryReader reader, XmlData xmlData) {
+        internal ItemValue(TypedBinaryReader reader, AdditionalFileData xmlData) {
             this.xmlData = xmlData;
             Read(reader);
         }
 
         internal void Read(TypedBinaryReader reader) {
-            Utils.VerifyVersion(reader.ReadByte(), SaveVersionConstants.ITEM_VALUE);
+            Utils.VerifyVersion(reader.ReadByte(), SaveVersionConstants.ITEM_VALUE, "ItemValue");
 
             type = new Value<ushort>(reader);
             useTimes = new Value<ushort>(reader);

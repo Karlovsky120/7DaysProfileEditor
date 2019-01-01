@@ -30,7 +30,7 @@ namespace Tester {
 
             XmlData.Initialize("quests.xml", "", "", "");
 
-            count = XmlData.GetObjectiveCount("quest_BasicSurvival1");
+            count = XmlData.GetObjectiveCount("quest_BasicSurvival1");*/
 
 
 
@@ -43,7 +43,13 @@ namespace Tester {
             XmlDocument blocks = new XmlDocument();
             blocks.Load("blocks.xml");
 
-            string value = "test";
+            XmlDocument itemModifiers = new XmlDocument();
+            quests.Load("quests.xml");
+
+            XmlDocument traders = new XmlDocument();
+            quests.Load("quests.xml");
+
+            /*string value = "test";
             string param = "quest:id@tier6_clear\\reward:type@LootItem&id@questMelee,questRanged&ischosen@true&value";
             string param2 = "quest:id@tier6_clear\\reward:name@maxRange";
             string param3 = "block:name@terrOreSandPlusLead\\property:name@FilterTags";
@@ -53,7 +59,7 @@ namespace Tester {
             string test2 = XmlData.GetXmlAttributeValue(blocks, param5);*/
 
 
-            PlayerDataFile file = new PlayerDataFile("76561198004739854.ttp", "blockmappings.nim", "itemmappings.nim", "blocks.xml", "items.xml", "item_modifiers.xml", "quests.xml", "traders.xml");
+            PlayerDataFile file = new PlayerDataFile("76561198004739854.ttp", "blockmappings.nim", "itemmappings.nim", blocks, items, itemModifiers, quests, traders);
 
             file.Save("76561198004739854.written.ttp");
         }

@@ -33,7 +33,7 @@ namespace SevenDaysSaveManipulator.SaveData {
         }
 
         internal virtual void Read(TypedBinaryReader reader) {
-            Utils.VerifyVersion(reader.ReadByte(), SaveVersionConstants.JOURNAL_ENTRY);
+            Utils.VerifyVersion(reader.ReadByte(), SaveVersionConstants.JOURNAL_ENTRY, "JournalEntry");
         }
 
         internal virtual void Write(TypedBinaryWriter writer) {

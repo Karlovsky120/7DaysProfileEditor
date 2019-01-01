@@ -13,11 +13,11 @@ namespace SevenDaysSaveManipulator.SaveData {
 
         public ItemStack() {}
 
-        internal ItemStack(TypedBinaryReader reader, XmlData xmlData) {
+        internal ItemStack(TypedBinaryReader reader, AdditionalFileData xmlData) {
             Read(reader, xmlData);
         }
 
-        internal void Read(TypedBinaryReader reader, XmlData xmlData) {
+        internal void Read(TypedBinaryReader reader, AdditionalFileData xmlData) {
             count = new Value<short>(reader);
             if (count.Get() > 0) {
                 itemValue = new ItemValue(reader, xmlData);

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Xml;
 
 namespace SevenDaysSaveManipulator.SaveData {
 
@@ -129,11 +130,22 @@ namespace SevenDaysSaveManipulator.SaveData {
         //gameStageBornAtWorldTime
         public Value<ulong> gameStageBornAtWorldTime;
 
-        internal XmlData xmlData;
+        private AdditionalFileData additionalFileData;
 
-        public PlayerDataFile(string playerSavePath, string blockMappingsPath, string itemMappingsPath, string blocksXmlPath, string itemsXmlPath, string itemModifiersXmlPath, string questsXmlPath, string tradersXmlPath) {
-            xmlData = new XmlData(blockMappingsPath, itemMappingsPath, blocksXmlPath, itemsXmlPath, itemModifiersXmlPath, questsXmlPath, tradersXmlPath);
-            Load(playerSavePath);
+        private readonly string blockMappingsPath;
+        private readonly string itemMappingsPath;
+
+        public PlayerDataFile(string playerSavePath, string blockMappingsPath, string itemMappingsPath, XmlDocument blocksXml, XmlDocument itemsXml, XmlDocument itemModifiersXml, XmlDocument questsXml, XmlDocument tradersXml) {
+            try {
+                additionalFileData = new AdditionalFileData(blockMappingsPath, itemMappingsPath, blocksXml, itemsXml, itemModifiersXml, questsXml, tradersXml);
+                this.blockMappingsPath = blockMappingsPath;
+                this.itemMappingsPath = itemMappingsPath;
+                Load(playerSavePath);
+            } catch (Exception e) when (e is MismatchedSaveVersionException || e is KnownBugException) {
+                throw e;
+            } /*catch (Exception e) {
+                throw new IOException("Something went wrong while loading file " + playerSavePath + ". See inner exception for more details.", e);
+            }*/
         }
 
         public PlayerDataFile DeepCopy() {
@@ -147,15 +159,22 @@ namespace SevenDaysSaveManipulator.SaveData {
             }
         }
 
-        public void Load(string path) {
+        internal void Load(string path) {
             using (TypedBinaryReader reader = new TypedBinaryReader(new FileStream(path, FileMode.Open))) {
                 Read(reader);
             }
         }
 
-        public void Save(string path) {
-            using (TypedBinaryWriter writer = new TypedBinaryWriter(new FileStream(path, FileMode.Create))) {
-                Write(writer);
+        public void Save(string playerSavePath) {
+            try {
+                additionalFileData.WriteMappingFile(blockMappingsPath, 0, AdditionalFileData.BLOCK_MAX);
+                additionalFileData.WriteMappingFile(itemMappingsPath, AdditionalFileData.BLOCK_MAX, AdditionalFileData.ITEM_MAX);
+
+                using (TypedBinaryWriter writer = new TypedBinaryWriter(new FileStream(playerSavePath, FileMode.Create))) {
+                    Write(writer);
+                }
+            } catch (Exception e) {
+                throw new IOException("Something went wrong while writing file " + playerSavePath + ". See inner exception for more details.", e);
             }
         }
 
@@ -164,14 +183,14 @@ namespace SevenDaysSaveManipulator.SaveData {
 
             if (reader.ReadChar() == 't' && reader.ReadChar() == 't' && reader.ReadChar() == 'p' &&
                 reader.ReadChar() == '\0') {
-                Utils.VerifyVersion(reader.ReadByte(), SaveVersionConstants.PLAYER_DATA_FILE);
+                Utils.VerifyVersion(reader.ReadByte(), SaveVersionConstants.PLAYER_DATA_FILE, "PlayerDataFile");
 
-                ecd = new EntityCreationData(reader, xmlData);
+                ecd = new EntityCreationData(reader, additionalFileData);
 
                 ushort inventoryStackLength = reader.ReadUInt16();
                 inventory = new List<ItemStack>(inventoryStackLength);
                 for (ushort i = 0; i < inventoryStackLength; ++i) {
-                    inventory.Add(new ItemStack(reader, xmlData));
+                    inventory.Add(new ItemStack(reader, additionalFileData));
                 }
 
                 selectedInventorySlot = new Value<byte>(reader);
@@ -179,7 +198,7 @@ namespace SevenDaysSaveManipulator.SaveData {
                 ushort bagStackLength = reader.ReadUInt16();
                 bag = new List<ItemStack>(bagStackLength);
                 for (ushort i = 0; i < bagStackLength; ++i) {
-                    bag.Add(new ItemStack(reader, xmlData));
+                    bag.Add(new ItemStack(reader, additionalFileData));
                 }
 
                 ushort alreadyCraftedListLength = reader.ReadUInt16();
@@ -211,7 +230,7 @@ namespace SevenDaysSaveManipulator.SaveData {
                 zombieKills = new Value<int>(reader);
                 deaths = new Value<int>(reader);
                 score = new Value<int>(reader);
-                equipment = new Equipment(reader, xmlData);
+                equipment = new Equipment(reader, additionalFileData);
 
                 ushort unlockedRecipeListLength = reader.ReadUInt16();
                 unlockedRecipeList = new List<string>(unlockedRecipeListLength);
@@ -223,9 +242,9 @@ namespace SevenDaysSaveManipulator.SaveData {
 
                 markerPosition = new Vector3D<int>(reader);
 
-                favoriteEquipment = new Equipment(reader, xmlData);
+                favoriteEquipment = new Equipment(reader, additionalFileData);
                 bCrouchedLocked = new Value<bool>(reader);
-                craftingData = new CraftingData(reader, xmlData);
+                craftingData = new CraftingData(reader, additionalFileData);
 
                 ushort favoriteRecipeListLength = reader.ReadUInt16();
                 favoriteRecipeList = new List<string>(favoriteRecipeListLength);
@@ -239,7 +258,7 @@ namespace SevenDaysSaveManipulator.SaveData {
                 gameStageBornAtWorldTime = new Value<ulong>(reader);
 
                 waypoints = new WaypointCollection(reader);
-                questJournal = new QuestJournal(reader, xmlData);
+                questJournal = new QuestJournal(reader, additionalFileData);
 
                 deathUpdateTime = new Value<int>(reader);
                 currentLife = new Value<float>(reader);

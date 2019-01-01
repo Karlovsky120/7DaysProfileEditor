@@ -1,5 +1,5 @@
 ﻿using SevenDaysProfileEditor.GUI;
-using SevenDaysSaveManipulator.PlayerData;
+using SevenDaysSaveManipulator.SaveData;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
@@ -9,6 +9,7 @@ namespace SevenDaysProfileEditor.Inventory {
     /// <summary>
     /// Tab for dealing with inventory.
     /// </summary>
+    [System.ComponentModel.DesignerCategory("")]
     internal class InventoryTab : TabPage {
         public ItemBinder[] itemBinders;
         private int activeIndex;

@@ -35,14 +35,14 @@ namespace SevenDaysSaveManipulator.SaveData {
 
         public TileEntityWorkstation() {}
 
-        internal TileEntityWorkstation(TypedBinaryReader reader, XmlData xmlData) {
+        internal TileEntityWorkstation(TypedBinaryReader reader, AdditionalFileData xmlData) {
             Read(reader, xmlData);
         }
 
-        internal override void Read(TypedBinaryReader reader, XmlData xmlData) {
+        internal override void Read(TypedBinaryReader reader, AdditionalFileData xmlData) {
             base.Read(reader);
 
-            Utils.VerifyVersion(reader.ReadByte(), SaveVersionConstants.TILE_ENTITY_WORKSTATION);
+            Utils.VerifyVersion(reader.ReadByte(), SaveVersionConstants.TILE_ENTITY_WORKSTATION, "TileEntityWorkstation");
 
             lastTickTime = new Value<ulong>(reader);
             
@@ -93,7 +93,7 @@ namespace SevenDaysSaveManipulator.SaveData {
             }
         }
 
-        private void ReadItemStackList(TypedBinaryReader reader, ref List<ItemStack> itemStackList, XmlData xmlData) {
+        private void ReadItemStackList(TypedBinaryReader reader, ref List<ItemStack> itemStackList, AdditionalFileData xmlData) {
             byte itemStackLength = reader.ReadByte();
             itemStackList = new List<ItemStack>(itemStackLength);
             for (byte i = 0; i < itemStackLength; ++i) {

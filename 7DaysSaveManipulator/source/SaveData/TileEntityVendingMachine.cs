@@ -24,19 +24,19 @@ namespace SevenDaysSaveManipulator.SaveData {
         //TraderData
         TraderData traderData;
 
-        private XmlData xmlData;
+        private AdditionalFileData xmlData;
 
         public TileEntityVendingMachine() {}
 
-        internal TileEntityVendingMachine(TypedBinaryReader reader, XmlData xmlData) {
+        internal TileEntityVendingMachine(TypedBinaryReader reader, AdditionalFileData xmlData) {
             this.xmlData = xmlData;
             Read(reader);
         }
 
-        internal override void Read(TypedBinaryReader reader, XmlData xmlData = null) {
+        internal override void Read(TypedBinaryReader reader, AdditionalFileData xmlData = null) {
             base.Read(reader, xmlData);
 
-            Utils.VerifyVersion(reader.ReadInt32(), SaveVersionConstants.TILE_ENTITY_VENDING_MACHINE);
+            Utils.VerifyVersion(reader.ReadInt32(), SaveVersionConstants.TILE_ENTITY_VENDING_MACHINE, "TileEntityVendingMachine");
 
             isLocked = new Value<bool>(reader);
             ownerID = new Value<string>(reader);

@@ -1,6 +1,6 @@
 ﻿using SevenDaysProfileEditor.GUI;
 using SevenDaysSaveManipulator;
-using SevenDaysSaveManipulator.PlayerData;
+using SevenDaysSaveManipulator.SaveData;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -9,8 +9,9 @@ namespace SevenDaysProfileEditor.StatsAndGeneral {
     /// <summary>
     /// Displays a stat.
     /// </summary>
+    [System.ComponentModel.DesignerCategory("")]
     internal class StatSlot : TableLayoutPanel, IValueListener<float> {
-        private Stat max;
+        private float max;
         private float min;
         private Stat stat;
         private string statName;
@@ -23,9 +24,9 @@ namespace SevenDaysProfileEditor.StatsAndGeneral {
         /// <param name="statName">Stat name to display</param>
         /// <param name="min">Min allowed value of the stat</param>
         /// <param name="max">Max allowed value of the stat</param>
-        public StatSlot(Stat stat, string statName, float min, Stat max) {
+        public StatSlot(Stat stat, string statName, float min, float max) {
             Dock = DockStyle.Fill;
-            Size = new Size(196, 28);
+            AutoSize = true;
             Margin = new Padding(0);
 
             this.stat = stat;
@@ -33,14 +34,7 @@ namespace SevenDaysProfileEditor.StatsAndGeneral {
             this.min = min;
             this.max = max;
 
-            float maxValue = stat.baseMax.Get();
-
-            if (max != null) {
-                maxValue = max.value.Get();
-                max.value.AddListener(this);
-            }
-
-            valueBox = new NumericTextBox<float>(stat.value, min, maxValue, 60);
+            valueBox = new NumericTextBox<float>(stat.value, min, max, 60);
             LabeledControl labeledValueBox = new LabeledControl(statName, valueBox, 190);
             stat.value.AddListener(this);
 
@@ -52,12 +46,7 @@ namespace SevenDaysProfileEditor.StatsAndGeneral {
         /// </summary>
         /// <param name="source"></param>
         public void ValueUpdated(Value<float> source) {
-            if (source == stat.value) {
-                stat.originalValue.Set(stat.value.Get());
-            }
-            else if (source == max.value) {
-                valueBox.UpdateMax(max.value.Get());
-            }
+            stat.originalValue.Set(stat.value.Get());
         }
     }
 }

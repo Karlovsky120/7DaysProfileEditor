@@ -37,7 +37,7 @@ namespace SevenDaysSaveManipulator.SaveData {
             Read(reader);
         }
 
-        internal override void Read(TypedBinaryReader reader, XmlData xmlData = null) {
+        internal override void Read(TypedBinaryReader reader, AdditionalFileData xmlData = null) {
             base.Read(reader);
 
             lightIntensity = new Value<float>(reader);

@@ -10,14 +10,14 @@ namespace SevenDaysSaveManipulator.SaveData {
 
         public TileEntityTrader() {}
 
-        internal TileEntityTrader(TypedBinaryReader reader, XmlData xmlData) {
+        internal TileEntityTrader(TypedBinaryReader reader, AdditionalFileData xmlData) {
             Read(reader, xmlData);
         }
 
-        internal override void Read(TypedBinaryReader reader, XmlData xmlData) {
+        internal override void Read(TypedBinaryReader reader, AdditionalFileData xmlData) {
             base.Read(reader);
 
-            Utils.VerifyVersion(reader.ReadInt32(), SaveVersionConstants.TILE_ENTITY_TRADER);
+            Utils.VerifyVersion(reader.ReadInt32(), SaveVersionConstants.TILE_ENTITY_TRADER, "TileEntityTrader");
 
             traderData = new TraderData(reader, xmlData);
         }

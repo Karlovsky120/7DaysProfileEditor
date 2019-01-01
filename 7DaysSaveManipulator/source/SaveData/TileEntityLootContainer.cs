@@ -29,11 +29,11 @@ namespace SevenDaysSaveManipulator.SaveData {
 
         public TileEntityLootContainer() {}
 
-        internal TileEntityLootContainer(TypedBinaryReader reader, XmlData xmlData) {
+        internal TileEntityLootContainer(TypedBinaryReader reader, AdditionalFileData xmlData) {
             Read(reader, xmlData);
         }
 
-        internal override void Read(TypedBinaryReader reader, XmlData xmlData) {
+        internal override void Read(TypedBinaryReader reader, AdditionalFileData xmlData) {
             base.Read(reader);
 
             lootListIndex = new Value<ushort>(reader);

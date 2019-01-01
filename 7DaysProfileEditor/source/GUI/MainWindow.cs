@@ -1,25 +1,24 @@
-﻿using System;
-using System.IO;
-using System.Reflection;
+﻿using System.Reflection;
 using System.Drawing;
 using System.Windows.Forms;
-
 
 namespace SevenDaysProfileEditor.GUI {
 
     /// <summary>
     /// Main window of the program
     /// </summary>
+    [System.ComponentModel.DesignerCategory("")]
     internal class MainWindow : Form {
-        public Label focusDummy;
-        public MainMenuStrip mainMenu;
-        public BottomStatusBar statusBar;
-        public PlayerTabControl tabs;
+        private MainMenuStrip mainMenu;
+        private BottomStatusBar statusBar;
+        private PlayerTabControl tabs;
+        private CentralController centralController;
+
 
         /// <summary>
         /// Default constructor.
         /// </summary>
-        public MainWindow() {
+        internal MainWindow() {
 
             Size = new Size(1000, 850);
 
@@ -28,13 +27,13 @@ namespace SevenDaysProfileEditor.GUI {
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
 
-            tabs = new PlayerTabControl(this);
-            statusBar = new BottomStatusBar();
-            mainMenu = new MainMenuStrip(this, tabs, statusBar);
+            centralController = new CentralController();
 
-            focusDummy = new Label();
-            focusDummy.Size = new Size(0, 0);
-            Controls.Add(focusDummy);
+            mainMenu = new MainMenuStrip(centralController);
+            tabs = new PlayerTabControl(centralController);
+            statusBar = new BottomStatusBar();
+
+            centralController.Initialize(mainMenu, tabs, statusBar);
 
             Controls.Add(tabs);
             Controls.Add(mainMenu);

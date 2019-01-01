@@ -23,14 +23,14 @@ namespace SevenDaysSaveManipulator.SaveData {
 
         public TileEntitySecure() {}
 
-        internal TileEntitySecure(TypedBinaryReader reader, XmlData xmlData) {
+        internal TileEntitySecure(TypedBinaryReader reader, AdditionalFileData xmlData) {
             Read(reader, xmlData);
         }
 
-        internal override void Read(TypedBinaryReader reader, XmlData xmlData) {
+        internal override void Read(TypedBinaryReader reader, AdditionalFileData xmlData) {
             base.Read(reader, xmlData);
 
-            Utils.VerifyVersion(reader.ReadInt32(), SaveVersionConstants.TILE_ENTITY_SECURE);
+            Utils.VerifyVersion(reader.ReadInt32(), SaveVersionConstants.TILE_ENTITY_SECURE, "TileEntitySecure");
 
             bPlayerPlaced = new Value<bool>(reader);
             isLocked = new Value<bool>(reader);

@@ -1,12 +1,13 @@
-﻿using SevenDaysSaveManipulator.PlayerData;
+﻿using SevenDaysSaveManipulator.SaveData;
 
 namespace SevenDaysProfileEditor.GUI {
 
     /// <summary>
     /// Shows the input as percentage.
     /// </summary>
+    [System.ComponentModel.DesignerCategory("")]
     internal class PercentageIntegerTextBox : NumericTextBox<int> {
-        private int realMax;
+        private readonly int realMax;
 
         /// <summary>
         /// Default constructor
@@ -25,14 +26,10 @@ namespace SevenDaysProfileEditor.GUI {
         /// Called on every lost focus event. Checks if new input is correct or reverts to the previous one.
         /// </summary>
         public override void UpdateTextBox() {
-            int newValue;
+            if (int.TryParse(Text, out int newValue)) {
+                newValue = Clamp(newValue);
 
-            if (int.TryParse(Text, out newValue)) {
-                if (newValue < min || newValue > max) {
-                    newValue = Clamp(newValue);
-                }
-
-                value.Set((int)((newValue * realMax) / 100));
+                value.Set((newValue * realMax) / 100);
                 Text = newValue.ToString();
             }
             else {

@@ -26,11 +26,11 @@ namespace SevenDaysSaveManipulator {
             }
         }
 
-        public static void VerifyVersion<T>(T actualVersion, T expectedVersion) {
+        public static void VerifyVersion<T>(T actualVersion, T expectedVersion, string typeName) {
             if (Comparer<T>.Default.Compare(actualVersion, expectedVersion) == 0) {
                 return;
             } else {
-                throw new MismatchedSaveVersionException<T>(expectedVersion, actualVersion);
+                throw new MismatchedSaveVersionException("Mismatched save version for class " + typeName + ":\nexpected version: " + expectedVersion + "\nactuall version: " + actualVersion);
             }
         }
 

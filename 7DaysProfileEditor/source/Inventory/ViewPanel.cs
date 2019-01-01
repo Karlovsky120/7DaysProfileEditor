@@ -7,6 +7,7 @@ namespace SevenDaysProfileEditor.Inventory {
     /// <summary>
     /// Displays the icon or name of the item
     /// </summary>
+    [System.ComponentModel.DesignerCategory("")]
     internal class ViewPanel : Label {
         private int index;
         private InventoryTab tabInventory;

@@ -1,4 +1,4 @@
-﻿using SevenDaysSaveManipulator.PlayerData;
+﻿using SevenDaysSaveManipulator.SaveData;
 using System;
 using System.Drawing;
 using System.Windows.Forms;
@@ -8,6 +8,7 @@ namespace SevenDaysProfileEditor.GUI {
     /// <summary>
     /// Class used to display coordinates.
     /// </summary>
+    [System.ComponentModel.DesignerCategory("")]
     internal class LabeledCoordinate<T> : TableLayoutPanel where T : IComparable<T> {
 
         /// <summary>
@@ -20,13 +21,14 @@ namespace SevenDaysProfileEditor.GUI {
         public LabeledCoordinate(string name, Vector3D<T> coordinate, T min, T max) {
             Label nameLabel = new Label() {
                 Text = name,
-                AutoSize = true
+                //AutoSize = true
             };
 
             Controls.Add(nameLabel, 0, 0);
 
             TableLayoutPanel coordinates = new TableLayoutPanel() {
-                Size = new Size(116, 102)
+                //AutoSize = true
+                //Size = new Size(116, 102)
             };
 
             LabeledControl labeledX = new LabeledControl("X", new NumericTextBox<T>(coordinate.x, min, max, 80), 110);
@@ -39,7 +41,8 @@ namespace SevenDaysProfileEditor.GUI {
             coordinates.Controls.Add(labeledZ, 0, 2);
 
             Controls.Add(coordinates, 0, 1);
-            Size = new Size(122, 122);
+            AutoSize = true;
+            //Size = new Size(122, 122);
         }
     }
 }

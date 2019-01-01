@@ -14,12 +14,12 @@ namespace SevenDaysSaveManipulator.SaveData {
 
         public Equipment() {}
 
-        internal Equipment(TypedBinaryReader reader, XmlData xmlData) {
+        internal Equipment(TypedBinaryReader reader, AdditionalFileData xmlData) {
             Read(reader, xmlData);
         }
 
-        internal void Read(TypedBinaryReader reader, XmlData xmlData) {
-           Utils.VerifyVersion(reader.ReadByte(), SaveVersionConstants.EQUIPMENT);
+        internal void Read(TypedBinaryReader reader, AdditionalFileData xmlData) {
+           Utils.VerifyVersion(reader.ReadByte(), SaveVersionConstants.EQUIPMENT, "Equipment");
    
             slots = new List<ItemValue>(slotsLength);
             for (int i = 0; i < slotsLength; ++i) {
