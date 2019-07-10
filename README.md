@@ -1,3 +1,5 @@
+This project has been discontinued by me. If anyone wants to take it up, they are free to fork it.
+
 # 7DaysProfileEditor
 Tool for editing *.ttp files made for 7 Days To Die
 
